@@ -1,0 +1,644 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/config.ts",
+      "type": "file",
+      "name": "config.ts",
+      "summary": "Single-user configuration with tenant and environment variables for Helix integration",
+      "tags": ["configuration", "environment", "multi-tenant"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/config:TENANT_ID",
+      "type": "constant",
+      "name": "TENANT_ID",
+      "summary": "Tenant identifier from environment or default 'unimind'",
+      "tags": ["config", "tenant"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/config:USER_ID",
+      "type": "constant",
+      "name": "USER_ID",
+      "summary": "User identifier from environment or default 'default'",
+      "tags": ["config", "user"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/config:HELIX_URL",
+      "type": "constant",
+      "name": "HELIX_URL",
+      "summary": "Helix database server URL from environment or localhost:6969",
+      "tags": ["config", "database"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/config:EMBED_MODEL",
+      "type": "constant",
+      "name": "EMBED_MODEL",
+      "summary": "Fixed OpenAI embedding model: text-embedding-3-small",
+      "tags": ["config", "embedding"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/config:EMBED_DIM",
+      "type": "constant",
+      "name": "EMBED_DIM",
+      "summary": "Vector dimension for embeddings: 1536",
+      "tags": ["config", "embedding"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/db/bootstrap.ts",
+      "type": "file",
+      "name": "bootstrap.ts",
+      "summary": "Idempotent index bootstrap for Helix - creates all schema indexes on startup",
+      "tags": ["database", "schema", "initialization", "indexing"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/db/bootstrap:bootstrapIndexes",
+      "type": "function",
+      "name": "bootstrapIndexes",
+      "summary": "Creates all Helix indexes for Entity, Memory, Category, and Session nodes",
+      "tags": ["database", "indexing"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/db/bootstrap:main",
+      "type": "function",
+      "name": "main",
+      "summary": "Entry point that bootstraps indexes and logs results",
+      "tags": ["initialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/db/client.ts",
+      "type": "file",
+      "name": "client.ts",
+      "summary": "Shared Helix client and write retry logic with exponential backoff",
+      "tags": ["database", "client", "error-handling"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/db/client:helix",
+      "type": "constant",
+      "name": "helix",
+      "summary": "Singleton Helix database client instance",
+      "tags": ["database", "singleton"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/db/client:writeWithRetry",
+      "type": "function",
+      "name": "writeWithRetry",
+      "summary": "Retries write requests on HTTP 409 conflicts with exponential backoff up to 4 attempts",
+      "tags": ["database", "retry", "error-handling"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:src/db/entities.ts",
+      "type": "file",
+      "name": "entities.ts",
+      "summary": "Entity data-access layer - candidate fetch via vector+BM25 search, entity creation and alias linking",
+      "tags": ["database", "entities", "search", "matching"],
+      "complexity": "medium"
+    },
+    {
+      "id": "interface:src/db/entities:EntityCandidate",
+      "type": "interface",
+      "name": "EntityCandidate",
+      "summary": "Union of vector+BM25 candidate entity with similarity scores",
+      "tags": ["entity", "search"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/db/entities:searchEntityCandidates",
+      "type": "function",
+      "name": "searchEntityCandidates",
+      "summary": "Block step: union of vector and BM25 candidates for entity linking",
+      "tags": ["entity", "search", "blocking"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/db/entities:createEntity",
+      "type": "function",
+      "name": "createEntity",
+      "summary": "Creates a fresh canonical entity node with embedding and aliases",
+      "tags": ["entity", "write"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/db/entities:addAliases",
+      "type": "function",
+      "name": "addAliases",
+      "summary": "Links new surface forms to existing entity by merging aliases",
+      "tags": ["entity", "update"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/db/memories.ts",
+      "type": "file",
+      "name": "memories.ts",
+      "summary": "Memory node write operations: persist, supersede, extend, goal status updates, reinforcement",
+      "tags": ["database", "memory", "write", "lifecycle"],
+      "complexity": "high"
+    },
+    {
+      "id": "interface:src/db/memories:PersistInput",
+      "type": "interface",
+      "name": "PersistInput",
+      "summary": "Input shape for persisting a new memory with type, embedding, mentions, and optional relations",
+      "tags": ["memory", "write"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/db/memories:persistMemory",
+      "type": "function",
+      "name": "persistMemory",
+      "summary": "Creates Memory node + MENTIONS edges with decay policy and optional REL edges for relations",
+      "tags": ["memory", "write"],
+      "complexity": "high"
+    },
+    {
+      "id": "function:src/db/memories:supersede",
+      "type": "function",
+      "name": "supersede",
+      "summary": "Replaces old memory with new via UPDATES edge, supports bitemporal validity and hard-delete",
+      "tags": ["memory", "update", "lifecycle"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/db/memories:linkExtends",
+      "type": "function",
+      "name": "linkExtends",
+      "summary": "Enriches existing memory with new via EXTENDS edge without replacement",
+      "tags": ["memory", "update"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/db/memories:setGoalStatus",
+      "type": "function",
+      "name": "setGoalStatus",
+      "summary": "Transitions GOAL memory lifecycle state (active → completed/abandoned)",
+      "tags": ["memory", "goal", "lifecycle"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/db/memories:bumpMemories",
+      "type": "function",
+      "name": "bumpMemories",
+      "summary": "Reinforces used memories by incrementing weight, accessCount, and lastAccessedAt",
+      "tags": ["memory", "reinforcement"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/db/memories:decayFor",
+      "type": "function",
+      "name": "decayFor",
+      "summary": "Returns decay policy and contextual TTL per memory primaryType",
+      "tags": ["memory", "lifecycle"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/db/schema.ts",
+      "type": "file",
+      "name": "schema.ts",
+      "summary": "Schema reference for memory graph - labels, edges, types, property shapes",
+      "tags": ["schema", "types", "documentation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/db/schema:L",
+      "type": "constant",
+      "name": "L",
+      "summary": "Node labels: Entity, Memory, Category, Session",
+      "tags": ["schema", "labels"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/db/schema:E",
+      "type": "constant",
+      "name": "E",
+      "summary": "Edge labels: MENTIONS, REL, UPDATES, EXTENDS, DERIVES, IN_CATEGORY, DERIVED_FROM",
+      "tags": ["schema", "edges"],
+      "complexity": "simple"
+    },
+    {
+      "id": "type:src/db/schema:PrimaryType",
+      "type": "type",
+      "name": "PrimaryType",
+      "summary": "Memory classification: EPISODIC, SEMANTIC, PROCEDURAL, CONTEXTUAL, GOAL",
+      "tags": ["schema", "memory", "type"],
+      "complexity": "simple"
+    },
+    {
+      "id": "type:src/db/schema:EntityType",
+      "type": "type",
+      "name": "EntityType",
+      "summary": "Entity classification: person, org, project, concept",
+      "tags": ["schema", "entity", "type"],
+      "complexity": "simple"
+    },
+    {
+      "id": "interface:src/db/schema:EntityNode",
+      "type": "interface",
+      "name": "EntityNode",
+      "summary": "Canonical entity with key, name, type, aliases, embedding, confidence",
+      "tags": ["schema", "entity"],
+      "complexity": "simple"
+    },
+    {
+      "id": "interface:src/db/schema:MemoryNode",
+      "type": "interface",
+      "name": "MemoryNode",
+      "summary": "Memory with type, content, embedding, weight, lifecycle fields (validFrom/To), decay policy",
+      "tags": ["schema", "memory"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/db/schema:normalizeKey",
+      "type": "function",
+      "name": "normalizeKey",
+      "summary": "Normalizes tenant:name into unique entity keys with lowercase and space normalization",
+      "tags": ["schema", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/db/smoke.ts",
+      "type": "file",
+      "name": "smoke.ts",
+      "summary": "Schema smoke test - writes entities+memories with edges, exercises all read modalities",
+      "tags": ["test", "validation", "e2e"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/db/smoke:cleanup",
+      "type": "function",
+      "name": "cleanup",
+      "summary": "Removes test entities and memories by ID",
+      "tags": ["test"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/db/smoke:main",
+      "type": "function",
+      "name": "main",
+      "summary": "E2E smoke test: write entities/memories, test vector/BM25/graph reads",
+      "tags": ["test", "e2e"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:src/iii/drive.ts",
+      "type": "file",
+      "name": "drive.ts",
+      "summary": "Live integration driver - pushes turns through ingest queue, forces flush, verifies Helix writes",
+      "tags": ["test", "integration", "e2e"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/iii/drive:memCount",
+      "type": "function",
+      "name": "memCount",
+      "summary": "Queries Helix for memory count and sample content",
+      "tags": ["test"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/iii/drive:wipe",
+      "type": "function",
+      "name": "wipe",
+      "summary": "Clears all entities and memories for a tenant",
+      "tags": ["test"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/iii/drive:main",
+      "type": "function",
+      "name": "main",
+      "summary": "E2E driver: enqueues turns, polls for writes, verifies pipeline end-to-end",
+      "tags": ["test", "e2e"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:src/iii/drive_sync.ts",
+      "type": "file",
+      "name": "drive_sync.ts",
+      "summary": "Synchronous live verification via iii triggers on single connection",
+      "tags": ["test", "integration", "e2e"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/iii/drive_sync:main",
+      "type": "function",
+      "name": "main",
+      "summary": "Synchronous e2e: registers worker, triggers ingest directly, verifies round-trip",
+      "tags": ["test", "e2e"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:src/maintain/erRepair.ts",
+      "type": "file",
+      "name": "erRepair.ts",
+      "summary": "Entity-resolution repair job - detects duplicate entities by embedding+alias similarity, merges them",
+      "tags": ["maintenance", "entity", "deduplication"],
+      "complexity": "high"
+    },
+    {
+      "id": "interface:src/maintain/erRepair:DuplicatePair",
+      "type": "interface",
+      "name": "DuplicatePair",
+      "summary": "Pair of entities identified as duplicates with survivor, loser, and similarity",
+      "tags": ["entity", "deduplication"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/maintain/erRepair:allEntities",
+      "type": "function",
+      "name": "allEntities",
+      "summary": "Fetches all entities for a tenant with name, type, aliases",
+      "tags": ["entity", "query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/maintain/erRepair:detectDuplicates",
+      "type": "function",
+      "name": "detectDuplicates",
+      "summary": "Finds duplicate entities by shared alias or high embedding similarity (≥0.95)",
+      "tags": ["entity", "deduplication", "matching"],
+      "complexity": "high"
+    },
+    {
+      "id": "function:src/maintain/erRepair:mergeEntities",
+      "type": "function",
+      "name": "mergeEntities",
+      "summary": "Merges duplicate entities: unions aliases, re-points MENTIONS edges, drops loser",
+      "tags": ["entity", "deduplication", "write"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/maintain/erRepair:erRepairSweep",
+      "type": "function",
+      "name": "erRepairSweep",
+      "summary": "Runs duplicate detection and merges all found pairs",
+      "tags": ["maintenance", "entity"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:src/maintain/sweeps.ts",
+      "type": "file",
+      "name": "sweeps.ts",
+      "summary": "Background maintenance sweeps - decay, forget, expire contextual memories per lifecycle",
+      "tags": ["maintenance", "lifecycle"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/maintain/sweeps:decaySweep",
+      "type": "function",
+      "name": "decaySweep",
+      "summary": "Decays weight of idle memories (not accessed for 7+ days) by 0.9 factor",
+      "tags": ["maintenance", "lifecycle"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/maintain/sweeps:forgetSweep",
+      "type": "function",
+      "name": "forgetSweep",
+      "summary": "Soft-deletes weak/stale non-procedural/goal memories (weight<0.25, idle 45+ days)",
+      "tags": ["maintenance", "lifecycle"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/maintain/sweeps:expireContextual",
+      "type": "function",
+      "name": "expireContextual",
+      "summary": "Physically drops CONTEXTUAL memories whose TTL has passed",
+      "tags": ["maintenance", "lifecycle"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/db/bootstrap.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/db/bootstrap.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/db/client.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/db/entities.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/db/entities.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/db/entities.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/db/memories.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/db/memories.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/db/memories.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/db/smoke.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/db/smoke.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/db/smoke.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/iii/drive.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/iii/drive.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/iii/drive.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/iii/drive_sync.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/iii/drive_sync.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/iii/drive_sync.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/maintain/erRepair.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/maintain/erRepair.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/maintain/erRepair.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/maintain/sweeps.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/maintain/sweeps.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/maintain/sweeps.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/db/entities:searchEntityCandidates",
+      "target": "function:src/db/client:helix",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/db/entities:createEntity",
+      "target": "function:src/db/client:writeWithRetry",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/db/entities:addAliases",
+      "target": "function:src/db/client:writeWithRetry",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/db/memories:persistMemory",
+      "target": "function:src/db/client:writeWithRetry",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/db/memories:supersede",
+      "target": "function:src/db/client:writeWithRetry",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/db/memories:linkExtends",
+      "target": "function:src/db/client:writeWithRetry",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/db/memories:setGoalStatus",
+      "target": "function:src/db/client:writeWithRetry",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/db/memories:bumpMemories",
+      "target": "function:src/db/client:writeWithRetry",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/maintain/erRepair:detectDuplicates",
+      "target": "function:src/maintain/erRepair:allEntities",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/maintain/erRepair:erRepairSweep",
+      "target": "function:src/maintain/erRepair:detectDuplicates",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/maintain/erRepair:erRepairSweep",
+      "target": "function:src/maintain/erRepair:mergeEntities",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "const:src/db/schema:L",
+      "target": "interface:src/db/schema:EntityNode",
+      "type": "depends_on",
+      "weight": 0.8
+    },
+    {
+      "source": "const:src/db/schema:L",
+      "target": "interface:src/db/schema:MemoryNode",
+      "type": "depends_on",
+      "weight": 0.8
+    }
+  ]
+}

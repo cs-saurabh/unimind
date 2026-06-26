@@ -1,0 +1,208 @@
+{
+  "batchIndex": 6,
+  "batchName": "hooks-system",
+  "nodes": [
+    {
+      "id": "dir:src/hooks",
+      "type": "directory",
+      "name": "hooks",
+      "summary": "Lifecycle hooks for capturing, emitting, injecting, and silencing events in the memory pipeline",
+      "tags": ["hooks", "lifecycle", "events"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:src/hooks/capture.ts",
+      "type": "file",
+      "name": "capture.ts",
+      "summary": "Hook for capturing turn events and memory state changes during pipeline execution",
+      "path": "src/hooks/capture.ts",
+      "language": "typescript",
+      "sizeLines": 68,
+      "tags": ["capture", "events", "logging"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:src/hooks/emit.ts",
+      "type": "file",
+      "name": "emit.ts",
+      "summary": "Hook for emitting turn events to external systems and integrations",
+      "path": "src/hooks/emit.ts",
+      "language": "typescript",
+      "sizeLines": 31,
+      "tags": ["emit", "events", "integration"],
+      "complexity": "simple",
+      "exports": ["emitTurnEvent"]
+    },
+    {
+      "id": "file:src/hooks/inject.ts",
+      "type": "file",
+      "name": "inject.ts",
+      "summary": "Hook for injecting context and state into the read path during query execution",
+      "path": "src/hooks/inject.ts",
+      "language": "typescript",
+      "sizeLines": 76,
+      "tags": ["inject", "context", "state-management"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:src/hooks/silence.ts",
+      "type": "file",
+      "name": "silence.ts",
+      "summary": "Hook for suppressing stdout output during sensitive operations",
+      "path": "src/hooks/silence.ts",
+      "language": "typescript",
+      "sizeLines": 28,
+      "tags": ["silence", "output-control", "io"],
+      "complexity": "simple",
+      "exports": ["writeStdout"]
+    },
+    {
+      "id": "function:emitTurnEvent",
+      "type": "function",
+      "name": "emitTurnEvent",
+      "summary": "Emits a turn event to registered handlers and external systems",
+      "path": "src/hooks/emit.ts",
+      "complexity": "simple",
+      "tags": ["event-emission", "integration"]
+    },
+    {
+      "id": "function:writeStdout",
+      "type": "function",
+      "name": "writeStdout",
+      "summary": "Writes to stdout, respecting silence state",
+      "path": "src/hooks/silence.ts",
+      "complexity": "simple",
+      "tags": ["io", "output"]
+    },
+    {
+      "id": "concept:hook-system",
+      "type": "concept",
+      "name": "Hook System",
+      "summary": "Extensible lifecycle hook system for memory pipeline events (capture, emit, inject, silence)",
+      "tags": ["extensibility", "events", "lifecycle"],
+      "complexity": "medium"
+    },
+    {
+      "id": "concept:event-flow",
+      "type": "concept",
+      "name": "Event Flow",
+      "summary": "Bidirectional event flow between memory system and external integrations",
+      "tags": ["events", "integration", "communication"],
+      "complexity": "medium"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "file:src/hooks/emit.ts",
+      "type": "imports",
+      "weight": 0.8,
+      "label": "emits captured events"
+    },
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "file:src/hooks/silence.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "label": "respects silence state"
+    },
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "weight": 0.9,
+      "label": "references turn types"
+    },
+    {
+      "source": "file:src/hooks/emit.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "weight": 0.9,
+      "label": "uses turn event types"
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/hooks/emit.ts",
+      "type": "imports",
+      "weight": 0.6,
+      "label": "uses event emission"
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/hooks/silence.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "label": "respects silence state"
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/read/readPath.ts",
+      "type": "imports",
+      "weight": 0.8,
+      "label": "injects into read path"
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "weight": 0.8,
+      "label": "uses write types"
+    },
+    {
+      "source": "dir:src/hooks",
+      "target": "concept:hook-system",
+      "type": "contains",
+      "weight": 0.95,
+      "label": "implements hook system"
+    },
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "concept:hook-system",
+      "type": "implements",
+      "weight": 0.85,
+      "label": "capture phase"
+    },
+    {
+      "source": "file:src/hooks/emit.ts",
+      "target": "concept:hook-system",
+      "type": "implements",
+      "weight": 0.85,
+      "label": "emit phase"
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "concept:hook-system",
+      "type": "implements",
+      "weight": 0.85,
+      "label": "inject phase"
+    },
+    {
+      "source": "file:src/hooks/silence.ts",
+      "target": "concept:hook-system",
+      "type": "supports",
+      "weight": 0.7,
+      "label": "output control utility"
+    },
+    {
+      "source": "concept:hook-system",
+      "target": "concept:event-flow",
+      "type": "enables",
+      "weight": 0.85,
+      "label": "foundation for event flow"
+    },
+    {
+      "source": "file:src/hooks/emit.ts",
+      "target": "concept:event-flow",
+      "type": "implements",
+      "weight": 0.9,
+      "label": "external event emission"
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "concept:event-flow",
+      "type": "implements",
+      "weight": 0.85,
+      "label": "context injection"
+    }
+  ]
+}

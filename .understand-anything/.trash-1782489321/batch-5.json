@@ -1,0 +1,139 @@
+{
+  "batchIndex": 5,
+  "batchName": "drift-gate-experiments",
+  "nodes": [
+    {
+      "id": "dir:experiments/drift-gate",
+      "type": "directory",
+      "name": "drift-gate",
+      "summary": "Experimental module for drift detection and gate classification in memory system",
+      "tags": ["experiment", "ml", "classification"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:experiments/drift-gate/src/classify.ts",
+      "type": "file",
+      "name": "classify.ts",
+      "summary": "Classification logic for drift gate detection using OpenAI API",
+      "path": "experiments/drift-gate/src/classify.ts",
+      "language": "typescript",
+      "sizeLines": 73,
+      "tags": ["classification", "drift", "openai"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:experiments/drift-gate/src/eval.ts",
+      "type": "file",
+      "name": "eval.ts",
+      "summary": "Evaluation framework for drift gate performance metrics and analysis",
+      "path": "experiments/drift-gate/src/eval.ts",
+      "language": "typescript",
+      "sizeLines": 189,
+      "tags": ["evaluation", "metrics", "testing"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:experiments/drift-gate/src/label.ts",
+      "type": "file",
+      "name": "label.ts",
+      "summary": "Labeling utilities for preparing training data for drift classification",
+      "path": "experiments/drift-gate/src/label.ts",
+      "language": "typescript",
+      "sizeLines": 73,
+      "tags": ["labeling", "data-preparation", "training"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:experiments/drift-gate/src/openai.ts",
+      "type": "file",
+      "name": "openai.ts",
+      "summary": "OpenAI API wrapper for drift gate classification and evaluation",
+      "path": "experiments/drift-gate/src/openai.ts",
+      "language": "typescript",
+      "sizeLines": 21,
+      "tags": ["openai", "api", "wrapper"],
+      "complexity": "simple"
+    },
+    {
+      "id": "concept:drift-gate",
+      "type": "concept",
+      "name": "Drift Gate",
+      "summary": "Detection mechanism to identify when memory context has semantically drifted and should be refreshed",
+      "tags": ["memory-management", "context", "optimization"],
+      "complexity": "high"
+    },
+    {
+      "id": "concept:classification-engine",
+      "type": "concept",
+      "name": "Classification Engine",
+      "summary": "ML pipeline for classifying memory drift using LLM-based evaluation",
+      "tags": ["ml", "llm", "classification"],
+      "complexity": "medium"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:experiments/drift-gate/src/classify.ts",
+      "target": "file:experiments/drift-gate/src/openai.ts",
+      "type": "imports",
+      "weight": 0.9,
+      "label": "uses OpenAI API wrapper"
+    },
+    {
+      "source": "file:experiments/drift-gate/src/eval.ts",
+      "target": "file:experiments/drift-gate/src/openai.ts",
+      "type": "imports",
+      "weight": 0.9,
+      "label": "uses OpenAI API wrapper"
+    },
+    {
+      "source": "file:experiments/drift-gate/src/label.ts",
+      "target": "file:experiments/drift-gate/src/openai.ts",
+      "type": "imports",
+      "weight": 0.8,
+      "label": "uses OpenAI API wrapper"
+    },
+    {
+      "source": "file:experiments/drift-gate/src/classify.ts",
+      "target": "concept:classification-engine",
+      "type": "implements",
+      "weight": 0.9,
+      "label": "core classification logic"
+    },
+    {
+      "source": "file:experiments/drift-gate/src/eval.ts",
+      "target": "concept:classification-engine",
+      "type": "tests",
+      "weight": 0.8,
+      "label": "evaluates classification performance"
+    },
+    {
+      "source": "file:experiments/drift-gate/src/label.ts",
+      "target": "concept:classification-engine",
+      "type": "supports",
+      "weight": 0.7,
+      "label": "prepares data for training"
+    },
+    {
+      "source": "dir:experiments/drift-gate",
+      "target": "concept:drift-gate",
+      "type": "contains",
+      "weight": 0.95,
+      "label": "implementation of drift-gate concept"
+    },
+    {
+      "source": "file:experiments/drift-gate/src/classify.ts",
+      "target": "concept:drift-gate",
+      "type": "implements",
+      "weight": 0.85,
+      "label": "detection and classification"
+    },
+    {
+      "source": "file:experiments/drift-gate/src/eval.ts",
+      "target": "concept:drift-gate",
+      "type": "evaluates",
+      "weight": 0.8,
+      "label": "measures effectiveness"
+    }
+  ]
+}

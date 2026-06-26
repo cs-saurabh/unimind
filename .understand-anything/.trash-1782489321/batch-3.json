@@ -1,0 +1,440 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/db/retrieve.ts",
+      "type": "file",
+      "name": "retrieve.ts",
+      "summary": "Read-path Helix queries - type-specific recall with vector/BM25/direct lookups, relational facts",
+      "tags": ["read", "retrieval", "query"],
+      "complexity": "high"
+    },
+    {
+      "id": "interface:src/db/retrieve:RecallRow",
+      "type": "interface",
+      "name": "RecallRow",
+      "summary": "Retrieved memory with id, content, type, weight, dates, optional distance metric",
+      "tags": ["retrieval", "memory"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/db/retrieve:MEM_PROJ",
+      "type": "constant",
+      "name": "MEM_PROJ",
+      "summary": "Standard memory projections for queries without distance",
+      "tags": ["query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/db/retrieve:MEM_PROJ_DIST",
+      "type": "constant",
+      "name": "MEM_PROJ_DIST",
+      "summary": "Memory projections for search queries with distance metric",
+      "tags": ["query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/db/retrieve:current",
+      "type": "function",
+      "name": "current",
+      "summary": "Predicate for live/current memories: isLatest && !deleted && !superseded && userId match",
+      "tags": ["query", "filter"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/db/retrieve:liveCurrent",
+      "type": "function",
+      "name": "liveCurrent",
+      "summary": "App-side filtering for current memories from search results (in-query where drops distance)",
+      "tags": ["query", "filter"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/db/retrieve:notExpired",
+      "type": "function",
+      "name": "notExpired",
+      "summary": "Filters out contextual TTL-expired memories",
+      "tags": ["query", "filter"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/db/retrieve:recall",
+      "type": "function",
+      "name": "recall",
+      "summary": "Parallel retrieval: vector search, BM25, procedural, plus goals and contextual separately",
+      "tags": ["retrieval", "query"],
+      "complexity": "high"
+    },
+    {
+      "id": "function:src/db/retrieve:similarMemories",
+      "type": "function",
+      "name": "similarMemories",
+      "summary": "Vector search for similar memories by embedding",
+      "tags": ["retrieval", "vector"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/db/retrieve:relationalFacts",
+      "type": "function",
+      "name": "relationalFacts",
+      "summary": "Fetches REL edges (relationships) between validated entities",
+      "tags": ["retrieval", "relations"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/db/retrieve:validateEntities",
+      "type": "function",
+      "name": "validateEntities",
+      "summary": "Validates entity existence and returns with canonical names",
+      "tags": ["entity", "validation"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:src/llm/embed.ts",
+      "type": "file",
+      "name": "embed.ts",
+      "summary": "Embedding client - wraps OpenAI text-embedding-3-small for fixed model+dimension",
+      "tags": ["llm", "embedding"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/llm/embed:embed",
+      "type": "function",
+      "name": "embed",
+      "summary": "Embeds multiple texts with OpenAI embedding model, validates output dimension",
+      "tags": ["llm", "embedding"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/llm/embed:embedOne",
+      "type": "function",
+      "name": "embedOne",
+      "summary": "Embeds a single text, convenience wrapper",
+      "tags": ["llm", "embedding"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/llm/embed:loadEnv",
+      "type": "function",
+      "name": "loadEnv",
+      "summary": "Loads OPENAI_API_KEY from .env if not set",
+      "tags": ["config"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/mcp/server.ts",
+      "type": "file",
+      "name": "server.ts",
+      "summary": "MCP server exposing read/write paths as tools",
+      "tags": ["mcp", "integration"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/mcp/server:main",
+      "type": "function",
+      "name": "main body",
+      "summary": "Initializes MCP server with read/write tool handlers",
+      "tags": ["mcp"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:src/read/header.ts",
+      "type": "file",
+      "name": "header.ts",
+      "summary": "Header builder - composes injected context from goals, contextual, relations, ranked memories",
+      "tags": ["read", "context"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/read/header:buildHeader",
+      "type": "function",
+      "name": "buildHeader",
+      "summary": "Composes additionalContext text from multiple memory types within token budget",
+      "tags": ["read", "context"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:src/read/rank.ts",
+      "type": "file",
+      "name": "rank.ts",
+      "summary": "Deterministic ranking - combines similarity, recency decay, weight, type priority, cuts to budget",
+      "tags": ["read", "ranking"],
+      "complexity": "medium"
+    },
+    {
+      "id": "const:src/read/rank:TYPE_PRIORITY",
+      "type": "constant",
+      "name": "TYPE_PRIORITY",
+      "summary": "Per-type ranking priority weights (GOAL/CONTEXTUAL 1.0, PROCEDURAL 0.9, etc)",
+      "tags": ["ranking", "config"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/read/rank:HALF_LIFE_DAYS",
+      "type": "constant",
+      "name": "HALF_LIFE_DAYS",
+      "summary": "Recency decay half-life: 30 days",
+      "tags": ["ranking", "config"],
+      "complexity": "simple"
+    },
+    {
+      "id": "interface:src/read/rank:RankedMemory",
+      "type": "interface",
+      "name": "RankedMemory",
+      "summary": "RecallRow with computed score",
+      "tags": ["ranking"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/read/rank:recencyDecay",
+      "type": "function",
+      "name": "recencyDecay",
+      "summary": "Computes exponential decay factor based on last access age",
+      "tags": ["ranking"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/read/rank:scoreRow",
+      "type": "function",
+      "name": "scoreRow",
+      "summary": "Scores a memory: sim × recency × weight × priority",
+      "tags": ["ranking"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/read/rank:rankMemories",
+      "type": "function",
+      "name": "rankMemories",
+      "summary": "Deduplicates and ranks memories across recall lists by composite score, cuts to token budget",
+      "tags": ["ranking"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:src/read/readPath.ts",
+      "type": "file",
+      "name": "readPath.ts",
+      "summary": "Read-path orchestrator - plan → embed → validate entities → parallel recall → rank → header → reinforce",
+      "tags": ["read", "orchestration"],
+      "complexity": "high"
+    },
+    {
+      "id": "interface:src/read/readPath:ReadResult",
+      "type": "interface",
+      "name": "ReadResult",
+      "summary": "Read result: injected header, topicShifted flag, used memory IDs, debug info",
+      "tags": ["read"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/read/readPath:readPath",
+      "type": "function",
+      "name": "readPath",
+      "summary": "Main read orchestrator: plan query → embed → recall → rank → build header → bump used memories",
+      "tags": ["read", "orchestration"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:src/read/recall.ts",
+      "type": "file",
+      "name": "recall.ts",
+      "summary": "High-level recall wrapper - fetches and ranks memories in parallel",
+      "tags": ["read", "retrieval"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/read/recall:recall",
+      "type": "function",
+      "name": "recall",
+      "summary": "Parallel recall execution with vector, BM25, and direct retrievals",
+      "tags": ["read", "retrieval"],
+      "complexity": "high"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/db/retrieve.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/db/retrieve.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/db/retrieve.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/llm/embed.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/mcp/server.ts",
+      "target": "file:src/read/recall.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/mcp/server.ts",
+      "target": "file:src/write/remember.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/read/header.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/read/header.ts",
+      "target": "file:src/read/rank.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/read/rank.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/read/rank.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/read/rank.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/read/header.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/db/memories.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/llm/embed.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/read/recall.ts",
+      "target": "file:src/db/memories.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/read/recall.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/read/recall.ts",
+      "target": "file:src/llm/embed.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/read/recall.ts",
+      "target": "file:src/read/rank.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "function:src/db/retrieve:recall",
+      "target": "function:src/db/retrieve:similarMemories",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/db/retrieve:recall",
+      "target": "function:src/db/retrieve:relationalFacts",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/db/retrieve:recall",
+      "target": "function:src/db/retrieve:validateEntities",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/read/rank:rankMemories",
+      "target": "function:src/read/rank:scoreRow",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/read/rank:scoreRow",
+      "target": "function:src/read/rank:recencyDecay",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/read/readPath:readPath",
+      "target": "function:src/read/rank:rankMemories",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/read/readPath:readPath",
+      "target": "function:src/read/header:buildHeader",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/read/readPath:readPath",
+      "target": "function:src/db/retrieve:recall",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/read/readPath:readPath",
+      "target": "function:src/db/memories:bumpMemories",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/read/readPath:readPath",
+      "target": "function:src/llm/embed:embedOne",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/read/readPath:readPath",
+      "target": "function:src/db/retrieve:validateEntities",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "interface:src/read/rank:RankedMemory",
+      "target": "interface:src/db/retrieve:RecallRow",
+      "type": "extends",
+      "weight": 1.0
+    }
+  ]
+}

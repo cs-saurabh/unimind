@@ -1,0 +1,1435 @@
+{
+  "schemaVersion": 1,
+  "algorithm": "louvain",
+  "totalFiles": 58,
+  "totalBatches": 8,
+  "exportsByPath": {
+    ".understand-anything/.understandignore": [],
+    "docker/worker.Dockerfile": [],
+    "experiments/drift-gate/src/classify.ts": [],
+    "experiments/drift-gate/src/eval.ts": [],
+    "experiments/drift-gate/src/extract.ts": [],
+    "experiments/drift-gate/src/label.ts": [],
+    "experiments/drift-gate/src/openai.ts": [],
+    "src/config.ts": [
+      "TENANT_ID",
+      "USER_ID",
+      "HELIX_URL",
+      "EMBED_MODEL",
+      "EMBED_DIM"
+    ],
+    "src/db/bootstrap.ts": [],
+    "src/db/client.ts": [
+      "helix",
+      "writeWithRetry"
+    ],
+    "src/db/entities.ts": [
+      "searchEntityCandidates",
+      "createEntity",
+      "addAliases"
+    ],
+    "src/db/memories.ts": [
+      "persistMemory",
+      "supersede",
+      "linkExtends",
+      "setGoalStatus",
+      "bumpMemories"
+    ],
+    "src/db/retrieve.ts": [
+      "recall",
+      "similarMemories",
+      "relationalFacts",
+      "validateEntities"
+    ],
+    "src/db/schema.ts": [
+      "L",
+      "E",
+      "normalizeKey"
+    ],
+    "src/db/smoke.ts": [],
+    "src/hooks/capture.ts": [],
+    "src/hooks/emit.ts": [
+      "emitTurnEvent"
+    ],
+    "src/hooks/inject.ts": [],
+    "src/hooks/silence.ts": [
+      "writeStdout"
+    ],
+    "src/iii/drive_sync.ts": [],
+    "src/iii/drive.ts": [],
+    "src/iii/worker.ts": [],
+    "src/llm/complete.ts": [
+      "HOT_MODEL",
+      "jsonComplete"
+    ],
+    "src/llm/embed.ts": [
+      "embed",
+      "embedOne"
+    ],
+    "src/maintain/erRepair.ts": [
+      "detectDuplicates",
+      "erRepairSweep"
+    ],
+    "src/maintain/sweeps.ts": [
+      "decaySweep",
+      "forgetSweep",
+      "expireContextual"
+    ],
+    "src/match/engine.test.ts": [],
+    "src/match/engine.ts": [
+      "match"
+    ],
+    "src/match/scorers.ts": [
+      "cosineSim",
+      "distanceToSim",
+      "trigramSim",
+      "bestAliasSim",
+      "combine"
+    ],
+    "src/mcp/server.ts": [],
+    "src/read/e2e.ts": [],
+    "src/read/header.ts": [
+      "buildHeader"
+    ],
+    "src/read/planner.ts": [
+      "planQuery"
+    ],
+    "src/read/rank.ts": [
+      "scoreRow",
+      "rankMemories"
+    ],
+    "src/read/readPath.ts": [
+      "readPath"
+    ],
+    "src/read/recall.ts": [
+      "recall"
+    ],
+    "src/write/buffer.ts": [
+      "DEFAULT_FLUSH",
+      "flushReason",
+      "FileBufferStore",
+      "MemoryBufferStore"
+    ],
+    "src/write/conflict.ts": [
+      "resolveConflict"
+    ],
+    "src/write/e2e.ts": [],
+    "src/write/entityResolve.ts": [
+      "resolveEntity"
+    ],
+    "src/write/extract.ts": [
+      "extractWindow"
+    ],
+    "src/write/ingest.ts": [
+      "ingestTurn"
+    ],
+    "src/write/pipeline.ts": [
+      "flushSession"
+    ],
+    "src/write/remember.ts": [
+      "remember"
+    ],
+    "src/write/salience.ts": [
+      "salienceGate"
+    ],
+    "src/write/types.ts": [],
+    "src/write/write.test.ts": []
+  },
+  "batches": [
+    {
+      "batchIndex": 1,
+      "files": [
+        {
+          "path": "src/config.ts",
+          "language": "typescript",
+          "sizeLines": 13,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/db/bootstrap.ts",
+          "language": "typescript",
+          "sizeLines": 54,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/db/client.ts",
+          "language": "typescript",
+          "sizeLines": 27,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/db/entities.ts",
+          "language": "typescript",
+          "sizeLines": 86,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/db/memories.ts",
+          "language": "typescript",
+          "sizeLines": 146,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/db/schema.ts",
+          "language": "typescript",
+          "sizeLines": 96,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/db/smoke.ts",
+          "language": "typescript",
+          "sizeLines": 125,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/iii/drive.ts",
+          "language": "typescript",
+          "sizeLines": 69,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/iii/drive_sync.ts",
+          "language": "typescript",
+          "sizeLines": 59,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/maintain/erRepair.ts",
+          "language": "typescript",
+          "sizeLines": 84,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/maintain/sweeps.ts",
+          "language": "typescript",
+          "sizeLines": 68,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "src/config.ts": [],
+        "src/db/bootstrap.ts": [
+          "src/db/client.ts",
+          "src/db/schema.ts"
+        ],
+        "src/db/client.ts": [
+          "src/config.ts"
+        ],
+        "src/db/entities.ts": [
+          "src/config.ts",
+          "src/db/client.ts",
+          "src/db/schema.ts"
+        ],
+        "src/db/memories.ts": [
+          "src/config.ts",
+          "src/db/client.ts",
+          "src/db/schema.ts"
+        ],
+        "src/db/schema.ts": [],
+        "src/db/smoke.ts": [
+          "src/config.ts",
+          "src/db/client.ts",
+          "src/db/schema.ts",
+          "src/llm/embed.ts"
+        ],
+        "src/iii/drive.ts": [
+          "src/config.ts",
+          "src/db/client.ts",
+          "src/db/schema.ts",
+          "src/hooks/emit.ts",
+          "src/write/types.ts"
+        ],
+        "src/iii/drive_sync.ts": [
+          "src/config.ts",
+          "src/db/client.ts",
+          "src/db/schema.ts",
+          "src/write/types.ts"
+        ],
+        "src/maintain/erRepair.ts": [
+          "src/config.ts",
+          "src/db/client.ts",
+          "src/db/schema.ts",
+          "src/llm/embed.ts",
+          "src/match/scorers.ts"
+        ],
+        "src/maintain/sweeps.ts": [
+          "src/config.ts",
+          "src/db/client.ts",
+          "src/db/schema.ts"
+        ]
+      },
+      "neighborMap": {
+        "src/config.ts": [
+          {
+            "path": "src/db/retrieve.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "recall",
+              "similarMemories",
+              "relationalFacts",
+              "validateEntities"
+            ]
+          },
+          {
+            "path": "src/llm/embed.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "embed",
+              "embedOne"
+            ]
+          },
+          {
+            "path": "src/read/e2e.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "src/write/e2e.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "src/db/client.ts": [
+          {
+            "path": "src/db/retrieve.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "recall",
+              "similarMemories",
+              "relationalFacts",
+              "validateEntities"
+            ]
+          },
+          {
+            "path": "src/read/e2e.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "src/write/e2e.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "src/db/entities.ts": [
+          {
+            "path": "src/write/entityResolve.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "resolveEntity"
+            ]
+          }
+        ],
+        "src/db/memories.ts": [
+          {
+            "path": "src/read/readPath.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "readPath"
+            ]
+          },
+          {
+            "path": "src/read/recall.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "recall"
+            ]
+          },
+          {
+            "path": "src/write/pipeline.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "flushSession"
+            ]
+          }
+        ],
+        "src/db/schema.ts": [
+          {
+            "path": "src/db/retrieve.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "recall",
+              "similarMemories",
+              "relationalFacts",
+              "validateEntities"
+            ]
+          },
+          {
+            "path": "src/read/e2e.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "src/read/planner.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "planQuery"
+            ]
+          },
+          {
+            "path": "src/read/rank.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "scoreRow",
+              "rankMemories"
+            ]
+          },
+          {
+            "path": "src/write/conflict.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "resolveConflict"
+            ]
+          },
+          {
+            "path": "src/write/e2e.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "src/write/types.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "src/db/smoke.ts": [
+          {
+            "path": "src/llm/embed.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "embed",
+              "embedOne"
+            ]
+          }
+        ],
+        "src/iii/drive.ts": [
+          {
+            "path": "src/hooks/emit.ts",
+            "batchIndex": 6,
+            "symbols": [
+              "emitTurnEvent"
+            ]
+          },
+          {
+            "path": "src/write/types.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "src/iii/drive_sync.ts": [
+          {
+            "path": "src/write/types.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "src/maintain/erRepair.ts": [
+          {
+            "path": "src/llm/embed.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "embed",
+              "embedOne"
+            ]
+          },
+          {
+            "path": "src/match/scorers.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "cosineSim",
+              "distanceToSim",
+              "trigramSim",
+              "bestAliasSim",
+              "combine"
+            ]
+          },
+          {
+            "path": "src/iii/worker.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "src/maintain/sweeps.ts": [
+          {
+            "path": "src/iii/worker.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 2,
+      "files": [
+        {
+          "path": "src/iii/worker.ts",
+          "language": "typescript",
+          "sizeLines": 80,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/read/e2e.ts",
+          "language": "typescript",
+          "sizeLines": 70,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/write/buffer.ts",
+          "language": "typescript",
+          "sizeLines": 86,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/write/e2e.ts",
+          "language": "typescript",
+          "sizeLines": 87,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/write/extract.ts",
+          "language": "typescript",
+          "sizeLines": 105,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/write/ingest.ts",
+          "language": "typescript",
+          "sizeLines": 40,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/write/pipeline.ts",
+          "language": "typescript",
+          "sizeLines": 91,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/write/remember.ts",
+          "language": "typescript",
+          "sizeLines": 34,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/write/salience.ts",
+          "language": "typescript",
+          "sizeLines": 52,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/write/types.ts",
+          "language": "typescript",
+          "sizeLines": 60,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/write/write.test.ts",
+          "language": "typescript",
+          "sizeLines": 64,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "src/iii/worker.ts": [
+          "src/maintain/erRepair.ts",
+          "src/maintain/sweeps.ts",
+          "src/write/buffer.ts",
+          "src/write/ingest.ts",
+          "src/write/pipeline.ts",
+          "src/write/types.ts"
+        ],
+        "src/read/e2e.ts": [
+          "src/config.ts",
+          "src/db/client.ts",
+          "src/db/schema.ts",
+          "src/read/readPath.ts",
+          "src/write/buffer.ts",
+          "src/write/ingest.ts",
+          "src/write/pipeline.ts",
+          "src/write/types.ts"
+        ],
+        "src/write/buffer.ts": [
+          "src/write/types.ts"
+        ],
+        "src/write/e2e.ts": [
+          "src/config.ts",
+          "src/db/client.ts",
+          "src/db/schema.ts",
+          "src/write/buffer.ts",
+          "src/write/ingest.ts",
+          "src/write/types.ts"
+        ],
+        "src/write/extract.ts": [
+          "src/llm/complete.ts",
+          "src/write/types.ts"
+        ],
+        "src/write/ingest.ts": [
+          "src/write/buffer.ts",
+          "src/write/pipeline.ts",
+          "src/write/salience.ts",
+          "src/write/types.ts"
+        ],
+        "src/write/pipeline.ts": [
+          "src/db/memories.ts",
+          "src/llm/embed.ts",
+          "src/write/buffer.ts",
+          "src/write/conflict.ts",
+          "src/write/entityResolve.ts",
+          "src/write/extract.ts",
+          "src/write/types.ts"
+        ],
+        "src/write/remember.ts": [
+          "src/write/buffer.ts",
+          "src/write/pipeline.ts"
+        ],
+        "src/write/salience.ts": [
+          "src/write/types.ts"
+        ],
+        "src/write/types.ts": [
+          "src/db/schema.ts"
+        ],
+        "src/write/write.test.ts": [
+          "src/write/buffer.ts",
+          "src/write/salience.ts",
+          "src/write/types.ts"
+        ]
+      },
+      "neighborMap": {
+        "src/iii/worker.ts": [
+          {
+            "path": "src/maintain/erRepair.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "detectDuplicates",
+              "erRepairSweep"
+            ]
+          },
+          {
+            "path": "src/maintain/sweeps.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "decaySweep",
+              "forgetSweep",
+              "expireContextual"
+            ]
+          }
+        ],
+        "src/read/e2e.ts": [
+          {
+            "path": "src/config.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "TENANT_ID",
+              "USER_ID",
+              "HELIX_URL",
+              "EMBED_MODEL",
+              "EMBED_DIM"
+            ]
+          },
+          {
+            "path": "src/db/client.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "helix",
+              "writeWithRetry"
+            ]
+          },
+          {
+            "path": "src/db/schema.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "L",
+              "E",
+              "normalizeKey"
+            ]
+          },
+          {
+            "path": "src/read/readPath.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "readPath"
+            ]
+          }
+        ],
+        "src/write/e2e.ts": [
+          {
+            "path": "src/config.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "TENANT_ID",
+              "USER_ID",
+              "HELIX_URL",
+              "EMBED_MODEL",
+              "EMBED_DIM"
+            ]
+          },
+          {
+            "path": "src/db/client.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "helix",
+              "writeWithRetry"
+            ]
+          },
+          {
+            "path": "src/db/schema.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "L",
+              "E",
+              "normalizeKey"
+            ]
+          }
+        ],
+        "src/write/extract.ts": [
+          {
+            "path": "src/llm/complete.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "HOT_MODEL",
+              "jsonComplete"
+            ]
+          }
+        ],
+        "src/write/pipeline.ts": [
+          {
+            "path": "src/db/memories.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "persistMemory",
+              "supersede",
+              "linkExtends",
+              "setGoalStatus",
+              "bumpMemories"
+            ]
+          },
+          {
+            "path": "src/llm/embed.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "embed",
+              "embedOne"
+            ]
+          },
+          {
+            "path": "src/write/conflict.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "resolveConflict"
+            ]
+          },
+          {
+            "path": "src/write/entityResolve.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "resolveEntity"
+            ]
+          }
+        ],
+        "src/write/remember.ts": [
+          {
+            "path": "src/mcp/server.ts",
+            "batchIndex": 3,
+            "symbols": []
+          }
+        ],
+        "src/write/types.ts": [
+          {
+            "path": "src/db/schema.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "L",
+              "E",
+              "normalizeKey"
+            ]
+          },
+          {
+            "path": "src/hooks/capture.ts",
+            "batchIndex": 6,
+            "symbols": []
+          },
+          {
+            "path": "src/hooks/emit.ts",
+            "batchIndex": 6,
+            "symbols": [
+              "emitTurnEvent"
+            ]
+          },
+          {
+            "path": "src/hooks/inject.ts",
+            "batchIndex": 6,
+            "symbols": []
+          },
+          {
+            "path": "src/iii/drive_sync.ts",
+            "batchIndex": 1,
+            "symbols": []
+          },
+          {
+            "path": "src/iii/drive.ts",
+            "batchIndex": 1,
+            "symbols": []
+          },
+          {
+            "path": "src/write/conflict.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "resolveConflict"
+            ]
+          },
+          {
+            "path": "src/write/entityResolve.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "resolveEntity"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 3,
+      "files": [
+        {
+          "path": "src/db/retrieve.ts",
+          "language": "typescript",
+          "sizeLines": 173,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/llm/embed.ts",
+          "language": "typescript",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/mcp/server.ts",
+          "language": "typescript",
+          "sizeLines": 70,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/read/header.ts",
+          "language": "typescript",
+          "sizeLines": 41,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/read/rank.ts",
+          "language": "typescript",
+          "sizeLines": 52,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/read/readPath.ts",
+          "language": "typescript",
+          "sizeLines": 58,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/read/recall.ts",
+          "language": "typescript",
+          "sizeLines": 27,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "src/db/retrieve.ts": [
+          "src/config.ts",
+          "src/db/client.ts",
+          "src/db/schema.ts"
+        ],
+        "src/llm/embed.ts": [
+          "src/config.ts"
+        ],
+        "src/mcp/server.ts": [
+          "src/read/recall.ts",
+          "src/write/remember.ts"
+        ],
+        "src/read/header.ts": [
+          "src/db/retrieve.ts",
+          "src/read/rank.ts"
+        ],
+        "src/read/rank.ts": [
+          "src/db/retrieve.ts",
+          "src/db/schema.ts",
+          "src/match/scorers.ts"
+        ],
+        "src/read/readPath.ts": [
+          "src/db/memories.ts",
+          "src/db/retrieve.ts",
+          "src/llm/embed.ts",
+          "src/read/header.ts",
+          "src/read/planner.ts",
+          "src/read/rank.ts"
+        ],
+        "src/read/recall.ts": [
+          "src/db/memories.ts",
+          "src/db/retrieve.ts",
+          "src/llm/embed.ts",
+          "src/read/rank.ts"
+        ]
+      },
+      "neighborMap": {
+        "src/db/retrieve.ts": [
+          {
+            "path": "src/config.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "TENANT_ID",
+              "USER_ID",
+              "HELIX_URL",
+              "EMBED_MODEL",
+              "EMBED_DIM"
+            ]
+          },
+          {
+            "path": "src/db/client.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "helix",
+              "writeWithRetry"
+            ]
+          },
+          {
+            "path": "src/db/schema.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "L",
+              "E",
+              "normalizeKey"
+            ]
+          },
+          {
+            "path": "src/write/conflict.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "resolveConflict"
+            ]
+          }
+        ],
+        "src/llm/embed.ts": [
+          {
+            "path": "src/config.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "TENANT_ID",
+              "USER_ID",
+              "HELIX_URL",
+              "EMBED_MODEL",
+              "EMBED_DIM"
+            ]
+          },
+          {
+            "path": "src/db/smoke.ts",
+            "batchIndex": 1,
+            "symbols": []
+          },
+          {
+            "path": "src/maintain/erRepair.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "detectDuplicates",
+              "erRepairSweep"
+            ]
+          },
+          {
+            "path": "src/write/pipeline.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "flushSession"
+            ]
+          }
+        ],
+        "src/mcp/server.ts": [
+          {
+            "path": "src/write/remember.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "remember"
+            ]
+          }
+        ],
+        "src/read/rank.ts": [
+          {
+            "path": "src/db/schema.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "L",
+              "E",
+              "normalizeKey"
+            ]
+          },
+          {
+            "path": "src/match/scorers.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "cosineSim",
+              "distanceToSim",
+              "trigramSim",
+              "bestAliasSim",
+              "combine"
+            ]
+          }
+        ],
+        "src/read/readPath.ts": [
+          {
+            "path": "src/db/memories.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "persistMemory",
+              "supersede",
+              "linkExtends",
+              "setGoalStatus",
+              "bumpMemories"
+            ]
+          },
+          {
+            "path": "src/read/planner.ts",
+            "batchIndex": 4,
+            "symbols": [
+              "planQuery"
+            ]
+          },
+          {
+            "path": "src/hooks/inject.ts",
+            "batchIndex": 6,
+            "symbols": []
+          },
+          {
+            "path": "src/read/e2e.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "src/read/recall.ts": [
+          {
+            "path": "src/db/memories.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "persistMemory",
+              "supersede",
+              "linkExtends",
+              "setGoalStatus",
+              "bumpMemories"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 4,
+      "files": [
+        {
+          "path": "src/llm/complete.ts",
+          "language": "typescript",
+          "sizeLines": 48,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/match/engine.test.ts",
+          "language": "typescript",
+          "sizeLines": 106,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/match/engine.ts",
+          "language": "typescript",
+          "sizeLines": 79,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/match/scorers.ts",
+          "language": "typescript",
+          "sizeLines": 70,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/read/planner.ts",
+          "language": "typescript",
+          "sizeLines": 55,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/write/conflict.ts",
+          "language": "typescript",
+          "sizeLines": 88,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/write/entityResolve.ts",
+          "language": "typescript",
+          "sizeLines": 91,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "src/llm/complete.ts": [],
+        "src/match/engine.test.ts": [
+          "src/match/engine.ts",
+          "src/match/scorers.ts"
+        ],
+        "src/match/engine.ts": [],
+        "src/match/scorers.ts": [],
+        "src/read/planner.ts": [
+          "src/db/schema.ts",
+          "src/llm/complete.ts"
+        ],
+        "src/write/conflict.ts": [
+          "src/db/retrieve.ts",
+          "src/db/schema.ts",
+          "src/llm/complete.ts",
+          "src/match/engine.ts",
+          "src/match/scorers.ts",
+          "src/write/types.ts"
+        ],
+        "src/write/entityResolve.ts": [
+          "src/db/entities.ts",
+          "src/llm/complete.ts",
+          "src/match/engine.ts",
+          "src/match/scorers.ts",
+          "src/write/types.ts"
+        ]
+      },
+      "neighborMap": {
+        "src/llm/complete.ts": [
+          {
+            "path": "src/write/extract.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "extractWindow"
+            ]
+          }
+        ],
+        "src/match/scorers.ts": [
+          {
+            "path": "src/maintain/erRepair.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "detectDuplicates",
+              "erRepairSweep"
+            ]
+          },
+          {
+            "path": "src/read/rank.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "scoreRow",
+              "rankMemories"
+            ]
+          }
+        ],
+        "src/read/planner.ts": [
+          {
+            "path": "src/db/schema.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "L",
+              "E",
+              "normalizeKey"
+            ]
+          },
+          {
+            "path": "src/read/readPath.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "readPath"
+            ]
+          }
+        ],
+        "src/write/conflict.ts": [
+          {
+            "path": "src/db/retrieve.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "recall",
+              "similarMemories",
+              "relationalFacts",
+              "validateEntities"
+            ]
+          },
+          {
+            "path": "src/db/schema.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "L",
+              "E",
+              "normalizeKey"
+            ]
+          },
+          {
+            "path": "src/write/types.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "src/write/pipeline.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "flushSession"
+            ]
+          }
+        ],
+        "src/write/entityResolve.ts": [
+          {
+            "path": "src/db/entities.ts",
+            "batchIndex": 1,
+            "symbols": [
+              "searchEntityCandidates",
+              "createEntity",
+              "addAliases"
+            ]
+          },
+          {
+            "path": "src/write/types.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "src/write/pipeline.ts",
+            "batchIndex": 2,
+            "symbols": [
+              "flushSession"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 5,
+      "files": [
+        {
+          "path": "experiments/drift-gate/src/classify.ts",
+          "language": "typescript",
+          "sizeLines": 73,
+          "fileCategory": "code"
+        },
+        {
+          "path": "experiments/drift-gate/src/eval.ts",
+          "language": "typescript",
+          "sizeLines": 189,
+          "fileCategory": "code"
+        },
+        {
+          "path": "experiments/drift-gate/src/label.ts",
+          "language": "typescript",
+          "sizeLines": 73,
+          "fileCategory": "code"
+        },
+        {
+          "path": "experiments/drift-gate/src/openai.ts",
+          "language": "typescript",
+          "sizeLines": 21,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "experiments/drift-gate/src/classify.ts": [
+          "experiments/drift-gate/src/openai.ts"
+        ],
+        "experiments/drift-gate/src/eval.ts": [
+          "experiments/drift-gate/src/openai.ts"
+        ],
+        "experiments/drift-gate/src/label.ts": [
+          "experiments/drift-gate/src/openai.ts"
+        ],
+        "experiments/drift-gate/src/openai.ts": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 6,
+      "files": [
+        {
+          "path": "src/hooks/capture.ts",
+          "language": "typescript",
+          "sizeLines": 68,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/hooks/emit.ts",
+          "language": "typescript",
+          "sizeLines": 31,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/hooks/inject.ts",
+          "language": "typescript",
+          "sizeLines": 76,
+          "fileCategory": "code"
+        },
+        {
+          "path": "src/hooks/silence.ts",
+          "language": "typescript",
+          "sizeLines": 28,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        "src/hooks/capture.ts": [
+          "src/hooks/emit.ts",
+          "src/hooks/silence.ts",
+          "src/write/types.ts"
+        ],
+        "src/hooks/emit.ts": [
+          "src/write/types.ts"
+        ],
+        "src/hooks/inject.ts": [
+          "src/hooks/emit.ts",
+          "src/hooks/silence.ts",
+          "src/read/readPath.ts",
+          "src/write/types.ts"
+        ],
+        "src/hooks/silence.ts": []
+      },
+      "neighborMap": {
+        "src/hooks/capture.ts": [
+          {
+            "path": "src/write/types.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ],
+        "src/hooks/emit.ts": [
+          {
+            "path": "src/write/types.ts",
+            "batchIndex": 2,
+            "symbols": []
+          },
+          {
+            "path": "src/iii/drive.ts",
+            "batchIndex": 1,
+            "symbols": []
+          }
+        ],
+        "src/hooks/inject.ts": [
+          {
+            "path": "src/read/readPath.ts",
+            "batchIndex": 3,
+            "symbols": [
+              "readPath"
+            ]
+          },
+          {
+            "path": "src/write/types.ts",
+            "batchIndex": 2,
+            "symbols": []
+          }
+        ]
+      }
+    },
+    {
+      "batchIndex": 7,
+      "files": [
+        {
+          "path": ".dockerignore",
+          "language": "unknown",
+          "sizeLines": 9,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "AGENTS.md",
+          "language": "markdown",
+          "sizeLines": 42,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "ARCHITECTURE.mdx",
+          "language": "markdown",
+          "sizeLines": 687,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "docker-compose.yml",
+          "language": "yaml",
+          "sizeLines": 121,
+          "fileCategory": "infra"
+        },
+        {
+          "path": "helix.toml",
+          "language": "toml",
+          "sizeLines": 12,
+          "fileCategory": "config"
+        },
+        {
+          "path": "memory-system-handoff.md",
+          "language": "markdown",
+          "sizeLines": 409,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "package.json",
+          "language": "json",
+          "sizeLines": 28,
+          "fileCategory": "config"
+        },
+        {
+          "path": "tsconfig.json",
+          "language": "json",
+          "sizeLines": 15,
+          "fileCategory": "config"
+        }
+      ],
+      "batchImportData": {
+        ".dockerignore": [],
+        "AGENTS.md": [],
+        "ARCHITECTURE.mdx": [],
+        "docker-compose.yml": [],
+        "helix.toml": [],
+        "memory-system-handoff.md": [],
+        "package.json": [],
+        "tsconfig.json": []
+      },
+      "neighborMap": {}
+    },
+    {
+      "batchIndex": 8,
+      "files": [
+        {
+          "path": ".understand-anything/.understandignore",
+          "language": "unknown",
+          "sizeLines": 44,
+          "fileCategory": "code"
+        },
+        {
+          "path": "docker/worker-entrypoint.sh",
+          "language": "shell",
+          "sizeLines": 24,
+          "fileCategory": "script"
+        },
+        {
+          "path": "docker/worker.Dockerfile",
+          "language": "dockerfile",
+          "sizeLines": 18,
+          "fileCategory": "code"
+        },
+        {
+          "path": "examples/request.json",
+          "language": "json",
+          "sizeLines": 29,
+          "fileCategory": "config"
+        },
+        {
+          "path": "experiments/drift-gate/FINDINGS.md",
+          "language": "markdown",
+          "sizeLines": 95,
+          "fileCategory": "docs"
+        },
+        {
+          "path": "experiments/drift-gate/src/extract.ts",
+          "language": "typescript",
+          "sizeLines": 83,
+          "fileCategory": "code"
+        }
+      ],
+      "batchImportData": {
+        ".understand-anything/.understandignore": [],
+        "docker/worker-entrypoint.sh": [],
+        "docker/worker.Dockerfile": [],
+        "examples/request.json": [],
+        "experiments/drift-gate/FINDINGS.md": [],
+        "experiments/drift-gate/src/extract.ts": []
+      },
+      "neighborMap": {}
+    }
+  ]
+}

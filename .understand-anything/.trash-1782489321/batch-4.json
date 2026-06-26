@@ -1,0 +1,380 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/llm/complete.ts",
+      "type": "file",
+      "name": "complete.ts",
+      "summary": "Structured JSON completion wrapper - reusable vehicle for gray-zone LLM calls",
+      "tags": ["llm", "completion"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/llm/complete:HOT_MODEL",
+      "type": "constant",
+      "name": "HOT_MODEL",
+      "summary": "Fast model for gray-zone adjudication: gpt-4o-mini by default",
+      "tags": ["llm", "config"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/llm/complete:loadEnv",
+      "type": "function",
+      "name": "loadEnv",
+      "summary": "Loads OPENAI_API_KEY from .env if not set",
+      "tags": ["config"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/llm/complete:jsonComplete",
+      "type": "function",
+      "name": "jsonComplete",
+      "summary": "Calls LLM with json_object mode, returns parsed JSON - used for entity-link, conflict, planning",
+      "tags": ["llm", "completion"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/match/engine.ts",
+      "type": "file",
+      "name": "engine.ts",
+      "summary": "Reusable matching engine - block → score → threshold → adjudicate (LLM on gray band only)",
+      "tags": ["matching", "engine"],
+      "complexity": "high"
+    },
+    {
+      "id": "interface:src/match/engine:Scored",
+      "type": "interface",
+      "name": "Scored",
+      "summary": "Candidate with computed similarity score 0..1",
+      "tags": ["matching"],
+      "complexity": "simple"
+    },
+    {
+      "id": "type:src/match/engine:Band",
+      "type": "type",
+      "name": "Band",
+      "summary": "Scoring band: match, gray, no_match",
+      "tags": ["matching"],
+      "complexity": "simple"
+    },
+    {
+      "id": "interface:src/match/engine:MatchOutcome",
+      "type": "interface",
+      "name": "MatchOutcome",
+      "summary": "Match result: band, sorted candidates, top, optional adjudication, usedLLM flag",
+      "tags": ["matching"],
+      "complexity": "simple"
+    },
+    {
+      "id": "interface:src/match/engine:MatchConfig",
+      "type": "interface",
+      "name": "MatchConfig",
+      "summary": "Match config: block/score functions, high/low thresholds, grayLimit, adjudicate function",
+      "tags": ["matching", "config"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/match/engine:match",
+      "type": "function",
+      "name": "match",
+      "summary": "Core matching: cheap block+score, threshold decision, LLM adjudicate only on gray band",
+      "tags": ["matching", "engine"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:src/match/scorers.ts",
+      "type": "file",
+      "name": "scorers.ts",
+      "summary": "Deterministic scoring primitives - cosine, trigram, alias similarity, weighted combine",
+      "tags": ["scoring", "utility"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/match/scorers:cosineSim",
+      "type": "function",
+      "name": "cosineSim",
+      "summary": "Cosine similarity of equal-length vectors mapped to [0,1]",
+      "tags": ["scoring", "math"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/match/scorers:distanceToSim",
+      "type": "function",
+      "name": "distanceToSim",
+      "summary": "Converts Helix vector distance (smaller=closer) to [0,1] similarity",
+      "tags": ["scoring", "conversion"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/match/scorers:normalize",
+      "type": "function",
+      "name": "normalize",
+      "summary": "Normalizes string: trim, lowercase, remove non-alphanumeric",
+      "tags": ["scoring", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/match/scorers:trigrams",
+      "type": "function",
+      "name": "trigrams",
+      "summary": "Extracts 3-character trigrams from normalized string",
+      "tags": ["scoring", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/match/scorers:trigramSim",
+      "type": "function",
+      "name": "trigramSim",
+      "summary": "Trigram Jaccard similarity [0,1] - robust to minor surface variation",
+      "tags": ["scoring", "similarity"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/match/scorers:bestAliasSim",
+      "type": "function",
+      "name": "bestAliasSim",
+      "summary": "Best string similarity of query against any surface form (exact token match = 0.92+)",
+      "tags": ["scoring", "similarity"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/match/scorers:combine",
+      "type": "function",
+      "name": "combine",
+      "summary": "Weighted blend of named sub-scores, normalized by total weight",
+      "tags": ["scoring", "combine"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/read/planner.ts",
+      "type": "file",
+      "name": "planner.ts",
+      "summary": "Query planner - LLM call to decompose prompt into topics and entity refs, detects topic shift",
+      "tags": ["read", "planning"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/read/planner:planQuery",
+      "type": "function",
+      "name": "planQuery",
+      "summary": "Calls LLM to plan query: decompose into topics, extract entity names, detect topic shift",
+      "tags": ["read", "planning"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:src/write/conflict.ts",
+      "type": "file",
+      "name": "conflict.ts",
+      "summary": "Conflict resolution - uses matching engine to decide between extracted memory and existing",
+      "tags": ["write", "conflict"],
+      "complexity": "high"
+    },
+    {
+      "id": "function:src/write/conflict:resolveConflict",
+      "type": "function",
+      "name": "resolveConflict",
+      "summary": "Dispatches conflict: reinforce existing, supersede with correction, or add as new",
+      "tags": ["write", "conflict"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:src/write/entityResolve.ts",
+      "type": "file",
+      "name": "entityResolve.ts",
+      "summary": "Entity resolution - uses matching engine to link mentions to canonical entities or create new",
+      "tags": ["write", "entity", "matching"],
+      "complexity": "high"
+    },
+    {
+      "id": "function:src/write/entityResolve:resolveEntity",
+      "type": "function",
+      "name": "resolveEntity",
+      "summary": "Matches mention cluster to entity: searches candidates, scores deterministically, LLM on gray",
+      "tags": ["write", "entity", "matching"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:src/match/engine.test.ts",
+      "type": "file",
+      "name": "engine.test.ts",
+      "summary": "Tests for matching engine - verifies block/score/band/adjudication logic",
+      "tags": ["test", "matching"],
+      "complexity": "high"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/llm/complete.ts",
+      "target": "file:src/config.ts",
+      "type": "no_import",
+      "weight": 0.0
+    },
+    {
+      "source": "file:src/match/engine.ts",
+      "target": "file:src/llm/complete.ts",
+      "type": "no_import",
+      "weight": 0.0
+    },
+    {
+      "source": "file:src/match/scorers.ts",
+      "target": "file:src/config.ts",
+      "type": "no_import",
+      "weight": 0.0
+    },
+    {
+      "source": "file:src/read/planner.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/read/planner.ts",
+      "target": "file:src/llm/complete.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/llm/complete.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/match/engine.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/db/entities.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/llm/complete.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/match/engine.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/match/engine.test.ts",
+      "target": "file:src/match/engine.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/match/engine.test.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "function:src/match/engine:match",
+      "target": "interface:src/match/engine:MatchConfig",
+      "type": "uses",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/match/engine:match",
+      "target": "interface:src/match/engine:MatchOutcome",
+      "type": "returns",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/match/scorers:bestAliasSim",
+      "target": "function:src/match/scorers:normalize",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/match/scorers:bestAliasSim",
+      "target": "function:src/match/scorers:trigramSim",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/match/scorers:trigramSim",
+      "target": "function:src/match/scorers:normalize",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/match/scorers:trigramSim",
+      "target": "function:src/match/scorers:trigrams",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/match/scorers:combine",
+      "target": "function:src/match/scorers:cosineSim",
+      "type": "no_call",
+      "weight": 0.0
+    },
+    {
+      "source": "function:src/read/planner:planQuery",
+      "target": "function:src/llm/complete:jsonComplete",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/write/conflict:resolveConflict",
+      "target": "function:src/match/engine:match",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/write/entityResolve:resolveEntity",
+      "target": "function:src/match/engine:match",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "interface:src/match/engine:MatchOutcome",
+      "target": "interface:src/match/engine:Scored",
+      "type": "contains",
+      "weight": 0.9
+    }
+  ]
+}

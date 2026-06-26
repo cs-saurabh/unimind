@@ -1,0 +1,335 @@
+{
+  "batchIndex": 7,
+  "batchName": "infrastructure-and-config",
+  "nodes": [
+    {
+      "id": "file:.dockerignore",
+      "type": "file",
+      "name": ".dockerignore",
+      "summary": "Docker build context exclusion patterns for container image optimization",
+      "path": ".dockerignore",
+      "language": "unknown",
+      "sizeLines": 9,
+      "tags": ["docker", "build-config", "optimization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:AGENTS.md",
+      "type": "file",
+      "name": "AGENTS.md",
+      "summary": "Documentation for working with HelixDB agents and the Helix query DSL",
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "sizeLines": 42,
+      "tags": ["documentation", "helix", "agents"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:ARCHITECTURE.mdx",
+      "type": "file",
+      "name": "ARCHITECTURE.mdx",
+      "summary": "Comprehensive architecture documentation describing system design, data flow, and memory layers",
+      "path": "ARCHITECTURE.mdx",
+      "language": "markdown",
+      "sizeLines": 687,
+      "tags": ["documentation", "architecture", "design"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:docker-compose.yml",
+      "type": "file",
+      "name": "docker-compose.yml",
+      "summary": "Docker Compose configuration orchestrating minio, helix, iii engine, worker, and dashboard services",
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "sizeLines": 121,
+      "tags": ["docker", "orchestration", "infrastructure", "devops"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:helix.toml",
+      "type": "file",
+      "name": "helix.toml",
+      "summary": "HelixDB project configuration specifying database name, queries directory, and container runtime",
+      "path": "helix.toml",
+      "language": "toml",
+      "sizeLines": 12,
+      "tags": ["config", "helix", "database"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:memory-system-handoff.md",
+      "type": "file",
+      "name": "memory-system-handoff.md",
+      "summary": "Handoff documentation detailing memory persistence, retrieval, and lifecycle management",
+      "path": "memory-system-handoff.md",
+      "language": "markdown",
+      "sizeLines": 409,
+      "tags": ["documentation", "memory-management", "design"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:package.json",
+      "type": "file",
+      "name": "package.json",
+      "summary": "Node.js project manifest defining dependencies, build scripts, and entry points",
+      "path": "package.json",
+      "language": "json",
+      "sizeLines": 28,
+      "tags": ["package-management", "npm", "scripts"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:tsconfig.json",
+      "type": "file",
+      "name": "tsconfig.json",
+      "summary": "TypeScript compiler configuration for ES2022 target with strict type checking",
+      "path": "tsconfig.json",
+      "language": "json",
+      "sizeLines": 15,
+      "tags": ["typescript", "compiler-config", "type-checking"],
+      "complexity": "simple"
+    },
+    {
+      "id": "concept:infrastructure-layer",
+      "type": "concept",
+      "name": "Infrastructure Layer",
+      "summary": "Docker-based containerized infrastructure with minio (S3), HelixDB (vector/graph), iii (orchestration), and dashboard",
+      "tags": ["infrastructure", "devops", "docker"],
+      "complexity": "high"
+    },
+    {
+      "id": "concept:documentation-set",
+      "type": "concept",
+      "name": "Documentation Set",
+      "summary": "Collection of architecture, agent, and handoff documentation describing system design and operations",
+      "tags": ["documentation", "design", "reference"],
+      "complexity": "medium"
+    },
+    {
+      "id": "concept:build-configuration",
+      "type": "concept",
+      "name": "Build Configuration",
+      "summary": "TypeScript and Docker build configurations for development and deployment",
+      "tags": ["build", "configuration", "devops"],
+      "complexity": "medium"
+    },
+    {
+      "id": "service:minio",
+      "type": "service",
+      "name": "MinIO",
+      "summary": "S3-compatible object storage backend for HelixDB persistence",
+      "tags": ["storage", "s3", "backend"],
+      "complexity": "medium"
+    },
+    {
+      "id": "service:helix",
+      "type": "service",
+      "name": "HelixDB",
+      "summary": "Vector/graph/BM25 memory database backing the memory system",
+      "tags": ["database", "memory", "vector-search"],
+      "complexity": "high"
+    },
+    {
+      "id": "service:iii",
+      "type": "service",
+      "name": "iii Engine",
+      "summary": "Orchestration engine providing queues, functions, and cron scheduling",
+      "tags": ["orchestration", "scheduling", "functions"],
+      "complexity": "high"
+    },
+    {
+      "id": "service:worker",
+      "type": "service",
+      "name": "UniMind Worker",
+      "summary": "Write pipeline and maintenance cron executor connecting to Helix and iii",
+      "tags": ["worker", "pipeline", "maintenance"],
+      "complexity": "high"
+    },
+    {
+      "id": "service:dashboard",
+      "type": "service",
+      "name": "Dashboard",
+      "summary": "Next.js web interface for visualizing and querying memory system state",
+      "tags": ["ui", "dashboard", "visualization"],
+      "complexity": "medium"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:docker-compose.yml",
+      "target": "service:minio",
+      "type": "defines",
+      "weight": 0.95,
+      "label": "minio service definition"
+    },
+    {
+      "source": "file:docker-compose.yml",
+      "target": "service:helix",
+      "type": "defines",
+      "weight": 0.95,
+      "label": "helix service definition"
+    },
+    {
+      "source": "file:docker-compose.yml",
+      "target": "service:iii",
+      "type": "defines",
+      "weight": 0.95,
+      "label": "iii service definition"
+    },
+    {
+      "source": "file:docker-compose.yml",
+      "target": "service:worker",
+      "type": "defines",
+      "weight": 0.95,
+      "label": "worker service definition"
+    },
+    {
+      "source": "file:docker-compose.yml",
+      "target": "service:dashboard",
+      "type": "defines",
+      "weight": 0.95,
+      "label": "dashboard service definition"
+    },
+    {
+      "source": "service:minio",
+      "target": "service:helix",
+      "type": "depends_on",
+      "weight": 0.9,
+      "label": "helix uses minio for storage"
+    },
+    {
+      "source": "service:iii",
+      "target": "service:helix",
+      "type": "depends_on",
+      "weight": 0.8,
+      "label": "iii orchestrates helix operations"
+    },
+    {
+      "source": "service:worker",
+      "target": "service:helix",
+      "type": "depends_on",
+      "weight": 0.95,
+      "label": "worker writes to helix"
+    },
+    {
+      "source": "service:worker",
+      "target": "service:iii",
+      "type": "depends_on",
+      "weight": 0.95,
+      "label": "worker connects to iii"
+    },
+    {
+      "source": "service:dashboard",
+      "target": "service:helix",
+      "type": "depends_on",
+      "weight": 0.85,
+      "label": "dashboard queries helix"
+    },
+    {
+      "source": "service:dashboard",
+      "target": "service:worker",
+      "type": "depends_on",
+      "weight": 0.7,
+      "label": "dashboard reads audit logs"
+    },
+    {
+      "source": "file:helix.toml",
+      "target": "service:helix",
+      "type": "configures",
+      "weight": 0.9,
+      "label": "helix configuration"
+    },
+    {
+      "source": "file:tsconfig.json",
+      "target": "concept:build-configuration",
+      "type": "defines",
+      "weight": 0.9,
+      "label": "typescript settings"
+    },
+    {
+      "source": "file:package.json",
+      "target": "concept:build-configuration",
+      "type": "defines",
+      "weight": 0.9,
+      "label": "npm scripts and dependencies"
+    },
+    {
+      "source": "file:.dockerignore",
+      "target": "concept:build-configuration",
+      "type": "supports",
+      "weight": 0.8,
+      "label": "docker build optimization"
+    },
+    {
+      "source": "file:ARCHITECTURE.mdx",
+      "target": "concept:documentation-set",
+      "type": "contains",
+      "weight": 0.9,
+      "label": "architecture documentation"
+    },
+    {
+      "source": "file:AGENTS.md",
+      "target": "concept:documentation-set",
+      "type": "contains",
+      "weight": 0.8,
+      "label": "agent documentation"
+    },
+    {
+      "source": "file:memory-system-handoff.md",
+      "target": "concept:documentation-set",
+      "type": "contains",
+      "weight": 0.9,
+      "label": "memory system documentation"
+    },
+    {
+      "source": "file:docker-compose.yml",
+      "target": "concept:infrastructure-layer",
+      "type": "defines",
+      "weight": 0.95,
+      "label": "compose orchestration"
+    },
+    {
+      "source": "concept:infrastructure-layer",
+      "target": "service:minio",
+      "type": "contains",
+      "weight": 0.9,
+      "label": "storage component"
+    },
+    {
+      "source": "concept:infrastructure-layer",
+      "target": "service:helix",
+      "type": "contains",
+      "weight": 0.95,
+      "label": "core database"
+    },
+    {
+      "source": "concept:infrastructure-layer",
+      "target": "service:iii",
+      "type": "contains",
+      "weight": 0.9,
+      "label": "orchestration component"
+    },
+    {
+      "source": "concept:infrastructure-layer",
+      "target": "service:worker",
+      "type": "contains",
+      "weight": 0.95,
+      "label": "execution component"
+    },
+    {
+      "source": "concept:infrastructure-layer",
+      "target": "service:dashboard",
+      "type": "contains",
+      "weight": 0.85,
+      "label": "ui component"
+    },
+    {
+      "source": "file:ARCHITECTURE.mdx",
+      "target": "concept:infrastructure-layer",
+      "type": "describes",
+      "weight": 0.85,
+      "label": "architectural details"
+    }
+  ]
+}

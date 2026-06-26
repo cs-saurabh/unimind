@@ -1,0 +1,205 @@
+{
+  "batchIndex": 8,
+  "batchName": "miscellaneous-and-examples",
+  "nodes": [
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "summary": "Patterns for excluding files/directories from codebase analysis",
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "sizeLines": 44,
+      "tags": ["analysis-config", "ignore-patterns"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:docker/worker-entrypoint.sh",
+      "type": "file",
+      "name": "worker-entrypoint.sh",
+      "summary": "Shell entrypoint script for UniMind worker container with health checks and bootstrapping",
+      "path": "docker/worker-entrypoint.sh",
+      "language": "shell",
+      "sizeLines": 24,
+      "tags": ["docker", "entrypoint", "startup"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:docker/worker.Dockerfile",
+      "type": "file",
+      "name": "worker.Dockerfile",
+      "summary": "Dockerfile for building UniMind worker container with Node.js and entrypoint",
+      "path": "docker/worker.Dockerfile",
+      "language": "dockerfile",
+      "sizeLines": 18,
+      "tags": ["docker", "containerization", "build"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:examples/request.json",
+      "type": "file",
+      "name": "request.json",
+      "summary": "Example Helix database query request demonstrating the dynamic JSON query API",
+      "path": "examples/request.json",
+      "language": "json",
+      "sizeLines": 29,
+      "tags": ["example", "helix", "query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:experiments/drift-gate/FINDINGS.md",
+      "type": "file",
+      "name": "FINDINGS.md",
+      "summary": "Research findings and results from the drift-gate classification experiments",
+      "path": "experiments/drift-gate/FINDINGS.md",
+      "language": "markdown",
+      "sizeLines": 95,
+      "tags": ["experiment", "findings", "research"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:experiments/drift-gate/src/extract.ts",
+      "type": "file",
+      "name": "extract.ts",
+      "summary": "Data extraction utilities for preparing experimental datasets from memory traces",
+      "path": "experiments/drift-gate/src/extract.ts",
+      "language": "typescript",
+      "sizeLines": 83,
+      "tags": ["data-extraction", "experiment", "utilities"],
+      "complexity": "medium"
+    },
+    {
+      "id": "dir:docker",
+      "type": "directory",
+      "name": "docker",
+      "summary": "Docker configuration and build scripts for containerized deployment",
+      "tags": ["docker", "infrastructure", "deployment"],
+      "complexity": "medium"
+    },
+    {
+      "id": "dir:examples",
+      "type": "directory",
+      "name": "examples",
+      "summary": "Example configurations and query patterns for using the memory system",
+      "tags": ["examples", "documentation"],
+      "complexity": "simple"
+    },
+    {
+      "id": "dir:experiments/drift-gate",
+      "type": "directory",
+      "name": "drift-gate",
+      "summary": "Experimental module for testing memory drift detection and classification",
+      "tags": ["experiment", "research"],
+      "complexity": "medium"
+    },
+    {
+      "id": "concept:worker-deployment",
+      "type": "concept",
+      "name": "Worker Deployment",
+      "summary": "Docker-based deployment configuration for UniMind worker with health checks and bootstrap",
+      "tags": ["deployment", "docker", "operations"],
+      "complexity": "medium"
+    },
+    {
+      "id": "concept:data-preparation",
+      "type": "concept",
+      "name": "Data Preparation",
+      "summary": "Tools and utilities for extracting and preparing data for experimental evaluation",
+      "tags": ["data-pipeline", "experiments", "utilities"],
+      "complexity": "medium"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:docker/worker.Dockerfile",
+      "target": "dir:docker",
+      "type": "contained_by",
+      "weight": 0.9,
+      "label": "dockerfile in docker directory"
+    },
+    {
+      "source": "file:docker/worker-entrypoint.sh",
+      "target": "dir:docker",
+      "type": "contained_by",
+      "weight": 0.9,
+      "label": "script in docker directory"
+    },
+    {
+      "source": "file:docker/worker.Dockerfile",
+      "target": "file:docker/worker-entrypoint.sh",
+      "type": "references",
+      "weight": 0.95,
+      "label": "sets entrypoint"
+    },
+    {
+      "source": "file:docker/worker-entrypoint.sh",
+      "target": "concept:worker-deployment",
+      "type": "implements",
+      "weight": 0.9,
+      "label": "startup logic"
+    },
+    {
+      "source": "file:docker/worker.Dockerfile",
+      "target": "concept:worker-deployment",
+      "type": "implements",
+      "weight": 0.95,
+      "label": "container build"
+    },
+    {
+      "source": "dir:docker",
+      "target": "concept:worker-deployment",
+      "type": "contains",
+      "weight": 0.95,
+      "label": "deployment configuration"
+    },
+    {
+      "source": "file:examples/request.json",
+      "target": "dir:examples",
+      "type": "contained_by",
+      "weight": 0.9,
+      "label": "example in examples directory"
+    },
+    {
+      "source": "file:experiments/drift-gate/src/extract.ts",
+      "target": "dir:experiments/drift-gate",
+      "type": "contained_by",
+      "weight": 0.9,
+      "label": "extraction module"
+    },
+    {
+      "source": "file:experiments/drift-gate/FINDINGS.md",
+      "target": "dir:experiments/drift-gate",
+      "type": "contained_by",
+      "weight": 0.9,
+      "label": "experiment findings"
+    },
+    {
+      "source": "file:experiments/drift-gate/src/extract.ts",
+      "target": "concept:data-preparation",
+      "type": "implements",
+      "weight": 0.9,
+      "label": "data extraction"
+    },
+    {
+      "source": "file:.understand-anything/.understandignore",
+      "target": "concept:analysis-configuration",
+      "type": "defines",
+      "weight": 0.85,
+      "label": "analysis scope"
+    },
+    {
+      "source": "file:examples/request.json",
+      "target": "concept:documentation",
+      "type": "demonstrates",
+      "weight": 0.8,
+      "label": "query example"
+    },
+    {
+      "source": "file:experiments/drift-gate/FINDINGS.md",
+      "target": "concept:research-outcomes",
+      "type": "documents",
+      "weight": 0.9,
+      "label": "experiment results"
+    }
+  ]
+}

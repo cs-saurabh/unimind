@@ -1,24 +1,4 @@
 {
-  "version": "1.0.0",
-  "project": {
-    "name": "unimind",
-    "languages": [
-      "TypeScript",
-      "Dockerfile",
-      "JSON",
-      "YAML",
-      "Shell",
-      "Markdown",
-      "TOML"
-    ],
-    "frameworks": [
-      "Docker",
-      "Docker Compose"
-    ],
-    "description": "A long-term memory system for Claude Code. Hooks capture conversational events; an asynchronous pipeline extracts durable facts, classifies them, resolves the entities they mention, and stores them in HelixDB. On future prompts a fast synchronous path retrieves relevant memories and injects them into Claude's context.",
-    "analyzedAt": "2026-06-26T15:55:17.043Z",
-    "gitCommitHash": "6fba8407f50a4afa3595658fd0661c87be5c7b52"
-  },
   "nodes": [
     {
       "id": "file:src/config.ts",
@@ -2430,70 +2410,70 @@
       "source": "function:src/db/entities:createEntity",
       "target": "function:src/db/client:writeWithRetry",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/db/entities:addAliases",
       "target": "function:src/db/client:writeWithRetry",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/db/memories:persistMemory",
       "target": "function:src/db/client:writeWithRetry",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/db/memories:supersede",
       "target": "function:src/db/client:writeWithRetry",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/db/memories:linkExtends",
       "target": "function:src/db/client:writeWithRetry",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/db/memories:setGoalStatus",
       "target": "function:src/db/client:writeWithRetry",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/db/memories:bumpMemories",
       "target": "function:src/db/client:writeWithRetry",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/maintain/erRepair:detectDuplicates",
       "target": "function:src/maintain/erRepair:allEntities",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/maintain/erRepair:erRepairSweep",
       "target": "function:src/maintain/erRepair:detectDuplicates",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/maintain/erRepair:erRepairSweep",
       "target": "function:src/maintain/erRepair:mergeEntities",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
@@ -2654,14 +2634,14 @@
       "source": "class:src/write/buffer:FileBufferStore",
       "target": "file:interface:src/write/buffer:BufferStore",
       "type": "implements",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "class:src/write/buffer:MemoryBufferStore",
       "target": "file:interface:src/write/buffer:BufferStore",
       "type": "implements",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
@@ -2675,42 +2655,42 @@
       "source": "function:src/write/ingest:ingestTurn",
       "target": "function:src/write/salience:salienceGate",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/write/ingest:ingestTurn",
       "target": "function:src/write/buffer:flushReason",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/write/ingest:ingestTurn",
       "target": "function:src/write/pipeline:flushSession",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/write/remember:remember",
       "target": "class:src/write/buffer:MemoryBufferStore",
       "type": "uses",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/write/remember:remember",
       "target": "function:src/write/pipeline:flushSession",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/write/salience:salienceGate",
       "target": "file:interface:src/write/salience:SalienceVerdict",
       "type": "returns",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
@@ -2857,105 +2837,105 @@
       "source": "function:src/db/retrieve:recall",
       "target": "function:src/db/retrieve:similarMemories",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/db/retrieve:recall",
       "target": "function:src/db/retrieve:relationalFacts",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/db/retrieve:recall",
       "target": "function:src/db/retrieve:validateEntities",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/read/rank:rankMemories",
       "target": "function:src/read/rank:scoreRow",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/read/rank:scoreRow",
       "target": "function:src/read/rank:recencyDecay",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/read/readPath:readPath",
       "target": "function:src/read/rank:rankMemories",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/read/readPath:readPath",
       "target": "function:src/read/header:buildHeader",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/read/readPath:readPath",
       "target": "function:src/db/retrieve:recall",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/read/readPath:readPath",
       "target": "function:src/db/memories:bumpMemories",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/read/readPath:readPath",
       "target": "function:src/llm/embed:embedOne",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/read/readPath:readPath",
       "target": "function:src/db/retrieve:validateEntities",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "file:interface:src/read/rank:RankedMemory",
       "target": "file:interface:src/db/retrieve:RecallRow",
       "type": "extends",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "file:src/llm/complete.ts",
       "target": "file:src/config.ts",
       "type": "no_import",
-      "weight": 0,
+      "weight": 0.0,
       "direction": "forward"
     },
     {
       "source": "file:src/match/engine.ts",
       "target": "file:src/llm/complete.ts",
       "type": "no_import",
-      "weight": 0,
+      "weight": 0.0,
       "direction": "forward"
     },
     {
       "source": "file:src/match/scorers.ts",
       "target": "file:src/config.ts",
       "type": "no_import",
-      "weight": 0,
+      "weight": 0.0,
       "direction": "forward"
     },
     {
@@ -3067,70 +3047,70 @@
       "source": "function:src/match/engine:match",
       "target": "file:interface:src/match/engine:MatchConfig",
       "type": "uses",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/match/engine:match",
       "target": "file:interface:src/match/engine:MatchOutcome",
       "type": "returns",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/match/scorers:bestAliasSim",
       "target": "function:src/match/scorers:normalize",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/match/scorers:bestAliasSim",
       "target": "function:src/match/scorers:trigramSim",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/match/scorers:trigramSim",
       "target": "function:src/match/scorers:normalize",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/match/scorers:trigramSim",
       "target": "function:src/match/scorers:trigrams",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/match/scorers:combine",
       "target": "function:src/match/scorers:cosineSim",
       "type": "no_call",
-      "weight": 0,
+      "weight": 0.0,
       "direction": "forward"
     },
     {
       "source": "function:src/read/planner:planQuery",
       "target": "function:src/llm/complete:jsonComplete",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/write/conflict:resolveConflict",
       "target": "function:src/match/engine:match",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
       "source": "function:src/write/entityResolve:resolveEntity",
       "target": "function:src/match/engine:match",
       "type": "calls",
-      "weight": 1,
+      "weight": 1.0,
       "direction": "forward"
     },
     {
@@ -3835,492 +3815,6 @@
       "direction": "forward",
       "weight": 0.7,
       "recoveredFromImportMap": true
-    }
-  ],
-  "layers": [
-    {
-      "id": "layer:hooks",
-      "name": "Hooks & Events",
-      "description": "Lifecycle hooks for capturing, emitting, injecting, and silencing events in the memory pipeline. Enables extensible event flow and integration points.",
-      "nodeIds": [
-        "file:dir:src/hooks",
-        "file:src/hooks/capture.ts",
-        "file:src/hooks/emit.ts",
-        "file:src/hooks/inject.ts",
-        "file:src/hooks/silence.ts",
-        "function:emitTurnEvent",
-        "function:writeStdout",
-        "concept:hook-system",
-        "concept:event-flow"
-      ]
-    },
-    {
-      "id": "layer:orchestration",
-      "name": "Orchestration & Workers",
-      "description": "iii engine integration providing queue functions, cron scheduling, and background job orchestration. Worker registration and maintenance sweep coordination.",
-      "nodeIds": [
-        "file:src/iii/worker.ts",
-        "file:src/iii/drive.ts",
-        "file:src/iii/drive_sync.ts",
-        "function:src/iii/worker:main body",
-        "function:src/iii/drive:main",
-        "function:src/iii/drive:memCount",
-        "function:src/iii/drive:wipe",
-        "function:src/iii/drive_sync:main"
-      ]
-    },
-    {
-      "id": "layer:write-pipeline",
-      "name": "Write Pipeline",
-      "description": "Complete write path from ingest through extraction, entity resolution, conflict resolution, and persistence. Includes buffering, salience gating, and session management.",
-      "nodeIds": [
-        "file:src/write/ingest.ts",
-        "file:src/write/buffer.ts",
-        "file:src/write/salience.ts",
-        "file:src/write/extract.ts",
-        "file:src/write/pipeline.ts",
-        "file:src/write/entityResolve.ts",
-        "file:src/write/conflict.ts",
-        "file:src/write/remember.ts",
-        "file:src/write/types.ts",
-        "file:src/write/e2e.ts",
-        "function:src/write/ingest:ingestTurn",
-        "function:src/write/buffer:flushReason",
-        "function:src/write/salience:salienceGate",
-        "function:src/write/pipeline:flushSession",
-        "function:src/write/remember:remember",
-        "function:src/write/conflict:resolveConflict",
-        "function:src/write/entityResolve:resolveEntity",
-        "file:interface:src/write/ingest:IngestResult",
-        "file:interface:src/write/buffer:FlushConfig",
-        "file:interface:src/write/buffer:BufferStore",
-        "class:src/write/buffer:FileBufferStore",
-        "class:src/write/buffer:MemoryBufferStore",
-        "file:interface:src/write/salience:SalienceVerdict",
-        "file:interface:src/write/types:TurnEvent",
-        "file:interface:src/write/types:BufferedTurn",
-        "file:interface:src/write/types:SessionBuffer",
-        "file:interface:src/write/types:CandidateMemory",
-        "file:interface:src/write/types:MentionCluster",
-        "file:interface:src/write/types:ExtractionResult",
-        "file:type:src/write/types:FlushReason",
-        "file:const:src/write/buffer:DEFAULT_FLUSH",
-        "file:const:src/write/salience:COMMIT",
-        "file:const:src/write/salience:PREFERENCE",
-        "file:const:src/write/salience:GOAL",
-        "file:const:src/write/salience:ASSERTION",
-        "file:const:src/write/salience:NEGATIVE_FILLER",
-        "file:const:src/write/salience:NAMED",
-        "file:interface:src/write/pipeline:FlushSummary"
-      ]
-    },
-    {
-      "id": "layer:read-pipeline",
-      "name": "Read Pipeline",
-      "description": "Complete read path from query planning through embedding, entity validation, parallel recall, ranking, and header building. Injects context into prompts.",
-      "nodeIds": [
-        "file:src/read/planner.ts",
-        "file:src/read/readPath.ts",
-        "file:src/read/recall.ts",
-        "file:src/read/rank.ts",
-        "file:src/read/header.ts",
-        "file:src/read/e2e.ts",
-        "function:src/read/planner:planQuery",
-        "function:src/read/readPath:readPath",
-        "function:src/read/recall:recall",
-        "function:src/read/rank:rankMemories",
-        "function:src/read/rank:scoreRow",
-        "function:src/read/rank:recencyDecay",
-        "function:src/read/header:buildHeader",
-        "function:src/read/e2e:main",
-        "file:interface:src/read/readPath:ReadResult",
-        "file:interface:src/read/rank:RankedMemory",
-        "file:const:src/read/rank:TYPE_PRIORITY",
-        "file:const:src/read/rank:HALF_LIFE_DAYS"
-      ]
-    },
-    {
-      "id": "layer:matching",
-      "name": "Matching & Scoring",
-      "description": "Reusable matching engine for entity linking and conflict resolution. Deterministic scoring primitives with LLM adjudication for gray-band decisions.",
-      "nodeIds": [
-        "file:src/match/engine.ts",
-        "file:src/match/scorers.ts",
-        "file:src/match/engine.test.ts",
-        "function:src/match/engine:match",
-        "function:src/match/scorers:cosineSim",
-        "function:src/match/scorers:distanceToSim",
-        "function:src/match/scorers:normalize",
-        "function:src/match/scorers:trigrams",
-        "function:src/match/scorers:trigramSim",
-        "function:src/match/scorers:bestAliasSim",
-        "function:src/match/scorers:combine",
-        "file:interface:src/match/engine:Scored",
-        "file:interface:src/match/engine:MatchOutcome",
-        "file:interface:src/match/engine:MatchConfig",
-        "file:type:src/match/engine:Band"
-      ]
-    },
-    {
-      "id": "layer:maintenance",
-      "name": "Maintenance & Sweeps",
-      "description": "Background maintenance jobs for entity deduplication, memory decay, garbage collection, and contextual expiration. Keeps memory graph healthy.",
-      "nodeIds": [
-        "file:src/maintain/sweeps.ts",
-        "file:src/maintain/erRepair.ts",
-        "function:src/maintain/sweeps:decaySweep",
-        "function:src/maintain/sweeps:forgetSweep",
-        "function:src/maintain/sweeps:expireContextual",
-        "function:src/maintain/erRepair:allEntities",
-        "function:src/maintain/erRepair:detectDuplicates",
-        "function:src/maintain/erRepair:mergeEntities",
-        "function:src/maintain/erRepair:erRepairSweep",
-        "file:interface:src/maintain/erRepair:DuplicatePair"
-      ]
-    },
-    {
-      "id": "layer:persistence",
-      "name": "Persistence & Database",
-      "description": "Data access layer for Helix operations. Manages entities, memories, retrieval queries, schema, and database client with retry logic.",
-      "nodeIds": [
-        "file:src/db/client.ts",
-        "file:src/db/schema.ts",
-        "file:src/db/entities.ts",
-        "file:src/db/memories.ts",
-        "file:src/db/retrieve.ts",
-        "file:src/db/bootstrap.ts",
-        "file:src/db/smoke.ts",
-        "function:src/db/client:writeWithRetry",
-        "function:src/db/entities:searchEntityCandidates",
-        "function:src/db/entities:createEntity",
-        "function:src/db/entities:addAliases",
-        "function:src/db/memories:persistMemory",
-        "function:src/db/memories:supersede",
-        "function:src/db/memories:linkExtends",
-        "function:src/db/memories:setGoalStatus",
-        "function:src/db/memories:bumpMemories",
-        "function:src/db/memories:decayFor",
-        "function:src/db/retrieve:recall",
-        "function:src/db/retrieve:similarMemories",
-        "function:src/db/retrieve:relationalFacts",
-        "function:src/db/retrieve:validateEntities",
-        "function:src/db/retrieve:current",
-        "function:src/db/retrieve:liveCurrent",
-        "function:src/db/retrieve:notExpired",
-        "function:src/db/bootstrap:bootstrapIndexes",
-        "function:src/db/bootstrap:main",
-        "function:src/db/smoke:cleanup",
-        "function:src/db/smoke:main",
-        "file:const:src/db/client:helix",
-        "file:interface:src/db/entities:EntityCandidate",
-        "file:interface:src/db/memories:PersistInput",
-        "file:interface:src/db/schema:EntityNode",
-        "file:interface:src/db/schema:MemoryNode",
-        "file:interface:src/db/retrieve:RecallRow",
-        "file:const:src/db/schema:L",
-        "file:const:src/db/schema:E",
-        "file:type:src/db/schema:PrimaryType",
-        "file:type:src/db/schema:EntityType",
-        "function:src/db/schema:normalizeKey",
-        "file:const:src/db/retrieve:MEM_PROJ",
-        "file:const:src/db/retrieve:MEM_PROJ_DIST"
-      ]
-    },
-    {
-      "id": "layer:llm-integration",
-      "name": "LLM Integration",
-      "description": "LLM client abstractions for structured completions and embeddings. Supports memory extraction, entity linking, conflict resolution, and query planning.",
-      "nodeIds": [
-        "file:src/llm/complete.ts",
-        "file:src/llm/embed.ts",
-        "function:src/llm/complete:jsonComplete",
-        "function:src/llm/complete:loadEnv",
-        "function:src/llm/embed:embed",
-        "function:src/llm/embed:embedOne",
-        "function:src/llm/embed:loadEnv",
-        "file:const:src/llm/complete:HOT_MODEL"
-      ]
-    },
-    {
-      "id": "layer:interfaces",
-      "name": "Interfaces & Integration",
-      "description": "MCP server exposing read and write paths as tools. Primary integration point for external systems and Claude.",
-      "nodeIds": [
-        "file:src/mcp/server.ts",
-        "function:src/mcp/server:main body"
-      ]
-    },
-    {
-      "id": "layer:infrastructure",
-      "name": "Infrastructure & DevOps",
-      "description": "Docker-based containerized infrastructure with orchestration. Includes configuration, build system, and service definitions.",
-      "nodeIds": [
-        "file:docker-compose.yml",
-        "file:docker/worker.Dockerfile",
-        "file:docker/worker-entrypoint.sh",
-        "file:dir:docker",
-        "file:.dockerignore",
-        "file:helix.toml",
-        "file:tsconfig.json",
-        "file:package.json",
-        "file:src/config.ts",
-        "file:const:src/config:TENANT_ID",
-        "file:const:src/config:USER_ID",
-        "file:const:src/config:HELIX_URL",
-        "file:const:src/config:EMBED_MODEL",
-        "file:const:src/config:EMBED_DIM",
-        "service:minio",
-        "service:helix",
-        "service:iii",
-        "service:worker",
-        "service:dashboard",
-        "concept:infrastructure-layer",
-        "concept:worker-deployment",
-        "concept:build-configuration"
-      ]
-    },
-    {
-      "id": "layer:documentation-research",
-      "name": "Documentation & Research",
-      "description": "Architecture documentation, agent guides, handoff notes, and experimental research modules. Includes drift-gate classification experiments.",
-      "nodeIds": [
-        "file:ARCHITECTURE.mdx",
-        "file:AGENTS.md",
-        "file:memory-system-handoff.md",
-        "file:.understand-anything/.understandignore",
-        "file:examples/request.json",
-        "file:dir:examples",
-        "file:dir:experiments/drift-gate",
-        "file:experiments/drift-gate/src/classify.ts",
-        "file:experiments/drift-gate/src/eval.ts",
-        "file:experiments/drift-gate/src/label.ts",
-        "file:experiments/drift-gate/src/openai.ts",
-        "file:experiments/drift-gate/src/extract.ts",
-        "file:experiments/drift-gate/FINDINGS.md",
-        "concept:drift-gate",
-        "concept:classification-engine",
-        "concept:documentation-set",
-        "concept:data-preparation"
-      ]
-    }
-  ],
-  "tour": [
-    {
-      "order": 1,
-      "title": "Project Overview & Repository Structure",
-      "description": "Start with the high-level project structure and key documentation. Learn what UniMind is, its core purpose as a memory system, and explore the project organization. This sets the foundation for understanding everything that follows.",
-      "nodeIds": [
-        "file:README.md",
-        "file:ARCHITECTURE.mdx",
-        "file:memory-system-handoff.md",
-        "file:package.json",
-        "file:tsconfig.json"
-      ]
-    },
-    {
-      "order": 2,
-      "title": "Infrastructure & Services Layer",
-      "description": "Understand the Docker-based containerized infrastructure that powers UniMind. Learn about the five core services: MinIO (object storage), HelixDB (vector/graph database), iii (orchestration engine), UniMind Worker (pipeline executor), and the Dashboard (UI). Explore how these services interact and depend on each other.",
-      "nodeIds": [
-        "file:docker-compose.yml",
-        "file:helix.toml",
-        "file:docker/worker.Dockerfile",
-        "file:docker/worker-entrypoint.sh",
-        "service:minio",
-        "service:helix",
-        "service:iii",
-        "service:worker",
-        "service:dashboard",
-        "concept:infrastructure-layer"
-      ]
-    },
-    {
-      "order": 3,
-      "title": "Database Schema & Core Data Models",
-      "description": "Learn the fundamental schema that underpins the entire memory system. Understand node labels (Entity, Memory, Category, Session), edge types (MENTIONS, REL, UPDATES, EXTENDS), memory types (EPISODIC, SEMANTIC, PROCEDURAL, CONTEXTUAL, GOAL), and entity types. This is the vocabulary of the memory graph.",
-      "nodeIds": [
-        "file:src/db/schema.ts",
-        "file:interface:src/db/schema:EntityNode",
-        "file:interface:src/db/schema:MemoryNode",
-        "file:const:src/db/schema:L",
-        "file:const:src/db/schema:E",
-        "file:type:src/db/schema:PrimaryType",
-        "file:type:src/db/schema:EntityType",
-        "file:src/config.ts"
-      ]
-    },
-    {
-      "order": 4,
-      "title": "Database Client & Write Primitives",
-      "description": "Understand how the application communicates with HelixDB. Learn the singleton client pattern, retry logic with exponential backoff for handling conflicts, and the low-level write operations. This is the foundation for all data persistence.",
-      "nodeIds": [
-        "file:src/db/client.ts",
-        "function:src/db/client:helix",
-        "function:src/db/client:writeWithRetry",
-        "file:src/db/bootstrap.ts",
-        "function:src/db/bootstrap:bootstrapIndexes",
-        "file:src/db/entities.ts",
-        "function:src/db/entities:createEntity",
-        "function:src/db/entities:addAliases",
-        "file:src/db/memories.ts",
-        "function:src/db/memories:persistMemory",
-        "function:src/db/memories:supersede",
-        "function:src/db/memories:linkExtends"
-      ]
-    },
-    {
-      "order": 5,
-      "title": "Write Pipeline: Ingest, Buffer & Salience Gating",
-      "description": "Trace how user interactions (turns) flow into the memory system. Learn the ingest handler that receives turns, the salience gate that pre-filters for importance using cheap heuristics (no LLM), and the session-window buffer that batches turns before extraction. Understand flush triggers: max turns, topic shifts, boundaries, and time caps.",
-      "nodeIds": [
-        "file:src/write/types.ts",
-        "file:interface:src/write/types:TurnEvent",
-        "file:interface:src/write/types:BufferedTurn",
-        "file:interface:src/write/types:SessionBuffer",
-        "file:src/write/salience.ts",
-        "function:src/write/salience:salienceGate",
-        "file:const:src/write/salience:COMMIT",
-        "file:const:src/write/salience:PREFERENCE",
-        "file:const:src/write/salience:GOAL",
-        "file:src/write/buffer.ts",
-        "function:src/write/buffer:flushReason",
-        "class:src/write/buffer:FileBufferStore",
-        "file:src/write/ingest.ts",
-        "function:src/write/ingest:ingestTurn"
-      ]
-    },
-    {
-      "order": 6,
-      "title": "Write Pipeline: Extraction & Embedding",
-      "description": "Understand the orchestrated flush pipeline that transforms buffered conversations into structured memories. Learn how the extraction worker calls Claude to decompose session windows into semantic chunks with types and confidence scores. See how memories are embedded using OpenAI's text-embedding-3-small model. Understand the FlushSummary that tracks all operations.",
-      "nodeIds": [
-        "file:src/write/extract.ts",
-        "file:const:src/write/extract:SYSTEM",
-        "function:src/write/extract:renderWindow",
-        "file:interface:src/write/types:CandidateMemory",
-        "file:interface:src/write/types:ExtractionResult",
-        "file:src/llm/embed.ts",
-        "function:src/llm/embed:embed",
-        "function:src/llm/embed:embedOne",
-        "file:src/write/pipeline.ts",
-        "function:src/write/pipeline:flushSession",
-        "file:interface:src/write/pipeline:FlushSummary"
-      ]
-    },
-    {
-      "order": 7,
-      "title": "Entity Resolution & Matching Engine",
-      "description": "Learn how extracted entity mentions are linked to canonical entities or created as new ones. Understand the core matching engine: block phase (cheap candidate filtering), score phase (deterministic similarity), band decision (match/gray/no_match), and LLM adjudication (only for gray band). Explore deterministic scorers: cosine similarity, trigram matching, alias similarity, and weighted combination.",
-      "nodeIds": [
-        "file:src/match/engine.ts",
-        "function:src/match/engine:match",
-        "file:interface:src/match/engine:MatchConfig",
-        "file:interface:src/match/engine:MatchOutcome",
-        "file:type:src/match/engine:Band",
-        "file:src/match/scorers.ts",
-        "function:src/match/scorers:cosineSim",
-        "function:src/match/scorers:trigramSim",
-        "function:src/match/scorers:bestAliasSim",
-        "function:src/match/scorers:combine",
-        "file:src/write/entityResolve.ts",
-        "function:src/write/entityResolve:resolveEntity",
-        "file:src/db/entities.ts",
-        "function:src/db/entities:searchEntityCandidates"
-      ]
-    },
-    {
-      "order": 8,
-      "title": "Conflict Resolution & Memory Lifecycle",
-      "description": "Understand how the system handles updates to existing memories. Learn conflict resolution: detecting when extracted memory conflicts with existing memory via the matching engine, then deciding to reinforce (bump weight), supersede (replace with correction), extend (add new relation), or create as new. Explore memory lifecycle: persistent vs contextual, decay policies, and validity windows (validFrom/validTo).",
-      "nodeIds": [
-        "file:src/write/conflict.ts",
-        "function:src/write/conflict:resolveConflict",
-        "file:src/db/memories.ts",
-        "function:src/db/memories:supersede",
-        "function:src/db/memories:linkExtends",
-        "function:src/db/memories:bumpMemories",
-        "function:src/db/memories:decayFor",
-        "file:interface:src/db/memories:PersistInput"
-      ]
-    },
-    {
-      "order": 9,
-      "title": "Read Pipeline: Query Planning & Retrieval",
-      "description": "Trace how queries (prompts) are processed to retrieve relevant memories. Learn query planning: LLM decomposes prompt into topics and entity references, detects topic shifts. Understand parallel retrieval: vector search for similarity, BM25 for keyword matching, and direct procedural/goal/contextual lookups. Explore ranking: composite score combining similarity, recency decay, weight, and type priority within token budget.",
-      "nodeIds": [
-        "file:src/read/planner.ts",
-        "function:src/read/planner:planQuery",
-        "file:src/db/retrieve.ts",
-        "function:src/db/retrieve:recall",
-        "function:src/db/retrieve:similarMemories",
-        "function:src/db/retrieve:relationalFacts",
-        "file:interface:src/db/retrieve:RecallRow",
-        "file:src/read/rank.ts",
-        "function:src/read/rank:rankMemories",
-        "function:src/read/rank:scoreRow",
-        "function:src/read/rank:recencyDecay",
-        "file:const:src/read/rank:TYPE_PRIORITY",
-        "file:const:src/read/rank:HALF_LIFE_DAYS"
-      ]
-    },
-    {
-      "order": 10,
-      "title": "Read Pipeline: Context Injection & Integration",
-      "description": "Complete the read path by understanding how memories are transformed into injected context. Learn header building: composing additionalContext from goals, contextual, relations, and ranked memories within token budget. Explore how memories are reinforced (bumped) after use. Understand MCP server integration that exposes read/write tools to Claude Code. See test patterns in e2e tests that validate the entire pipeline.",
-      "nodeIds": [
-        "file:src/read/header.ts",
-        "function:src/read/header:buildHeader",
-        "file:src/read/readPath.ts",
-        "function:src/read/readPath:readPath",
-        "file:interface:src/read/readPath:ReadResult",
-        "file:src/read/recall.ts",
-        "function:src/read/recall:recall",
-        "file:src/mcp/server.ts",
-        "function:src/mcp/server:main",
-        "file:src/write/remember.ts",
-        "function:src/write/remember:remember",
-        "file:src/read/e2e.ts",
-        "function:src/read/e2e:main",
-        "file:src/write/e2e.ts",
-        "function:src/write/e2e:main"
-      ]
-    },
-    {
-      "order": 11,
-      "title": "Maintenance, Repair & Background Operations",
-      "description": "Learn how the system maintains itself over time. Understand decay sweep: progressively weakens unused memories. Explore forget sweep: soft-deletes weak/stale non-procedural memories. Learn expire sweep: physically drops CONTEXTUAL memories whose TTL has passed. Understand entity-resolution repair: detects and merges duplicate entities by embedding+alias similarity. See how iii worker orchestrates all background jobs via cron and message queues.",
-      "nodeIds": [
-        "file:src/maintain/sweeps.ts",
-        "function:src/maintain/sweeps:decaySweep",
-        "function:src/maintain/sweeps:forgetSweep",
-        "function:src/maintain/sweeps:expireContextual",
-        "file:src/maintain/erRepair.ts",
-        "function:src/maintain/erRepair:detectDuplicates",
-        "function:src/maintain/erRepair:mergeEntities",
-        "function:src/maintain/erRepair:erRepairSweep",
-        "file:src/iii/worker.ts",
-        "function:src/iii/worker:main body"
-      ]
-    },
-    {
-      "order": 12,
-      "title": "Hooks & External Integration",
-      "description": "Explore the extensible hook system that connects UniMind to external systems. Understand four phases: capture (logging turn events), emit (sending to external integrations), inject (providing state to read path), silence (suppressing output). Learn how bidirectional event flow enables integration with Claude Code and other tools. See practical examples in integration drivers.",
-      "nodeIds": [
-        "file:dir:src/hooks",
-        "file:src/hooks/capture.ts",
-        "file:src/hooks/emit.ts",
-        "function:emitTurnEvent",
-        "file:src/hooks/inject.ts",
-        "file:src/hooks/silence.ts",
-        "function:writeStdout",
-        "concept:hook-system",
-        "concept:event-flow",
-        "file:src/iii/drive.ts",
-        "function:src/iii/drive:main",
-        "file:src/iii/drive_sync.ts",
-        "function:src/iii/drive_sync:main"
-      ]
     }
   ]
 }

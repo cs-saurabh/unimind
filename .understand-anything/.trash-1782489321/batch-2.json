@@ -1,0 +1,530 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/iii/worker.ts",
+      "type": "file",
+      "name": "worker.ts",
+      "summary": "iii worker orchestration backbone for write path - registers queue functions, cron jobs, audit infrastructure",
+      "tags": ["orchestration", "worker", "queue", "maintenance"],
+      "complexity": "high"
+    },
+    {
+      "id": "function:src/iii/worker:main",
+      "type": "function",
+      "name": "main body",
+      "summary": "Worker entry point: initializes audit system, registers ingest/flush/sweep/maintenance functions",
+      "tags": ["orchestration"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:src/read/e2e.ts",
+      "type": "file",
+      "name": "e2e.ts",
+      "summary": "Read-path e2e test - seeds memories via write pipeline, runs read path with prompt, validates header injection",
+      "tags": ["test", "e2e", "validation"],
+      "complexity": "high"
+    },
+    {
+      "id": "function:src/read/e2e:main",
+      "type": "function",
+      "name": "main",
+      "summary": "E2E read test: ingests turns, flushes, reads with prompt, validates injected header",
+      "tags": ["test", "e2e"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:src/write/buffer.ts",
+      "type": "file",
+      "name": "buffer.ts",
+      "summary": "Session-window buffer + flush-trigger logic - tracks buffered turns, decides when to flush",
+      "tags": ["buffering", "session", "write"],
+      "complexity": "medium"
+    },
+    {
+      "id": "interface:src/write/buffer:FlushConfig",
+      "type": "interface",
+      "name": "FlushConfig",
+      "summary": "Configuration for flush triggers: maxTurns, timeCapMs",
+      "tags": ["config", "buffer"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/write/buffer:DEFAULT_FLUSH",
+      "type": "constant",
+      "name": "DEFAULT_FLUSH",
+      "summary": "Default flush config: 8 turns, 15 minute time cap",
+      "tags": ["config", "buffer"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/write/buffer:flushReason",
+      "type": "function",
+      "name": "flushReason",
+      "summary": "Pure function determining if buffer should flush (topic_shift, boundary, size, time_cap)",
+      "tags": ["buffer", "trigger"],
+      "complexity": "simple"
+    },
+    {
+      "id": "interface:src/write/buffer:BufferStore",
+      "type": "interface",
+      "name": "BufferStore",
+      "summary": "Abstract store for session buffers with get/append/clear/list operations",
+      "tags": ["interface", "storage"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/write/buffer:FileBufferStore",
+      "type": "class",
+      "name": "FileBufferStore",
+      "summary": "File-backed buffer store using JSON files, durable across hook processes",
+      "tags": ["storage", "durable"],
+      "complexity": "medium"
+    },
+    {
+      "id": "class:src/write/buffer:MemoryBufferStore",
+      "type": "class",
+      "name": "MemoryBufferStore",
+      "summary": "In-memory buffer store for tests",
+      "tags": ["storage", "test"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/write/e2e.ts",
+      "type": "file",
+      "name": "e2e.ts",
+      "summary": "Write-path e2e test - feeds prompts through ingest, forces flush, verifies Helix persistence",
+      "tags": ["test", "e2e", "validation"],
+      "complexity": "high"
+    },
+    {
+      "id": "function:src/write/e2e:dumpTenant",
+      "type": "function",
+      "name": "dumpTenant",
+      "summary": "Queries all memories and entities for inspection",
+      "tags": ["test", "query"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/write/e2e:wipeTenant",
+      "type": "function",
+      "name": "wipeTenant",
+      "summary": "Clears all entities and memories for the test tenant",
+      "tags": ["test"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/write/e2e:main",
+      "type": "function",
+      "name": "main",
+      "summary": "E2E write test: runs ingest pipeline, dumps extracted memories/entities for validation",
+      "tags": ["test", "e2e"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:src/write/extract.ts",
+      "type": "file",
+      "name": "extract.ts",
+      "summary": "Extraction worker - calls LLM to extract durable memories from buffered session window",
+      "tags": ["extraction", "llm"],
+      "complexity": "high"
+    },
+    {
+      "id": "const:src/write/extract:SYSTEM",
+      "type": "constant",
+      "name": "SYSTEM",
+      "summary": "System prompt for memory extraction LLM - defines memory types, extraction rules",
+      "tags": ["llm", "prompt"],
+      "complexity": "medium"
+    },
+    {
+      "id": "function:src/write/extract:renderWindow",
+      "type": "function",
+      "name": "renderWindow",
+      "summary": "Renders buffered session window into prompt text with project and turn context",
+      "tags": ["extraction", "prompt"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/write/ingest.ts",
+      "type": "file",
+      "name": "ingest.ts",
+      "summary": "Ingest handler - salience gate, buffer, flush-trigger check for write path",
+      "tags": ["write", "gate", "buffer"],
+      "complexity": "medium"
+    },
+    {
+      "id": "interface:src/write/ingest:IngestResult",
+      "type": "interface",
+      "name": "IngestResult",
+      "summary": "Result of ingesting a turn: buffered flag, signals, optional flush summary",
+      "tags": ["write"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/write/ingest:ingestTurn",
+      "type": "function",
+      "name": "ingestTurn",
+      "summary": "Main ingest function: runs salience gate, appends to buffer, checks flush triggers",
+      "tags": ["write", "gate"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:src/write/pipeline.ts",
+      "type": "file",
+      "name": "pipeline.ts",
+      "summary": "Flush orchestration - extract → embed → entity resolve → conflict resolve → persist → clear",
+      "tags": ["pipeline", "write"],
+      "complexity": "high"
+    },
+    {
+      "id": "interface:src/write/pipeline:FlushSummary",
+      "type": "interface",
+      "name": "FlushSummary",
+      "summary": "Result of flushing: sessionId, reason, counts of written/reinforced/superseded/created/linked",
+      "tags": ["write"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/write/pipeline:flushSession",
+      "type": "function",
+      "name": "flushSession",
+      "summary": "Orchestrates full flush: extract → embed → entity-resolve → conflict → persist → clear buffer",
+      "tags": ["pipeline", "write"],
+      "complexity": "high"
+    },
+    {
+      "id": "file:src/write/remember.ts",
+      "type": "file",
+      "name": "remember.ts",
+      "summary": "On-demand memory write - runs explicit statement through same pipeline as background capture",
+      "tags": ["write", "skill", "user-facing"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/write/remember:remember",
+      "type": "function",
+      "name": "remember",
+      "summary": "User-facing skill to explicitly remember a statement via the full write pipeline",
+      "tags": ["write", "skill"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:src/write/salience.ts",
+      "type": "file",
+      "name": "salience.ts",
+      "summary": "Per-turn salience gate - cheap heuristic (no LLM) to pre-filter turns for buffering",
+      "tags": ["gate", "heuristic"],
+      "complexity": "medium"
+    },
+    {
+      "id": "interface:src/write/salience:SalienceVerdict",
+      "type": "interface",
+      "name": "SalienceVerdict",
+      "summary": "Gate verdict: pass flag, score 0..1, list of signals",
+      "tags": ["gate"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/write/salience:COMMIT",
+      "type": "constant",
+      "name": "COMMIT",
+      "summary": "Regex pattern for commitment signals",
+      "tags": ["salience"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/write/salience:PREFERENCE",
+      "type": "constant",
+      "name": "PREFERENCE",
+      "summary": "Regex pattern for preference signals",
+      "tags": ["salience"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/write/salience:GOAL",
+      "type": "constant",
+      "name": "GOAL",
+      "summary": "Regex pattern for goal/deadline signals",
+      "tags": ["salience"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/write/salience:ASSERTION",
+      "type": "constant",
+      "name": "ASSERTION",
+      "summary": "Regex pattern for assertion signals",
+      "tags": ["salience"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/write/salience:NEGATIVE_FILLER",
+      "type": "constant",
+      "name": "NEGATIVE_FILLER",
+      "summary": "Regex pattern for trivial acknowledgements to drop",
+      "tags": ["salience"],
+      "complexity": "simple"
+    },
+    {
+      "id": "const:src/write/salience:NAMED",
+      "type": "constant",
+      "name": "NAMED",
+      "summary": "Regex pattern for named entities (file paths, CamelCase, ALLCAPS, etc)",
+      "tags": ["salience"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/write/salience:salienceGate",
+      "type": "function",
+      "name": "salienceGate",
+      "summary": "Evaluates turn for buffering: checks commitment/preference/goal/assertion signals, named entities",
+      "tags": ["gate"],
+      "complexity": "medium"
+    },
+    {
+      "id": "file:src/write/types.ts",
+      "type": "file",
+      "name": "types.ts",
+      "summary": "Write-path data shapes - TurnEvent, BufferedTurn, SessionBuffer, CandidateMemory, ExtractionResult",
+      "tags": ["types", "data"],
+      "complexity": "simple"
+    },
+    {
+      "id": "interface:src/write/types:TurnEvent",
+      "type": "interface",
+      "name": "TurnEvent",
+      "summary": "Captured event: sessionId, role, text, timestamp, project, optional toolName, boundary, topicShifted",
+      "tags": ["event", "write"],
+      "complexity": "simple"
+    },
+    {
+      "id": "interface:src/write/types:BufferedTurn",
+      "type": "interface",
+      "name": "BufferedTurn",
+      "summary": "Buffered turn: role, text, ts, toolName, signals list",
+      "tags": ["buffer"],
+      "complexity": "simple"
+    },
+    {
+      "id": "interface:src/write/types:SessionBuffer",
+      "type": "interface",
+      "name": "SessionBuffer",
+      "summary": "Session buffer: sessionId, project, turns array, openedAt, lastTurnAt",
+      "tags": ["buffer", "session"],
+      "complexity": "simple"
+    },
+    {
+      "id": "interface:src/write/types:CandidateMemory",
+      "type": "interface",
+      "name": "CandidateMemory",
+      "summary": "Extracted memory: content, primaryType, tags, confidence, salience, mentionRefs, optional relation",
+      "tags": ["memory", "extraction"],
+      "complexity": "simple"
+    },
+    {
+      "id": "interface:src/write/types:MentionCluster",
+      "type": "interface",
+      "name": "MentionCluster",
+      "summary": "Coreference-resolved entity mention cluster: canonicalName, entityType, surfaceForms",
+      "tags": ["entity", "coreference"],
+      "complexity": "simple"
+    },
+    {
+      "id": "interface:src/write/types:ExtractionResult",
+      "type": "interface",
+      "name": "ExtractionResult",
+      "summary": "Extraction output: memories array, clusters array",
+      "tags": ["extraction"],
+      "complexity": "simple"
+    },
+    {
+      "id": "type:src/write/types:FlushReason",
+      "type": "type",
+      "name": "FlushReason",
+      "summary": "Flush trigger type: size, boundary, topic_shift, time_cap",
+      "tags": ["flush", "trigger"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/write/ingest.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/write/pipeline.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/maintain/sweeps.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/maintain/erRepair.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/write/pipeline.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/write/ingest.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/write/e2e.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/write/e2e.ts",
+      "target": "file:src/write/ingest.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/write/ingest.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/write/ingest.ts",
+      "target": "file:src/write/salience.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/write/ingest.ts",
+      "target": "file:src/write/pipeline.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/write/extract.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/write/extract.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/write/remember.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "file:src/write/remember.ts",
+      "target": "file:src/write/pipeline.ts",
+      "type": "imports",
+      "weight": 0.95
+    },
+    {
+      "source": "file:src/write/salience.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "weight": 0.9
+    },
+    {
+      "source": "class:src/write/buffer:FileBufferStore",
+      "target": "interface:src/write/buffer:BufferStore",
+      "type": "implements",
+      "weight": 1.0
+    },
+    {
+      "source": "class:src/write/buffer:MemoryBufferStore",
+      "target": "interface:src/write/buffer:BufferStore",
+      "type": "implements",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/write/buffer:flushReason",
+      "target": "interface:src/write/buffer:FlushConfig",
+      "type": "uses",
+      "weight": 0.9
+    },
+    {
+      "source": "function:src/write/ingest:ingestTurn",
+      "target": "function:src/write/salience:salienceGate",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/write/ingest:ingestTurn",
+      "target": "function:src/write/buffer:flushReason",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/write/ingest:ingestTurn",
+      "target": "function:src/write/pipeline:flushSession",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/write/remember:remember",
+      "target": "class:src/write/buffer:MemoryBufferStore",
+      "type": "uses",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/write/remember:remember",
+      "target": "function:src/write/pipeline:flushSession",
+      "type": "calls",
+      "weight": 1.0
+    },
+    {
+      "source": "function:src/write/salience:salienceGate",
+      "target": "interface:src/write/salience:SalienceVerdict",
+      "type": "returns",
+      "weight": 1.0
+    },
+    {
+      "source": "interface:src/write/types:TurnEvent",
+      "target": "type:src/write/types:FlushReason",
+      "type": "references",
+      "weight": 0.7
+    }
+  ]
+}
