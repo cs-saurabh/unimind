@@ -6,9 +6,9 @@
  * queries). This module bridges the gap: it builds dynamic queries with the same
  * DSL the app uses and shapes results into the dashboard's expected types.
  *
- * Powers the graph VISUALIZER (/dashboard/visualize). The query-browser
- * (/dashboard/queries) relies on stored named queries, which enterprise-dev does
- * not have, so that page stays empty by design.
+ * Powers the query-browser (/dashboard/queries) and the graph visualization page
+ * (/dashboard/graph). The query-browser relies on stored named queries, which
+ * enterprise-dev does not have, so that page stays empty by design.
  */
 import { Client } from "@helix-db/helix-db";
 

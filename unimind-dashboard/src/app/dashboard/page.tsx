@@ -10,12 +10,11 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-    Database, 
+import {
+    Database,
     ChevronRight,
     Activity,
     Zap,
-    Eye,
 } from "lucide-react";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import TextType from '@/components/TextType';
@@ -118,26 +117,6 @@ export default function Page() {
                                 </CardContent>
                             </Card>
                         </Link>
-
-                        <Link href="/dashboard/visualize" className="group">
-                            <Card className="h-full hover:shadow-lg transition-all duration-300 cursor-pointer glass-hover">
-                                <CardHeader className="text-center">
-                                    <div className="mx-auto h-16 w-16 rounded-lg glass-card flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
-                                        <Eye className="h-8 w-8 text-primary" />
-                                    </div>
-                                    <CardTitle className="text-xl">Visualizations</CardTitle>
-                                    <CardDescription className="text-center">
-                                        Visualize your data in real-time with a graph visualization tool.
-                                    </CardDescription>
-                                </CardHeader>
-                                <CardContent className="pt-0">
-                                    <Button variant="outline" className="w-full group-hover:bg-accent">
-                                        Real-time Visualizations
-                                        <ChevronRight className="ml-2 h-4 w-4" />
-                                    </Button>
-                                </CardContent>
-                            </Card>
-                        </Link>
                     </div>
 
                     {/* Quick Tips */}
@@ -155,13 +134,6 @@ export default function Page() {
                                             <p className="text-muted-foreground">
                                                 Check out our <Link href="https://docs.helix-db.com/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">documentation</Link> to get started.
                                             </p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-start space-x-2">
-                                        <div className="h-2 w-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
-                                        <div>
-                                            <p className="font-medium">Need real-time visual insights?</p>
-                                            <p className="text-muted-foreground">Use the <Link href="/dashboard/visualize" className="text-primary hover:underline">visualization tool</Link> to visualize your data in real-time in a graph.</p>
                                         </div>
                                     </div>
                                     <div className="flex items-start space-x-2">

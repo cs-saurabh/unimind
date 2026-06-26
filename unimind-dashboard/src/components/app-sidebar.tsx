@@ -4,7 +4,6 @@ import * as React from "react"
 import {
     Zap,
     Database,
-    Eye,
     ScrollText,
     Share2,
 } from "lucide-react"
@@ -42,11 +41,6 @@ const data = {
             name: "Schema",
             url: "/dashboard/schema",
             icon: Database,
-        },
-        {
-            name: "Visualization",
-            url: "/dashboard/visualize",
-            icon: Eye,
         },
         {
             name: "Graph",

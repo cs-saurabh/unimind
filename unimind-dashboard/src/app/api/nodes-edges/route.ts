@@ -1,4 +1,4 @@
-// UniMind adapter: whole-graph fetch (all node labels + edge labels) for the visualizer.
+// UniMind adapter: whole-graph fetch (all node labels + edge labels) for graph visualization.
 import { NextRequest, NextResponse } from "next/server";
 import { readBatch, g } from "@helix-db/helix-db";
 import { runRead, toDataItem, toEdge, NODE_KEYS, NODE_LABELS, EDGE_LABELS } from "@/lib/helix";

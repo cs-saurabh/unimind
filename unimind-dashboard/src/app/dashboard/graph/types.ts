@@ -1,4 +1,4 @@
-// Graph v2 — self-contained types. Nothing shared with the legacy /visualize page.
+// Graph v2 — self-contained types for the graph visualization page.
 
 // Raw node as returned by GET /api/nodes-edges (a node carries id, label and all its props).
 export interface RawNode {
