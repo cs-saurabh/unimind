@@ -1,0 +1,129 @@
+[
+  {
+    "id": "layer:hooks",
+    "name": "Claude Code Hooks",
+    "description": "Claude Code lifecycle hooks that capture tool-use turns and inject recalled memory context into prompts, plus the fire-and-forget event emit and stdout-discipline helpers that keep hooks non-blocking.",
+    "nodeIds": [
+      "file:src/hooks/capture.ts",
+      "file:src/hooks/emit.ts",
+      "file:src/hooks/inject.ts",
+      "file:src/hooks/silence.ts"
+    ]
+  },
+  {
+    "id": "layer:orchestration",
+    "name": "Orchestration",
+    "description": "The iii worker engine that registers queue functions (ingestTurn, flushSession, sweepIdle) and cron triggers, plus the driver scripts that exercise the turn-event flow end to end.",
+    "nodeIds": [
+      "file:src/iii/worker.ts",
+      "file:src/iii/drive.ts",
+      "file:src/iii/drive_sync.ts"
+    ]
+  },
+  {
+    "id": "layer:write-pipeline",
+    "name": "Write Pipeline",
+    "description": "The asynchronous write path that gates turns by salience, buffers session windows, extracts candidate memories via the LLM, resolves entities and conflicts, and persists memories with supersede/extends links.",
+    "nodeIds": [
+      "file:src/write/ingest.ts",
+      "file:src/write/buffer.ts",
+      "file:src/write/salience.ts",
+      "file:src/write/extract.ts",
+      "file:src/write/entityResolve.ts",
+      "file:src/write/conflict.ts",
+      "file:src/write/pipeline.ts",
+      "file:src/write/remember.ts",
+      "file:src/write/types.ts",
+      "file:src/write/e2e.ts",
+      "file:src/write/write.test.ts"
+    ]
+  },
+  {
+    "id": "layer:read-pipeline",
+    "name": "Read Pipeline",
+    "description": "The synchronous read path that plans a query, runs hybrid recall, ranks candidates within a token budget, and formats the injected context header surfaced back to the session.",
+    "nodeIds": [
+      "file:src/read/planner.ts",
+      "file:src/read/readPath.ts",
+      "file:src/read/recall.ts",
+      "file:src/read/rank.ts",
+      "file:src/read/header.ts",
+      "file:src/read/e2e.ts"
+    ]
+  },
+  {
+    "id": "layer:matching-maintenance",
+    "name": "Matching & Maintenance",
+    "description": "The reusable matching engine and similarity scorers used for entity resolution, plus the background maintenance sweeps that decay, forget, expire memories and repair duplicate entities.",
+    "nodeIds": [
+      "file:src/match/engine.ts",
+      "file:src/match/scorers.ts",
+      "file:src/match/engine.test.ts",
+      "file:src/maintain/sweeps.ts",
+      "file:src/maintain/erRepair.ts"
+    ]
+  },
+  {
+    "id": "layer:persistence",
+    "name": "Persistence & Foundation",
+    "description": "The HelixDB access layer (client, schema, entity and memory persistence, hybrid retrieval, bootstrap) together with the LLM completion/embedding clients and the central environment configuration the whole pipeline depends on.",
+    "nodeIds": [
+      "file:src/config.ts",
+      "file:src/db/client.ts",
+      "file:src/db/schema.ts",
+      "file:src/db/entities.ts",
+      "file:src/db/memories.ts",
+      "file:src/db/retrieve.ts",
+      "file:src/db/bootstrap.ts",
+      "file:src/db/smoke.ts",
+      "file:src/llm/complete.ts",
+      "file:src/llm/embed.ts"
+    ]
+  },
+  {
+    "id": "layer:interfaces",
+    "name": "Interfaces",
+    "description": "The UniMind MCP server that exposes the recall and remember tools over stdio to Claude Code.",
+    "nodeIds": [
+      "file:src/mcp/server.ts"
+    ]
+  },
+  {
+    "id": "layer:infrastructure",
+    "name": "Infrastructure & Config",
+    "description": "Container and orchestration definitions (Dockerfile, docker-compose services, entrypoint), HelixDB and build configuration, and project tooling files that deploy and configure the system.",
+    "nodeIds": [
+      "service:docker-compose.yml",
+      "service:docker-compose.yml:minio",
+      "service:docker-compose.yml:minio-setup",
+      "service:docker-compose.yml:helix",
+      "service:docker-compose.yml:iii",
+      "service:docker-compose.yml:worker",
+      "service:docker-compose.yml:dashboard",
+      "service:.dockerignore",
+      "file:docker/worker.Dockerfile",
+      "file:docker/worker-entrypoint.sh",
+      "config:helix.toml",
+      "config:package.json",
+      "config:tsconfig.json",
+      "config:examples/request.json",
+      "file:.understand-anything/.understandignore"
+    ]
+  },
+  {
+    "id": "layer:documentation-experiments",
+    "name": "Documentation & Experiments",
+    "description": "System design and workflow documentation plus the offline drift-gate experiment that evaluates topic-shift detection heuristics against labeled sessions.",
+    "nodeIds": [
+      "document:ARCHITECTURE.mdx",
+      "document:AGENTS.md",
+      "document:memory-system-handoff.md",
+      "document:experiments/drift-gate/FINDINGS.md",
+      "file:experiments/drift-gate/src/classify.ts",
+      "file:experiments/drift-gate/src/eval.ts",
+      "file:experiments/drift-gate/src/label.ts",
+      "file:experiments/drift-gate/src/openai.ts",
+      "file:experiments/drift-gate/src/extract.ts"
+    ]
+  }
+]

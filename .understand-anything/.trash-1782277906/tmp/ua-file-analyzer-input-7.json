@@ -1,0 +1,54 @@
+{
+  "projectRoot": "/Users/saurabh.pawar/Work/pet-projects/unimind",
+  "batchFiles": [
+    {
+      "path": ".dockerignore",
+      "language": "unknown",
+      "sizeLines": 9,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "sizeLines": 42,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "ARCHITECTURE.mdx",
+      "language": "markdown",
+      "sizeLines": 687,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "sizeLines": 121,
+      "fileCategory": "infra"
+    },
+    {
+      "path": "helix.toml",
+      "language": "toml",
+      "sizeLines": 12,
+      "fileCategory": "config"
+    },
+    {
+      "path": "memory-system-handoff.md",
+      "language": "markdown",
+      "sizeLines": 409,
+      "fileCategory": "docs"
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "sizeLines": 28,
+      "fileCategory": "config"
+    },
+    {
+      "path": "tsconfig.json",
+      "language": "json",
+      "sizeLines": 15,
+      "fileCategory": "config"
+    }
+  ],
+  "batchImportData": {}
+}

@@ -1,0 +1,46 @@
+{
+  "projectRoot": "/Users/saurabh.pawar/Work/pet-projects/unimind",
+  "batchFiles": [
+    {
+      "path": "src/hooks/capture.ts",
+      "language": "typescript",
+      "sizeLines": 68,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/hooks/emit.ts",
+      "language": "typescript",
+      "sizeLines": 31,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/hooks/inject.ts",
+      "language": "typescript",
+      "sizeLines": 76,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/hooks/silence.ts",
+      "language": "typescript",
+      "sizeLines": 28,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "src/hooks/capture.ts": [
+      "src/hooks/emit.ts",
+      "src/hooks/silence.ts",
+      "src/write/types.ts"
+    ],
+    "src/hooks/emit.ts": [
+      "src/write/types.ts"
+    ],
+    "src/hooks/inject.ts": [
+      "src/hooks/emit.ts",
+      "src/hooks/silence.ts",
+      "src/read/readPath.ts",
+      "src/write/types.ts"
+    ],
+    "src/hooks/silence.ts": []
+  }
+}

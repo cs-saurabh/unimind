@@ -1,0 +1,8 @@
+node_modules
+.git
+.unimind
+.helix
+unimind-dashboard
+docs
+**/*.log
+.env

@@ -1,0 +1,1518 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 11,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "src/iii/worker.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 80,
+      "nonEmptyLines": 69,
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/read/e2e.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 70,
+      "nonEmptyLines": 62,
+      "functions": [
+        {
+          "name": "wipe",
+          "startLine": 22,
+          "endLine": 28,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 30,
+          "endLine": 68,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "wipe",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .varAs(\"de\", g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .returning",
+          "lineNumber": 23
+        },
+        {
+          "caller": "wipe",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .varAs",
+          "lineNumber": 23
+        },
+        {
+          "caller": "wipe",
+          "callee": "writeBatch()\n    .varAs",
+          "lineNumber": 23
+        },
+        {
+          "caller": "wipe",
+          "callee": "writeBatch",
+          "lineNumber": 23
+        },
+        {
+          "caller": "wipe",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop",
+          "lineNumber": 24
+        },
+        {
+          "caller": "wipe",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 24
+        },
+        {
+          "caller": "wipe",
+          "callee": "g().nWithLabel",
+          "lineNumber": 24
+        },
+        {
+          "caller": "wipe",
+          "callee": "g",
+          "lineNumber": 24
+        },
+        {
+          "caller": "wipe",
+          "callee": "Predicate.eq",
+          "lineNumber": 24
+        },
+        {
+          "caller": "wipe",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop",
+          "lineNumber": 25
+        },
+        {
+          "caller": "wipe",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 25
+        },
+        {
+          "caller": "wipe",
+          "callee": "g().nWithLabel",
+          "lineNumber": 25
+        },
+        {
+          "caller": "wipe",
+          "callee": "g",
+          "lineNumber": 25
+        },
+        {
+          "caller": "wipe",
+          "callee": "Predicate.eq",
+          "lineNumber": 25
+        },
+        {
+          "caller": "wipe",
+          "callee": "writeWithRetry",
+          "lineNumber": 27
+        },
+        {
+          "caller": "wipe",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 27
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 31
+        },
+        {
+          "caller": "main",
+          "callee": "process.exit",
+          "lineNumber": 31
+        },
+        {
+          "caller": "main",
+          "callee": "Number",
+          "lineNumber": 32
+        },
+        {
+          "caller": "main",
+          "callee": "Number",
+          "lineNumber": 33
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.parse",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "readFileSync",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "join",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "session.project.slice",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "wipe",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "mkdtempSync",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "join",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "tmpdir",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "Date.parse",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "session.prompts.slice",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "new Date(base + i * 30_000).toISOString",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "ingestTurn",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "flushSession",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 57
+        },
+        {
+          "caller": "main",
+          "callee": "readPath",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "res.debug.entitiesValidated.join",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "wipe",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 67
+        }
+      ],
+      "metrics": {
+        "importCount": 8,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/write/buffer.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 86,
+      "nonEmptyLines": 80,
+      "functions": [
+        {
+          "name": "flushReason",
+          "startLine": 19,
+          "endLine": 31,
+          "params": [
+            "buf",
+            "event",
+            "cfg"
+          ]
+        }
+      ],
+      "classes": [
+        {
+          "name": "FileBufferStore",
+          "startLine": 42,
+          "endLine": 71,
+          "methods": [
+            "constructor",
+            "path",
+            "get",
+            "append",
+            "clear",
+            "list"
+          ],
+          "properties": []
+        },
+        {
+          "name": "MemoryBufferStore",
+          "startLine": 74,
+          "endLine": 86,
+          "methods": [
+            "get",
+            "append",
+            "clear",
+            "list"
+          ],
+          "properties": [
+            "m"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DEFAULT_FLUSH",
+          "line": 16,
+          "isDefault": false
+        },
+        {
+          "name": "flushReason",
+          "line": 19,
+          "isDefault": false
+        },
+        {
+          "name": "FileBufferStore",
+          "line": 42,
+          "isDefault": false
+        },
+        {
+          "name": "MemoryBufferStore",
+          "line": 74,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "flushReason",
+          "callee": "Date.parse",
+          "lineNumber": 28
+        },
+        {
+          "caller": "flushReason",
+          "callee": "Date.parse",
+          "lineNumber": 28
+        },
+        {
+          "caller": "constructor",
+          "callee": "mkdirSync",
+          "lineNumber": 43
+        },
+        {
+          "caller": "path",
+          "callee": "join",
+          "lineNumber": 44
+        },
+        {
+          "caller": "path",
+          "callee": "id.replace",
+          "lineNumber": 44
+        },
+        {
+          "caller": "get",
+          "callee": "this.path",
+          "lineNumber": 47
+        },
+        {
+          "caller": "get",
+          "callee": "existsSync",
+          "lineNumber": 48
+        },
+        {
+          "caller": "get",
+          "callee": "JSON.parse",
+          "lineNumber": 49
+        },
+        {
+          "caller": "get",
+          "callee": "readFileSync",
+          "lineNumber": 49
+        },
+        {
+          "caller": "append",
+          "callee": "this.get",
+          "lineNumber": 52
+        },
+        {
+          "caller": "append",
+          "callee": "buf.turns.push",
+          "lineNumber": 56
+        },
+        {
+          "caller": "append",
+          "callee": "writeFileSync",
+          "lineNumber": 59
+        },
+        {
+          "caller": "append",
+          "callee": "this.path",
+          "lineNumber": 59
+        },
+        {
+          "caller": "append",
+          "callee": "JSON.stringify",
+          "lineNumber": 59
+        },
+        {
+          "caller": "clear",
+          "callee": "this.path",
+          "lineNumber": 63
+        },
+        {
+          "caller": "clear",
+          "callee": "existsSync",
+          "lineNumber": 64
+        },
+        {
+          "caller": "clear",
+          "callee": "rmSync",
+          "lineNumber": 64
+        },
+        {
+          "caller": "list",
+          "callee": "readdirSync(this.dir)\n      .filter((f) => f.endsWith(\".json\"))\n      .map",
+          "lineNumber": 67
+        },
+        {
+          "caller": "list",
+          "callee": "readdirSync(this.dir)\n      .filter",
+          "lineNumber": 67
+        },
+        {
+          "caller": "list",
+          "callee": "readdirSync",
+          "lineNumber": 67
+        },
+        {
+          "caller": "list",
+          "callee": "f.endsWith",
+          "lineNumber": 68
+        },
+        {
+          "caller": "list",
+          "callee": "JSON.parse",
+          "lineNumber": 69
+        },
+        {
+          "caller": "list",
+          "callee": "readFileSync",
+          "lineNumber": 69
+        },
+        {
+          "caller": "list",
+          "callee": "join",
+          "lineNumber": 69
+        },
+        {
+          "caller": "get",
+          "callee": "this.m.get",
+          "lineNumber": 76
+        },
+        {
+          "caller": "append",
+          "callee": "this.m.get",
+          "lineNumber": 78
+        },
+        {
+          "caller": "append",
+          "callee": "buf.turns.push",
+          "lineNumber": 79
+        },
+        {
+          "caller": "append",
+          "callee": "this.m.set",
+          "lineNumber": 81
+        },
+        {
+          "caller": "clear",
+          "callee": "this.m.delete",
+          "lineNumber": 84
+        },
+        {
+          "caller": "list",
+          "callee": "this.m.values",
+          "lineNumber": 85
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 4,
+        "functionCount": 1,
+        "classCount": 2
+      }
+    },
+    {
+      "path": "src/write/e2e.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 87,
+      "nonEmptyLines": 79,
+      "functions": [
+        {
+          "name": "dumpTenant",
+          "startLine": 21,
+          "endLine": 29,
+          "params": []
+        },
+        {
+          "name": "wipeTenant",
+          "startLine": 31,
+          "endLine": 37,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 39,
+          "endLine": 85,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "dumpTenant",
+          "callee": "readBatch()\n    .varAs(\"mems\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID))\n      .project([PropertyProjection.new(\"primaryType\"), PropertyProjection.new(\"content\"), PropertyProjection.new(\"tags\")]))\n    .varAs(\"ents\", g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID))\n      .project([PropertyProjection.new(\"name\"), PropertyProjection.new(\"entityType\"), PropertyProjection.new(\"aliases\")]))\n    .returning",
+          "lineNumber": 22
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "readBatch()\n    .varAs(\"mems\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID))\n      .project([PropertyProjection.new(\"primaryType\"), PropertyProjection.new(\"content\"), PropertyProjection.new(\"tags\")]))\n    .varAs",
+          "lineNumber": 22
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "readBatch()\n    .varAs",
+          "lineNumber": 22
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "readBatch",
+          "lineNumber": 22
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID))\n      .project",
+          "lineNumber": 23
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 23
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "g().nWithLabel",
+          "lineNumber": 23
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "g",
+          "lineNumber": 23
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "Predicate.eq",
+          "lineNumber": 23
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 24
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 24
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 24
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID))\n      .project",
+          "lineNumber": 25
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 25
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "g().nWithLabel",
+          "lineNumber": 25
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "g",
+          "lineNumber": 25
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "Predicate.eq",
+          "lineNumber": 25
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 26
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 26
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 26
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "helix.query<any>().dynamic(req.toDynamicRequest({ queryName: \"e2e_dump\" })).send",
+          "lineNumber": 28
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "helix.query<any>().dynamic",
+          "lineNumber": 28
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "helix.query",
+          "lineNumber": 28
+        },
+        {
+          "caller": "dumpTenant",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 28
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .varAs(\"de\", g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .returning",
+          "lineNumber": 32
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .varAs",
+          "lineNumber": 32
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "writeBatch()\n    .varAs",
+          "lineNumber": 32
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "writeBatch",
+          "lineNumber": 32
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop",
+          "lineNumber": 33
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 33
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "g().nWithLabel",
+          "lineNumber": 33
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "g",
+          "lineNumber": 33
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "Predicate.eq",
+          "lineNumber": 33
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop",
+          "lineNumber": 34
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 34
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "g().nWithLabel",
+          "lineNumber": 34
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "g",
+          "lineNumber": 34
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "Predicate.eq",
+          "lineNumber": 34
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "writeWithRetry",
+          "lineNumber": 36
+        },
+        {
+          "caller": "wipeTenant",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 41
+        },
+        {
+          "caller": "main",
+          "callee": "process.exit",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "Number",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "Number",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.parse",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "readFileSync",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "join",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "process.exit",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "session.prompts.slice",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "session.project.slice",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "wipeTenant",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "mkdtempSync",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "join",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "tmpdir",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "Date.parse",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "new Date(base + i * 30_000).toISOString",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "ingestTurn",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "dumpTenant",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "m.tags.join",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "(e.aliases ?? []).join",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "wipeTenant",
+          "lineNumber": 83
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 84
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/write/extract.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 105,
+      "nonEmptyLines": 93,
+      "functions": [
+        {
+          "name": "renderWindow",
+          "startLine": 45,
+          "endLine": 51,
+          "params": [
+            "buf"
+          ]
+        },
+        {
+          "name": "extractWindow",
+          "startLine": 56,
+          "endLine": 99,
+          "params": [
+            "buf",
+            "model"
+          ]
+        },
+        {
+          "name": "clamp01",
+          "startLine": 101,
+          "endLine": 105,
+          "params": [
+            "v",
+            "fallback"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "extractWindow",
+          "line": 56,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "renderWindow",
+          "callee": "buf.turns\n    .map((t) => `[${t.role}${t.toolName ? `:${t.toolName}` : \"\"}] ${t.text.replace(/\\s+/g, \" \").slice(0, 800)}`)\n    .join",
+          "lineNumber": 47
+        },
+        {
+          "caller": "renderWindow",
+          "callee": "buf.turns\n    .map",
+          "lineNumber": 47
+        },
+        {
+          "caller": "renderWindow",
+          "callee": "t.text.replace(/\\s+/g, \" \").slice",
+          "lineNumber": 48
+        },
+        {
+          "caller": "renderWindow",
+          "callee": "t.text.replace",
+          "lineNumber": 48
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "await jsonComplete",
+          "lineNumber": 58
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "renderWindow",
+          "lineNumber": 60
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "(raw.clusters ?? [])\n    .filter((c: any) => c && typeof c.canonicalName === \"string\" && ENT_TYPES.has(c.entityType))\n    .map",
+          "lineNumber": 66
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "(raw.clusters ?? [])\n    .filter",
+          "lineNumber": 66
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "ENT_TYPES.has",
+          "lineNumber": 67
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "c.canonicalName.trim",
+          "lineNumber": 69
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "Array.isArray",
+          "lineNumber": 71
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "c.surfaceForms.map((s: any) => String(s).trim()).filter",
+          "lineNumber": 72
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "c.surfaceForms.map",
+          "lineNumber": 72
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "String(s).trim",
+          "lineNumber": 72
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "String",
+          "lineNumber": 72
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "c.canonicalName.trim",
+          "lineNumber": 73
+        },
+        {
+          "caller": "validRef",
+          "callee": "Number.isInteger",
+          "lineNumber": 77
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "(raw.memories ?? [])\n    .filter((m: any) => m && typeof m.content === \"string\" && m.content.trim() && TYPES.has(m.primaryType))\n    .map",
+          "lineNumber": 79
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "(raw.memories ?? [])\n    .filter",
+          "lineNumber": 79
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "m.content.trim",
+          "lineNumber": 80
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "TYPES.has",
+          "lineNumber": 80
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "validRef",
+          "lineNumber": 82
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "validRef",
+          "lineNumber": 82
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "m.relation.predicate.trim",
+          "lineNumber": 84
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "m.content.trim",
+          "lineNumber": 87
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "Array.isArray",
+          "lineNumber": 89
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "m.tags.map((t: any) => String(t)).slice",
+          "lineNumber": 89
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "m.tags.map",
+          "lineNumber": 89
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "String",
+          "lineNumber": 89
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "clamp01",
+          "lineNumber": 90
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "clamp01",
+          "lineNumber": 91
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "Array.isArray",
+          "lineNumber": 92
+        },
+        {
+          "caller": "extractWindow",
+          "callee": "m.mentionRefs.filter",
+          "lineNumber": 92
+        },
+        {
+          "caller": "clamp01",
+          "callee": "Number",
+          "lineNumber": 102
+        },
+        {
+          "caller": "clamp01",
+          "callee": "Number.isFinite",
+          "lineNumber": 103
+        },
+        {
+          "caller": "clamp01",
+          "callee": "Math.max",
+          "lineNumber": 104
+        },
+        {
+          "caller": "clamp01",
+          "callee": "Math.min",
+          "lineNumber": 104
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/write/ingest.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 36,
+      "functions": [
+        {
+          "name": "ingestTurn",
+          "startLine": 18,
+          "endLine": 40,
+          "params": [
+            "store",
+            "event",
+            "cfg"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "ingestTurn",
+          "line": 18,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ingestTurn",
+          "callee": "salienceGate",
+          "lineNumber": 23
+        },
+        {
+          "caller": "ingestTurn",
+          "callee": "store.get",
+          "lineNumber": 25
+        },
+        {
+          "caller": "ingestTurn",
+          "callee": "store.append",
+          "lineNumber": 27
+        },
+        {
+          "caller": "ingestTurn",
+          "callee": "flushReason",
+          "lineNumber": 34
+        },
+        {
+          "caller": "ingestTurn",
+          "callee": "flushSession",
+          "lineNumber": 36
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/write/pipeline.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 91,
+      "nonEmptyLines": 81,
+      "functions": [
+        {
+          "name": "flushSession",
+          "startLine": 23,
+          "endLine": 91,
+          "params": [
+            "store",
+            "sessionId",
+            "reason"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "flushSession",
+          "line": 23,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "flushSession",
+          "callee": "store.get",
+          "lineNumber": 29
+        },
+        {
+          "caller": "flushSession",
+          "callee": "extractWindow",
+          "lineNumber": 32
+        },
+        {
+          "caller": "flushSession",
+          "callee": "store.clear",
+          "lineNumber": 34
+        },
+        {
+          "caller": "flushSession",
+          "callee": "ext.clusters.map",
+          "lineNumber": 39
+        },
+        {
+          "caller": "flushSession",
+          "callee": "ext.memories.map",
+          "lineNumber": 40
+        },
+        {
+          "caller": "flushSession",
+          "callee": "embed",
+          "lineNumber": 41
+        },
+        {
+          "caller": "flushSession",
+          "callee": "vecs.slice",
+          "lineNumber": 42
+        },
+        {
+          "caller": "flushSession",
+          "callee": "vecs.slice",
+          "lineNumber": 43
+        },
+        {
+          "caller": "flushSession",
+          "callee": "resolveEntity",
+          "lineNumber": 49
+        },
+        {
+          "caller": "flushSession",
+          "callee": "resolveConflict",
+          "lineNumber": 58
+        },
+        {
+          "caller": "flushSession",
+          "callee": "bumpMemories",
+          "lineNumber": 61
+        },
+        {
+          "caller": "flushSession",
+          "callee": "m.mentionRefs.map((r) => clusterKey[r]).filter",
+          "lineNumber": 66
+        },
+        {
+          "caller": "flushSession",
+          "callee": "m.mentionRefs.map",
+          "lineNumber": 66
+        },
+        {
+          "caller": "flushSession",
+          "callee": "persistMemory",
+          "lineNumber": 74
+        },
+        {
+          "caller": "flushSession",
+          "callee": "supersede",
+          "lineNumber": 82
+        },
+        {
+          "caller": "flushSession",
+          "callee": "linkExtends",
+          "lineNumber": 85
+        },
+        {
+          "caller": "flushSession",
+          "callee": "store.clear",
+          "lineNumber": 89
+        }
+      ],
+      "metrics": {
+        "importCount": 7,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/write/remember.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 34,
+      "nonEmptyLines": 20,
+      "functions": [
+        {
+          "name": "remember",
+          "startLine": 10,
+          "endLine": 21,
+          "params": [
+            "content"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "remember",
+          "line": 10,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "remember",
+          "callee": "Date.now",
+          "lineNumber": 12
+        },
+        {
+          "caller": "remember",
+          "callee": "new Date().toISOString",
+          "lineNumber": 13
+        },
+        {
+          "caller": "remember",
+          "callee": "store.append",
+          "lineNumber": 14
+        },
+        {
+          "caller": "remember",
+          "callee": "content.trim",
+          "lineNumber": 16
+        },
+        {
+          "caller": "remember",
+          "callee": "flushSession",
+          "lineNumber": 20
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/write/salience.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 43,
+      "functions": [
+        {
+          "name": "salienceGate",
+          "startLine": 24,
+          "endLine": 52,
+          "params": [
+            "turn"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "salienceGate",
+          "line": 24,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "salienceGate",
+          "callee": "turn.text.trim",
+          "lineNumber": 25
+        },
+        {
+          "caller": "salienceGate",
+          "callee": "NEGATIVE_FILLER.test",
+          "lineNumber": 34
+        },
+        {
+          "caller": "salienceGate",
+          "callee": "NAMED.test",
+          "lineNumber": 38
+        },
+        {
+          "caller": "salienceGate",
+          "callee": "signals.push",
+          "lineNumber": 39
+        },
+        {
+          "caller": "salienceGate",
+          "callee": "COMMIT.test",
+          "lineNumber": 40
+        },
+        {
+          "caller": "salienceGate",
+          "callee": "signals.push",
+          "lineNumber": 40
+        },
+        {
+          "caller": "salienceGate",
+          "callee": "PREFERENCE.test",
+          "lineNumber": 41
+        },
+        {
+          "caller": "salienceGate",
+          "callee": "signals.push",
+          "lineNumber": 41
+        },
+        {
+          "caller": "salienceGate",
+          "callee": "GOAL.test",
+          "lineNumber": 42
+        },
+        {
+          "caller": "salienceGate",
+          "callee": "signals.push",
+          "lineNumber": 42
+        },
+        {
+          "caller": "salienceGate",
+          "callee": "ASSERTION.test",
+          "lineNumber": 43
+        },
+        {
+          "caller": "salienceGate",
+          "callee": "signals.push",
+          "lineNumber": 43
+        },
+        {
+          "caller": "salienceGate",
+          "callee": "signals.filter",
+          "lineNumber": 46
+        },
+        {
+          "caller": "salienceGate",
+          "callee": "Math.min",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/write/types.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 60,
+      "nonEmptyLines": 53,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/write/write.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 64,
+      "nonEmptyLines": 52,
+      "functions": [
+        {
+          "name": "turn",
+          "startLine": 7,
+          "endLine": 9,
+          "params": [
+            "text",
+            "extra"
+          ]
+        },
+        {
+          "name": "buf",
+          "startLine": 35,
+          "endLine": 38,
+          "params": [
+            "n",
+            "openedAt"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "buf",
+          "callee": "Array.from",
+          "lineNumber": 36
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    }
+  ]
+}

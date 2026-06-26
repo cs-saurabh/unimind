@@ -1,0 +1,12 @@
+[project]
+name = "unimind"
+queries = "db"
+container_runtime = "docker"
+
+[local.dev]
+port = 6969
+image = "ghcr.io/helixdb/enterprise-dev"
+tag = "latest"
+storage = "disk"
+
+[enterprise]

@@ -1,0 +1,223 @@
+{
+  "scriptCompleted": true,
+  "stats": {
+    "filesScanned": 58,
+    "filesWithImports": 37,
+    "totalEdges": 118
+  },
+  "importMap": {
+    ".dockerignore": [],
+    ".understand-anything/.understandignore": [],
+    "AGENTS.md": [],
+    "ARCHITECTURE.mdx": [],
+    "docker-compose.yml": [],
+    "docker/worker-entrypoint.sh": [],
+    "docker/worker.Dockerfile": [],
+    "examples/request.json": [],
+    "experiments/drift-gate/FINDINGS.md": [],
+    "experiments/drift-gate/src/classify.ts": [
+      "experiments/drift-gate/src/openai.ts"
+    ],
+    "experiments/drift-gate/src/eval.ts": [
+      "experiments/drift-gate/src/openai.ts"
+    ],
+    "experiments/drift-gate/src/extract.ts": [],
+    "experiments/drift-gate/src/label.ts": [
+      "experiments/drift-gate/src/openai.ts"
+    ],
+    "experiments/drift-gate/src/openai.ts": [],
+    "helix.toml": [],
+    "memory-system-handoff.md": [],
+    "package.json": [],
+    "src/config.ts": [],
+    "src/db/bootstrap.ts": [
+      "src/db/client.ts",
+      "src/db/schema.ts"
+    ],
+    "src/db/client.ts": [
+      "src/config.ts"
+    ],
+    "src/db/entities.ts": [
+      "src/config.ts",
+      "src/db/client.ts",
+      "src/db/schema.ts"
+    ],
+    "src/db/memories.ts": [
+      "src/config.ts",
+      "src/db/client.ts",
+      "src/db/schema.ts"
+    ],
+    "src/db/retrieve.ts": [
+      "src/config.ts",
+      "src/db/client.ts",
+      "src/db/schema.ts"
+    ],
+    "src/db/schema.ts": [],
+    "src/db/smoke.ts": [
+      "src/config.ts",
+      "src/db/client.ts",
+      "src/db/schema.ts",
+      "src/llm/embed.ts"
+    ],
+    "src/hooks/capture.ts": [
+      "src/hooks/emit.ts",
+      "src/hooks/silence.ts",
+      "src/write/types.ts"
+    ],
+    "src/hooks/emit.ts": [
+      "src/write/types.ts"
+    ],
+    "src/hooks/inject.ts": [
+      "src/hooks/emit.ts",
+      "src/hooks/silence.ts",
+      "src/read/readPath.ts",
+      "src/write/types.ts"
+    ],
+    "src/hooks/silence.ts": [],
+    "src/iii/drive_sync.ts": [
+      "src/config.ts",
+      "src/db/client.ts",
+      "src/db/schema.ts",
+      "src/write/types.ts"
+    ],
+    "src/iii/drive.ts": [
+      "src/config.ts",
+      "src/db/client.ts",
+      "src/db/schema.ts",
+      "src/hooks/emit.ts",
+      "src/write/types.ts"
+    ],
+    "src/iii/worker.ts": [
+      "src/maintain/erRepair.ts",
+      "src/maintain/sweeps.ts",
+      "src/write/buffer.ts",
+      "src/write/ingest.ts",
+      "src/write/pipeline.ts",
+      "src/write/types.ts"
+    ],
+    "src/llm/complete.ts": [],
+    "src/llm/embed.ts": [
+      "src/config.ts"
+    ],
+    "src/maintain/erRepair.ts": [
+      "src/config.ts",
+      "src/db/client.ts",
+      "src/db/schema.ts",
+      "src/llm/embed.ts",
+      "src/match/scorers.ts"
+    ],
+    "src/maintain/sweeps.ts": [
+      "src/config.ts",
+      "src/db/client.ts",
+      "src/db/schema.ts"
+    ],
+    "src/match/engine.test.ts": [
+      "src/match/engine.ts",
+      "src/match/scorers.ts"
+    ],
+    "src/match/engine.ts": [],
+    "src/match/scorers.ts": [],
+    "src/mcp/server.ts": [
+      "src/read/recall.ts",
+      "src/write/remember.ts"
+    ],
+    "src/read/e2e.ts": [
+      "src/config.ts",
+      "src/db/client.ts",
+      "src/db/schema.ts",
+      "src/read/readPath.ts",
+      "src/write/buffer.ts",
+      "src/write/ingest.ts",
+      "src/write/pipeline.ts",
+      "src/write/types.ts"
+    ],
+    "src/read/header.ts": [
+      "src/db/retrieve.ts",
+      "src/read/rank.ts"
+    ],
+    "src/read/planner.ts": [
+      "src/db/schema.ts",
+      "src/llm/complete.ts"
+    ],
+    "src/read/rank.ts": [
+      "src/db/retrieve.ts",
+      "src/db/schema.ts",
+      "src/match/scorers.ts"
+    ],
+    "src/read/readPath.ts": [
+      "src/db/memories.ts",
+      "src/db/retrieve.ts",
+      "src/llm/embed.ts",
+      "src/read/header.ts",
+      "src/read/planner.ts",
+      "src/read/rank.ts"
+    ],
+    "src/read/recall.ts": [
+      "src/db/memories.ts",
+      "src/db/retrieve.ts",
+      "src/llm/embed.ts",
+      "src/read/rank.ts"
+    ],
+    "src/write/buffer.ts": [
+      "src/write/types.ts"
+    ],
+    "src/write/conflict.ts": [
+      "src/db/retrieve.ts",
+      "src/db/schema.ts",
+      "src/llm/complete.ts",
+      "src/match/engine.ts",
+      "src/match/scorers.ts",
+      "src/write/types.ts"
+    ],
+    "src/write/e2e.ts": [
+      "src/config.ts",
+      "src/db/client.ts",
+      "src/db/schema.ts",
+      "src/write/buffer.ts",
+      "src/write/ingest.ts",
+      "src/write/types.ts"
+    ],
+    "src/write/entityResolve.ts": [
+      "src/db/entities.ts",
+      "src/llm/complete.ts",
+      "src/match/engine.ts",
+      "src/match/scorers.ts",
+      "src/write/types.ts"
+    ],
+    "src/write/extract.ts": [
+      "src/llm/complete.ts",
+      "src/write/types.ts"
+    ],
+    "src/write/ingest.ts": [
+      "src/write/buffer.ts",
+      "src/write/pipeline.ts",
+      "src/write/salience.ts",
+      "src/write/types.ts"
+    ],
+    "src/write/pipeline.ts": [
+      "src/db/memories.ts",
+      "src/llm/embed.ts",
+      "src/write/buffer.ts",
+      "src/write/conflict.ts",
+      "src/write/entityResolve.ts",
+      "src/write/extract.ts",
+      "src/write/types.ts"
+    ],
+    "src/write/remember.ts": [
+      "src/write/buffer.ts",
+      "src/write/pipeline.ts"
+    ],
+    "src/write/salience.ts": [
+      "src/write/types.ts"
+    ],
+    "src/write/types.ts": [
+      "src/db/schema.ts"
+    ],
+    "src/write/write.test.ts": [
+      "src/write/buffer.ts",
+      "src/write/salience.ts",
+      "src/write/types.ts"
+    ],
+    "tsconfig.json": []
+  }
+}

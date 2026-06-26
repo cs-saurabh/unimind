@@ -1,0 +1,494 @@
+{
+  "nodes": [
+    {
+      "id": "service:.dockerignore",
+      "type": "service",
+      "name": ".dockerignore",
+      "filePath": ".dockerignore",
+      "summary": "Docker build-context exclusion list that keeps node_modules, git metadata, experiments, the dashboard, logs, and secrets out of worker image builds.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "build-system"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "AGENTS.md",
+      "summary": "Agent-facing guide for working in this HelixDB project, covering the helix CLI workflow, installation fallbacks, container-runtime caveats, and query syntax conventions.",
+      "tags": [
+        "documentation",
+        "helixdb",
+        "workflow",
+        "development"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:ARCHITECTURE.mdx",
+      "type": "document",
+      "name": "ARCHITECTURE.mdx",
+      "filePath": "ARCHITECTURE.mdx",
+      "summary": "Authoritative system design doc for Unimind, detailing the HelixDB data model, asynchronous write path, synchronous read path, the reusable matching engine, maintenance crons, MCP server, and deployment topology.",
+      "tags": [
+        "documentation",
+        "architecture",
+        "design-doc",
+        "entry-point"
+      ],
+      "complexity": "complex",
+      "languageNotes": "MDX long-form design document with 29 sections spanning data model, write/read pipelines, and deployment topology."
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "filePath": "docker-compose.yml",
+      "summary": "Full-stack Compose definition that brings up MinIO, a one-shot bucket setup, HelixDB, the iii orchestration engine, the UniMind worker, and the dashboard in dependency order.",
+      "tags": [
+        "orchestration",
+        "infrastructure",
+        "containerization",
+        "deployment"
+      ],
+      "complexity": "moderate",
+      "languageNotes": "Uses health-check and service_completed_successfully conditions to enforce a strict startup ordering across six services."
+    },
+    {
+      "id": "service:docker-compose.yml:minio",
+      "type": "service",
+      "name": "minio",
+      "summary": "MinIO object-storage service backing HelixDB's on-disk persistence, exposing an S3-compatible API with a liveness health check.",
+      "tags": [
+        "object-storage",
+        "infrastructure",
+        "s3"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:docker-compose.yml:minio-setup",
+      "type": "service",
+      "name": "minio-setup",
+      "summary": "One-shot job that waits for MinIO to be healthy, creates the helix-db bucket via the mc client, and exits.",
+      "tags": [
+        "object-storage",
+        "infrastructure",
+        "bootstrap"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "service:docker-compose.yml:helix",
+      "type": "service",
+      "name": "helix",
+      "summary": "HelixDB enterprise-dev memory store providing graph, vector, and BM25 search, persisting to the MinIO S3 bucket and published on host port 6969.",
+      "tags": [
+        "database",
+        "helixdb",
+        "infrastructure",
+        "vector-search"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:docker-compose.yml:iii",
+      "type": "service",
+      "name": "iii",
+      "summary": "iii orchestration engine providing the queues, functions, and cron backbone for the write pipeline, exposing WebSocket, REST, stream, and Prometheus ports.",
+      "tags": [
+        "orchestration",
+        "infrastructure",
+        "queue"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:docker-compose.yml:worker",
+      "type": "service",
+      "name": "worker",
+      "summary": "UniMind worker built from docker/worker.Dockerfile that runs the asynchronous write pipeline and maintenance crons against HelixDB and the iii engine.",
+      "tags": [
+        "service",
+        "write-pipeline",
+        "infrastructure",
+        "containerization"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "service:docker-compose.yml:dashboard",
+      "type": "service",
+      "name": "dashboard",
+      "summary": "Next.js HelixDB dashboard built from helix-dashboard, connecting to the Helix service for memory visualization and published on host port 48173.",
+      "tags": [
+        "frontend",
+        "visualization",
+        "infrastructure",
+        "nextjs"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:helix.toml",
+      "type": "config",
+      "name": "helix.toml",
+      "filePath": "helix.toml",
+      "summary": "HelixDB project configuration declaring the db queries directory, Docker container runtime, and the local dev instance (port 6969, enterprise-dev image, disk storage).",
+      "tags": [
+        "configuration",
+        "helixdb",
+        "infrastructure"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:memory-system-handoff.md",
+      "type": "document",
+      "name": "memory-system-handoff.md",
+      "filePath": "memory-system-handoff.md",
+      "summary": "Authoritative build-handoff spec defining the project goal, tech stack, the six memory types, frozen decisions, the HelixDB data model, write/read paths, risks, and build order for the memory system.",
+      "tags": [
+        "documentation",
+        "design-doc",
+        "specification",
+        "entry-point"
+      ],
+      "complexity": "complex",
+      "languageNotes": "Build-handoff document with frozen decisions, pending decisions, and an ordered build plan intended to drive an implementation session."
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Node project manifest declaring ESM module type, tsx-driven scripts for the worker, MCP server, db bootstrap, and drift-gate experiments, plus HelixDB, MCP SDK, iii-sdk, and OpenAI dependencies.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "dependencies",
+        "npm"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "tsconfig.json",
+      "summary": "TypeScript compiler configuration targeting ES2022 with strict mode, bundler module resolution, and JSON module support, scoped to src and experiments while excluding the dashboard.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "build-system"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:minio",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:minio-setup",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:helix",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:iii",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:worker",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:dashboard",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:minio-setup",
+      "target": "service:docker-compose.yml:minio",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:helix",
+      "target": "service:docker-compose.yml:minio-setup",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:iii",
+      "target": "service:docker-compose.yml:helix",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:worker",
+      "target": "service:docker-compose.yml:helix",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:worker",
+      "target": "service:docker-compose.yml:iii",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:dashboard",
+      "target": "service:docker-compose.yml:helix",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:worker",
+      "target": "file:src/iii/worker.ts",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "service:docker-compose.yml:worker",
+      "target": "file:src/maintain/sweeps.ts",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "config:helix.toml",
+      "target": "file:src/db/client.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:helix.toml",
+      "target": "service:docker-compose.yml:helix",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:src/iii/worker.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:src/mcp/server.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:src/db/bootstrap.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.json",
+      "target": "file:src/config.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.json",
+      "target": "file:src/iii/worker.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/db/schema.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/write/pipeline.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/write/ingest.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/read/readPath.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/read/planner.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/read/recall.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/read/rank.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/match/engine.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/write/entityResolve.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/write/conflict.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/maintain/sweeps.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/mcp/server.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/hooks/inject.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "service:docker-compose.yml",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:memory-system-handoff.md",
+      "target": "file:src/db/schema.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:memory-system-handoff.md",
+      "target": "file:src/write/pipeline.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:memory-system-handoff.md",
+      "target": "file:src/read/readPath.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:memory-system-handoff.md",
+      "target": "file:src/hooks/capture.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:memory-system-handoff.md",
+      "target": "file:src/hooks/inject.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:memory-system-handoff.md",
+      "target": "service:docker-compose.yml",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "config:helix.toml",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:src/db/schema.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    }
+  ]
+}

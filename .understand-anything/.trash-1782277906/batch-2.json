@@ -1,0 +1,268 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/iii/worker.ts",
+      "type": "file",
+      "name": "worker.ts",
+      "filePath": "src/iii/worker.ts",
+      "summary": "Orchestration backbone for the write path: registers iii queue worker functions (ingestTurn, flushSession, sweepIdle) and cron triggers for idle flushing and maintenance sweeps (decay, forget, contextual expiry, ER repair).",
+      "tags": ["entry-point", "service", "event-handler", "orchestration", "scheduler"],
+      "complexity": "moderate",
+      "languageNotes": "Registers anonymous async callbacks via the iii-sdk registerFunction/registerTrigger API rather than top-level named functions, so structural extraction sees no functions."
+    },
+    {
+      "id": "file:src/read/e2e.ts",
+      "type": "file",
+      "name": "e2e.ts",
+      "filePath": "src/read/e2e.ts",
+      "summary": "End-to-end test harness for the read path: wipes the tenant, ingests a session's prompts through the write pipeline, then exercises readPath and prints recall results.",
+      "tags": ["test", "entry-point", "e2e", "read-path"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/write/buffer.ts",
+      "type": "file",
+      "name": "buffer.ts",
+      "filePath": "src/write/buffer.ts",
+      "summary": "Session-window buffering layer: provides flush-trigger logic plus file-backed and in-memory buffer stores that accumulate turns until a flush condition (size, boundary, topic-shift, time cap) fires.",
+      "tags": ["service", "data-model", "buffer", "persistence"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/write/e2e.ts",
+      "type": "file",
+      "name": "e2e.ts",
+      "filePath": "src/write/e2e.ts",
+      "summary": "End-to-end test harness for the write path: wipes the tenant, ingests a session through the pipeline, then dumps persisted memories and entities to verify extraction and persistence.",
+      "tags": ["test", "entry-point", "e2e", "write-path"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/write/extract.ts",
+      "type": "file",
+      "name": "extract.ts",
+      "filePath": "src/write/extract.ts",
+      "summary": "Extraction step of the write pipeline: renders a buffered session window into a prompt and calls the LLM to produce validated candidate memories and coreference mention clusters.",
+      "tags": ["service", "llm", "extraction", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/write/ingest.ts",
+      "type": "file",
+      "name": "ingest.ts",
+      "filePath": "src/write/ingest.ts",
+      "summary": "Ingest entry for a single turn: salience-gates the turn, appends it to the session buffer, and triggers a flush when a buffer condition is met.",
+      "tags": ["service", "write-path", "event-handler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/write/pipeline.ts",
+      "type": "file",
+      "name": "pipeline.ts",
+      "filePath": "src/write/pipeline.ts",
+      "summary": "Core write pipeline: flushes a session buffer by extracting candidates, embedding them, resolving entities and conflicts, and persisting memories with supersede/extends links.",
+      "tags": ["service", "write-path", "data-pipeline", "orchestration"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/write/remember.ts",
+      "type": "file",
+      "name": "remember.ts",
+      "filePath": "src/write/remember.ts",
+      "summary": "Explicit-memory helper: buffers user-supplied content as a boundary turn and immediately flushes it through the write pipeline, used by the MCP remember tool.",
+      "tags": ["service", "write-path", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/write/salience.ts",
+      "type": "file",
+      "name": "salience.ts",
+      "filePath": "src/write/salience.ts",
+      "summary": "Salience gate that scores a turn against regex signals (named entities, commitments, preferences, goals, assertions) to decide whether it is worth buffering for memory extraction.",
+      "tags": ["service", "validation", "filtering", "write-path"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/write/types.ts",
+      "type": "file",
+      "name": "types.ts",
+      "filePath": "src/write/types.ts",
+      "summary": "Shared write-path type definitions: TurnEvent, BufferedTurn, SessionBuffer, CandidateMemory, MentionCluster, ExtractionResult, and FlushReason.",
+      "tags": ["type-definition", "data-model", "write-path"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/write/write.test.ts",
+      "type": "file",
+      "name": "write.test.ts",
+      "filePath": "src/write/write.test.ts",
+      "summary": "Unit tests for the write path covering the salience gate and buffer flush-reason logic with synthetic turn and buffer fixtures.",
+      "tags": ["test", "unit-test", "write-path"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/write/buffer.ts:flushReason",
+      "type": "function",
+      "name": "flushReason",
+      "filePath": "src/write/buffer.ts",
+      "lineRange": [19, 31],
+      "summary": "Determines whether a buffer should flush and why, returning a FlushReason for size, boundary, topic-shift, or time-cap conditions.",
+      "tags": ["utility", "buffer", "flush-trigger"],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/write/buffer.ts:FileBufferStore",
+      "type": "class",
+      "name": "FileBufferStore",
+      "filePath": "src/write/buffer.ts",
+      "lineRange": [42, 71],
+      "summary": "File-backed session buffer store that persists each session's accumulated turns to a JSON file, supporting get, append, clear, and list operations.",
+      "tags": ["data-model", "persistence", "buffer"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/write/buffer.ts:MemoryBufferStore",
+      "type": "class",
+      "name": "MemoryBufferStore",
+      "filePath": "src/write/buffer.ts",
+      "lineRange": [74, 86],
+      "summary": "In-memory session buffer store backed by a Map, providing the same get/append/clear/list interface as FileBufferStore for ephemeral or test use.",
+      "tags": ["data-model", "buffer", "in-memory"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/write/extract.ts:extractWindow",
+      "type": "function",
+      "name": "extractWindow",
+      "filePath": "src/write/extract.ts",
+      "lineRange": [56, 99],
+      "summary": "Calls the LLM over a rendered session window and validates the response into candidate memories and mention clusters, filtering by allowed entity and memory types.",
+      "tags": ["llm", "extraction", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/write/ingest.ts:ingestTurn",
+      "type": "function",
+      "name": "ingestTurn",
+      "filePath": "src/write/ingest.ts",
+      "lineRange": [18, 40],
+      "summary": "Processes one incoming turn: applies the salience gate, appends it to the session buffer, and flushes the session when a flush trigger fires.",
+      "tags": ["write-path", "event-handler", "ingest"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/write/pipeline.ts:flushSession",
+      "type": "function",
+      "name": "flushSession",
+      "filePath": "src/write/pipeline.ts",
+      "lineRange": [23, 91],
+      "summary": "Flushes a session buffer end-to-end: extracts candidates, embeds them, resolves entities and conflicts, bumps existing memories, and persists new memories with supersede and extends links.",
+      "tags": ["write-path", "data-pipeline", "orchestration"],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/write/remember.ts:remember",
+      "type": "function",
+      "name": "remember",
+      "filePath": "src/write/remember.ts",
+      "lineRange": [10, 21],
+      "summary": "Buffers explicit user content as a boundary turn and immediately flushes the session through the write pipeline.",
+      "tags": ["write-path", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/write/salience.ts:salienceGate",
+      "type": "function",
+      "name": "salienceGate",
+      "filePath": "src/write/salience.ts",
+      "lineRange": [24, 52],
+      "summary": "Scores a turn against regex-based salience signals and returns whether it is worth keeping plus the matched signals.",
+      "tags": ["validation", "filtering", "write-path"],
+      "complexity": "moderate"
+    }
+  ],
+  "edges": [
+    {"source": "file:src/iii/worker.ts", "target": "file:src/maintain/erRepair.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/iii/worker.ts", "target": "file:src/maintain/sweeps.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/iii/worker.ts", "target": "file:src/write/buffer.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/iii/worker.ts", "target": "file:src/write/ingest.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/iii/worker.ts", "target": "file:src/write/pipeline.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/iii/worker.ts", "target": "file:src/write/types.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:src/read/e2e.ts", "target": "file:src/config.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/e2e.ts", "target": "file:src/db/client.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/e2e.ts", "target": "file:src/db/schema.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/e2e.ts", "target": "file:src/read/readPath.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/e2e.ts", "target": "file:src/write/buffer.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/e2e.ts", "target": "file:src/write/ingest.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/e2e.ts", "target": "file:src/write/pipeline.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/e2e.ts", "target": "file:src/write/types.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:src/write/buffer.ts", "target": "file:src/write/types.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:src/write/e2e.ts", "target": "file:src/config.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/e2e.ts", "target": "file:src/db/client.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/e2e.ts", "target": "file:src/db/schema.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/e2e.ts", "target": "file:src/write/buffer.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/e2e.ts", "target": "file:src/write/ingest.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/e2e.ts", "target": "file:src/write/types.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:src/write/extract.ts", "target": "file:src/llm/complete.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/extract.ts", "target": "file:src/write/types.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:src/write/ingest.ts", "target": "file:src/write/buffer.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/ingest.ts", "target": "file:src/write/pipeline.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/ingest.ts", "target": "file:src/write/salience.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/ingest.ts", "target": "file:src/write/types.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:src/write/pipeline.ts", "target": "file:src/db/memories.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/pipeline.ts", "target": "file:src/llm/embed.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/pipeline.ts", "target": "file:src/write/buffer.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/pipeline.ts", "target": "file:src/write/conflict.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/pipeline.ts", "target": "file:src/write/entityResolve.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/pipeline.ts", "target": "file:src/write/extract.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/pipeline.ts", "target": "file:src/write/types.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:src/write/remember.ts", "target": "file:src/write/buffer.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/remember.ts", "target": "file:src/write/pipeline.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:src/write/salience.ts", "target": "file:src/write/types.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:src/write/types.ts", "target": "file:src/db/schema.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:src/write/write.test.ts", "target": "file:src/write/buffer.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/write.test.ts", "target": "file:src/write/salience.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/write/write.test.ts", "target": "file:src/write/types.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:src/write/buffer.ts", "target": "function:src/write/buffer.ts:flushReason", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/write/buffer.ts", "target": "class:src/write/buffer.ts:FileBufferStore", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/write/buffer.ts", "target": "class:src/write/buffer.ts:MemoryBufferStore", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/write/buffer.ts", "target": "function:src/write/buffer.ts:flushReason", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/write/buffer.ts", "target": "class:src/write/buffer.ts:FileBufferStore", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/write/buffer.ts", "target": "class:src/write/buffer.ts:MemoryBufferStore", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:src/write/extract.ts", "target": "function:src/write/extract.ts:extractWindow", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/write/extract.ts", "target": "function:src/write/extract.ts:extractWindow", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:src/write/ingest.ts", "target": "function:src/write/ingest.ts:ingestTurn", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/write/ingest.ts", "target": "function:src/write/ingest.ts:ingestTurn", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:src/write/pipeline.ts", "target": "function:src/write/pipeline.ts:flushSession", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/write/pipeline.ts", "target": "function:src/write/pipeline.ts:flushSession", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:src/write/remember.ts", "target": "function:src/write/remember.ts:remember", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/write/remember.ts", "target": "function:src/write/remember.ts:remember", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:src/write/salience.ts", "target": "function:src/write/salience.ts:salienceGate", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/write/salience.ts", "target": "function:src/write/salience.ts:salienceGate", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "function:src/write/ingest.ts:ingestTurn", "target": "function:src/write/salience.ts:salienceGate", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:src/write/ingest.ts:ingestTurn", "target": "function:src/write/buffer.ts:flushReason", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:src/write/ingest.ts:ingestTurn", "target": "function:src/write/pipeline.ts:flushSession", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:src/write/pipeline.ts:flushSession", "target": "function:src/write/extract.ts:extractWindow", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:src/write/remember.ts:remember", "target": "function:src/write/pipeline.ts:flushSession", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:src/write/buffer.ts", "target": "file:src/write/write.test.ts", "type": "tested_by", "direction": "forward", "weight": 0.5},
+    {"source": "file:src/write/salience.ts", "target": "file:src/write/write.test.ts", "type": "tested_by", "direction": "forward", "weight": 0.5}
+  ]
+}

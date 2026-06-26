@@ -1,0 +1,2834 @@
+{
+  "fileNodes": [
+    {
+      "id": "file:src/config.ts",
+      "type": "file",
+      "name": "config.ts",
+      "filePath": "src/config.ts",
+      "summary": "Central environment configuration exposing tenant/user identifiers, the HelixDB URL, and embedding model settings used across the memory pipeline.",
+      "tags": [
+        "config",
+        "configuration",
+        "entry-point",
+        "environment"
+      ]
+    },
+    {
+      "id": "file:src/db/bootstrap.ts",
+      "type": "file",
+      "name": "bootstrap.ts",
+      "filePath": "src/db/bootstrap.ts",
+      "summary": "One-time bootstrap script that creates the required HelixDB secondary indexes via a write batch before the memory system is used.",
+      "tags": [
+        "entry-point",
+        "database",
+        "migration",
+        "bootstrap"
+      ]
+    },
+    {
+      "id": "file:src/db/client.ts",
+      "type": "file",
+      "name": "client.ts",
+      "filePath": "src/db/client.ts",
+      "summary": "Constructs the shared HelixDB client and provides writeWithRetry, a durable-write helper with exponential backoff on conflict errors.",
+      "tags": [
+        "database",
+        "service",
+        "utility",
+        "singleton"
+      ]
+    },
+    {
+      "id": "file:src/db/entities.ts",
+      "type": "file",
+      "name": "entities.ts",
+      "filePath": "src/db/entities.ts",
+      "summary": "Entity persistence layer: hybrid vector+text candidate search, canonical Entity node creation, and alias merging in the memory graph.",
+      "tags": [
+        "database",
+        "data-model",
+        "service",
+        "entity-resolution"
+      ]
+    },
+    {
+      "id": "file:src/db/memories.ts",
+      "type": "file",
+      "name": "memories.ts",
+      "filePath": "src/db/memories.ts",
+      "summary": "Core memory persistence layer that writes Memory nodes with type-driven decay/TTL, links mentions and relations, and handles supersede/extend/bump lifecycle operations.",
+      "tags": [
+        "database",
+        "data-model",
+        "service",
+        "persistence"
+      ]
+    },
+    {
+      "id": "file:src/db/schema.ts",
+      "type": "file",
+      "name": "schema.ts",
+      "filePath": "src/db/schema.ts",
+      "summary": "Single source of truth for the memory graph's label and edge name constants plus the normalizeKey helper for tenant-safe canonical entity keys.",
+      "tags": [
+        "schema-definition",
+        "data-model",
+        "type-definition",
+        "database"
+      ]
+    },
+    {
+      "id": "file:src/db/smoke.ts",
+      "type": "file",
+      "name": "smoke.ts",
+      "filePath": "src/db/smoke.ts",
+      "summary": "End-to-end smoke test script that seeds entities and memories, exercises the write path, and cleans up, validating the HelixDB integration.",
+      "tags": [
+        "test",
+        "entry-point",
+        "database",
+        "integration-test"
+      ]
+    },
+    {
+      "id": "file:src/iii/drive.ts",
+      "type": "file",
+      "name": "drive.ts",
+      "filePath": "src/iii/drive.ts",
+      "summary": "Driver script that emits turn events into the ingestion pipeline and inspects memory counts, used to exercise the hooks/event flow end to end.",
+      "tags": [
+        "entry-point",
+        "event-handler",
+        "script",
+        "ingestion"
+      ]
+    },
+    {
+      "id": "file:src/iii/drive_sync.ts",
+      "type": "file",
+      "name": "drive_sync.ts",
+      "filePath": "src/iii/drive_sync.ts",
+      "summary": "Synchronous driver script that runs the write pipeline directly against HelixDB for testing turn ingestion without the async worker.",
+      "tags": [
+        "entry-point",
+        "script",
+        "ingestion",
+        "database"
+      ]
+    },
+    {
+      "id": "file:src/maintain/erRepair.ts",
+      "type": "file",
+      "name": "erRepair.ts",
+      "filePath": "src/maintain/erRepair.ts",
+      "summary": "Entity-resolution repair sweep that detects duplicate entities via similarity scoring and merges them to keep the canonical graph clean.",
+      "tags": [
+        "maintenance",
+        "entity-resolution",
+        "service",
+        "data-pipeline"
+      ]
+    },
+    {
+      "id": "file:src/maintain/sweeps.ts",
+      "type": "file",
+      "name": "sweeps.ts",
+      "filePath": "src/maintain/sweeps.ts",
+      "summary": "Periodic maintenance sweeps that decay idle memory weights, forget low-weight stale memories, and expire contextual (TTL) memories.",
+      "tags": [
+        "maintenance",
+        "service",
+        "data-pipeline",
+        "lifecycle"
+      ]
+    },
+    {
+      "id": "file:src/iii/worker.ts",
+      "type": "file",
+      "name": "worker.ts",
+      "filePath": "src/iii/worker.ts",
+      "summary": "Orchestration backbone for the write path: registers iii queue worker functions (ingestTurn, flushSession, sweepIdle) and cron triggers for idle flushing and maintenance sweeps (decay, forget, contextual expiry, ER repair).",
+      "tags": [
+        "entry-point",
+        "service",
+        "event-handler",
+        "orchestration",
+        "scheduler"
+      ]
+    },
+    {
+      "id": "file:src/read/e2e.ts",
+      "type": "file",
+      "name": "e2e.ts",
+      "filePath": "src/read/e2e.ts",
+      "summary": "End-to-end test harness for the read path: wipes the tenant, ingests a session's prompts through the write pipeline, then exercises readPath and prints recall results.",
+      "tags": [
+        "test",
+        "entry-point",
+        "e2e",
+        "read-path"
+      ]
+    },
+    {
+      "id": "file:src/write/buffer.ts",
+      "type": "file",
+      "name": "buffer.ts",
+      "filePath": "src/write/buffer.ts",
+      "summary": "Session-window buffering layer: provides flush-trigger logic plus file-backed and in-memory buffer stores that accumulate turns until a flush condition (size, boundary, topic-shift, time cap) fires.",
+      "tags": [
+        "service",
+        "data-model",
+        "buffer",
+        "persistence",
+        "tested"
+      ]
+    },
+    {
+      "id": "file:src/write/e2e.ts",
+      "type": "file",
+      "name": "e2e.ts",
+      "filePath": "src/write/e2e.ts",
+      "summary": "End-to-end test harness for the write path: wipes the tenant, ingests a session through the pipeline, then dumps persisted memories and entities to verify extraction and persistence.",
+      "tags": [
+        "test",
+        "entry-point",
+        "e2e",
+        "write-path"
+      ]
+    },
+    {
+      "id": "file:src/write/extract.ts",
+      "type": "file",
+      "name": "extract.ts",
+      "filePath": "src/write/extract.ts",
+      "summary": "Extraction step of the write pipeline: renders a buffered session window into a prompt and calls the LLM to produce validated candidate memories and coreference mention clusters.",
+      "tags": [
+        "service",
+        "llm",
+        "extraction",
+        "validation"
+      ]
+    },
+    {
+      "id": "file:src/write/ingest.ts",
+      "type": "file",
+      "name": "ingest.ts",
+      "filePath": "src/write/ingest.ts",
+      "summary": "Ingest entry for a single turn: salience-gates the turn, appends it to the session buffer, and triggers a flush when a buffer condition is met.",
+      "tags": [
+        "service",
+        "write-path",
+        "event-handler"
+      ]
+    },
+    {
+      "id": "file:src/write/pipeline.ts",
+      "type": "file",
+      "name": "pipeline.ts",
+      "filePath": "src/write/pipeline.ts",
+      "summary": "Core write pipeline: flushes a session buffer by extracting candidates, embedding them, resolving entities and conflicts, and persisting memories with supersede/extends links.",
+      "tags": [
+        "service",
+        "write-path",
+        "data-pipeline",
+        "orchestration"
+      ]
+    },
+    {
+      "id": "file:src/write/remember.ts",
+      "type": "file",
+      "name": "remember.ts",
+      "filePath": "src/write/remember.ts",
+      "summary": "Explicit-memory helper: buffers user-supplied content as a boundary turn and immediately flushes it through the write pipeline, used by the MCP remember tool.",
+      "tags": [
+        "service",
+        "write-path",
+        "utility"
+      ]
+    },
+    {
+      "id": "file:src/write/salience.ts",
+      "type": "file",
+      "name": "salience.ts",
+      "filePath": "src/write/salience.ts",
+      "summary": "Salience gate that scores a turn against regex signals (named entities, commitments, preferences, goals, assertions) to decide whether it is worth buffering for memory extraction.",
+      "tags": [
+        "service",
+        "validation",
+        "filtering",
+        "write-path",
+        "tested"
+      ]
+    },
+    {
+      "id": "file:src/write/types.ts",
+      "type": "file",
+      "name": "types.ts",
+      "filePath": "src/write/types.ts",
+      "summary": "Shared write-path type definitions: TurnEvent, BufferedTurn, SessionBuffer, CandidateMemory, MentionCluster, ExtractionResult, and FlushReason.",
+      "tags": [
+        "type-definition",
+        "data-model",
+        "write-path"
+      ]
+    },
+    {
+      "id": "file:src/write/write.test.ts",
+      "type": "file",
+      "name": "write.test.ts",
+      "filePath": "src/write/write.test.ts",
+      "summary": "Unit tests for the write path covering the salience gate and buffer flush-reason logic with synthetic turn and buffer fixtures.",
+      "tags": [
+        "test",
+        "unit-test",
+        "write-path"
+      ]
+    },
+    {
+      "id": "file:src/db/retrieve.ts",
+      "type": "file",
+      "name": "retrieve.ts",
+      "filePath": "src/db/retrieve.ts",
+      "summary": "Read-side HelixDB access layer providing hybrid vector + BM25 recall, similarity search, relational fact traversal, and entity validation against the tenant-scoped memory graph.",
+      "tags": [
+        "service",
+        "database",
+        "vector-search",
+        "retrieval",
+        "tenant-scoped"
+      ]
+    },
+    {
+      "id": "file:src/llm/embed.ts",
+      "type": "file",
+      "name": "embed.ts",
+      "filePath": "src/llm/embed.ts",
+      "summary": "Embedding helper that loads env config and produces vector embeddings for one or many texts via the configured embedding model client.",
+      "tags": [
+        "llm",
+        "embedding",
+        "utility",
+        "serialization"
+      ]
+    },
+    {
+      "id": "file:src/mcp/server.ts",
+      "type": "file",
+      "name": "server.ts",
+      "filePath": "src/mcp/server.ts",
+      "summary": "UniMind MCP server entry point that registers the recall and remember tools over stdio, exposing long-term memory search and on-demand storage to Claude Code.",
+      "tags": [
+        "entry-point",
+        "mcp",
+        "api-handler",
+        "service"
+      ]
+    },
+    {
+      "id": "file:src/read/header.ts",
+      "type": "file",
+      "name": "header.ts",
+      "filePath": "src/read/header.ts",
+      "summary": "Formats ranked memory parts (goals, contextual notes, relational facts) into the injected context header string and tracks which memory ids were surfaced.",
+      "tags": [
+        "utility",
+        "formatting",
+        "serialization",
+        "read-path"
+      ]
+    },
+    {
+      "id": "file:src/read/planner.ts",
+      "type": "file",
+      "name": "planner.ts",
+      "filePath": "src/read/planner.ts",
+      "summary": "Query planner that uses an LLM to extract relevant memory types, entities, topics, and context scope from a prompt before retrieval runs.",
+      "tags": [
+        "llm",
+        "read-path",
+        "planning",
+        "validation"
+      ]
+    },
+    {
+      "id": "file:src/read/rank.ts",
+      "type": "file",
+      "name": "rank.ts",
+      "filePath": "src/read/rank.ts",
+      "summary": "Ranking module that merges multi-channel memory candidates, scores them by similarity and recency decay, and selects the top set within a token budget.",
+      "tags": [
+        "read-path",
+        "ranking",
+        "scoring",
+        "utility"
+      ]
+    },
+    {
+      "id": "file:src/read/readPath.ts",
+      "type": "file",
+      "name": "readPath.ts",
+      "filePath": "src/read/readPath.ts",
+      "summary": "Orchestrates the full read path: plan the query, embed and validate entities, fetch recall and relational facts in parallel, rank results, and build the injected context header.",
+      "tags": [
+        "read-path",
+        "orchestration",
+        "entry-point",
+        "service"
+      ]
+    },
+    {
+      "id": "file:src/read/recall.ts",
+      "type": "file",
+      "name": "recall.ts",
+      "filePath": "src/read/recall.ts",
+      "summary": "Public recall entry point that embeds a query, fetches hybrid candidates, ranks them, bumps usage counters, and returns formatted memory hits for the MCP recall tool.",
+      "tags": [
+        "read-path",
+        "entry-point",
+        "retrieval",
+        "api-handler"
+      ]
+    },
+    {
+      "id": "file:src/llm/complete.ts",
+      "type": "file",
+      "name": "complete.ts",
+      "filePath": "src/llm/complete.ts",
+      "summary": "LLM client wrapper that loads environment config and exposes jsonComplete for JSON-mode chat completions used by the write pipeline.",
+      "tags": [
+        "service",
+        "llm-client",
+        "json-completion",
+        "config-loader"
+      ]
+    },
+    {
+      "id": "file:src/match/engine.test.ts",
+      "type": "file",
+      "name": "engine.test.ts",
+      "filePath": "src/match/engine.test.ts",
+      "summary": "Unit tests for the generic match engine, verifying blocking, scoring, sorting, and adjudication behavior using stub scorers.",
+      "tags": [
+        "test",
+        "matching",
+        "unit-test"
+      ]
+    },
+    {
+      "id": "file:src/match/engine.ts",
+      "type": "file",
+      "name": "engine.ts",
+      "filePath": "src/match/engine.ts",
+      "summary": "Generic matching engine that blocks candidates, scores them via a pluggable config, sorts by score, and optionally adjudicates the gray-zone matches.",
+      "tags": [
+        "matching",
+        "engine",
+        "factory",
+        "core",
+        "tested"
+      ]
+    },
+    {
+      "id": "file:src/match/scorers.ts",
+      "type": "file",
+      "name": "scorers.ts",
+      "filePath": "src/match/scorers.ts",
+      "summary": "Collection of similarity scoring primitives — cosine similarity, vector-distance conversion, trigram fuzzy matching, alias matching, and weighted score combination.",
+      "tags": [
+        "matching",
+        "utility",
+        "similarity",
+        "scoring",
+        "tested"
+      ]
+    },
+    {
+      "id": "file:src/write/conflict.ts",
+      "type": "file",
+      "name": "conflict.ts",
+      "filePath": "src/write/conflict.ts",
+      "summary": "Conflict resolution for incoming memory writes: matches against similar existing memories and applies an LLM adjudication policy to decide create/update/skip relations.",
+      "tags": [
+        "write-pipeline",
+        "conflict-resolution",
+        "matching",
+        "core"
+      ]
+    },
+    {
+      "id": "file:src/write/entityResolve.ts",
+      "type": "file",
+      "name": "entityResolve.ts",
+      "filePath": "src/write/entityResolve.ts",
+      "summary": "Entity resolution for write clusters: searches candidate entities, scores them by alias and vector similarity, adjudicates ambiguous matches via LLM, and creates or merges entities.",
+      "tags": [
+        "write-pipeline",
+        "entity-resolution",
+        "matching",
+        "core"
+      ]
+    },
+    {
+      "id": "file:experiments/drift-gate/src/classify.ts",
+      "type": "file",
+      "name": "classify.ts",
+      "filePath": "experiments/drift-gate/src/classify.ts",
+      "summary": "LLM-based baseline classifier for the drift-gate experiment: asks an OpenAI chat model whether consecutive prompts represent a topic shift, then scores precision/recall/F1 against labeled data.",
+      "tags": [
+        "classifier",
+        "evaluation",
+        "llm",
+        "entry-point",
+        "experiment"
+      ]
+    },
+    {
+      "id": "file:experiments/drift-gate/src/eval.ts",
+      "type": "file",
+      "name": "eval.ts",
+      "filePath": "experiments/drift-gate/src/eval.ts",
+      "summary": "Embedding-based drift-gate evaluation harness that sweeps cosine-distance thresholds and entity-overlap parameters to find the F1-optimal heuristic gate configuration against labeled sessions.",
+      "tags": [
+        "evaluation",
+        "embeddings",
+        "threshold-sweep",
+        "entry-point",
+        "experiment"
+      ]
+    },
+    {
+      "id": "file:experiments/drift-gate/src/label.ts",
+      "type": "file",
+      "name": "label.ts",
+      "filePath": "experiments/drift-gate/src/label.ts",
+      "summary": "Ground-truth labeling tool that asks an OpenAI chat model to identify topic-shift points within each session's prompt sequence and writes the labeled dataset for downstream evaluation.",
+      "tags": [
+        "labeling",
+        "llm",
+        "dataset",
+        "entry-point",
+        "experiment"
+      ]
+    },
+    {
+      "id": "file:experiments/drift-gate/src/openai.ts",
+      "type": "file",
+      "name": "openai.ts",
+      "filePath": "experiments/drift-gate/src/openai.ts",
+      "summary": "Shared utility module for the drift-gate experiment that loads .env credentials, exports a configured OpenAI client, and provides data/output path helpers.",
+      "tags": [
+        "utility",
+        "config",
+        "openai-client",
+        "shared",
+        "experiment"
+      ]
+    },
+    {
+      "id": "file:src/hooks/capture.ts",
+      "type": "file",
+      "name": "capture.ts",
+      "filePath": "src/hooks/capture.ts",
+      "summary": "Claude Code PostToolUse hook entry point that reads the tool payload from stdin, normalizes it into a TurnEvent, and fires it asynchronously to the memory ingest pipeline without blocking the user.",
+      "tags": [
+        "entry-point",
+        "event-handler",
+        "hook",
+        "serialization"
+      ]
+    },
+    {
+      "id": "file:src/hooks/emit.ts",
+      "type": "file",
+      "name": "emit.ts",
+      "filePath": "src/hooks/emit.ts",
+      "summary": "Fire-and-forget event emitter that connects to the iii worker engine, triggers the unimind ingestTurn function with the turn event, and shuts down without ever blocking the calling hook.",
+      "tags": [
+        "service",
+        "event-handler",
+        "hook",
+        "messaging"
+      ]
+    },
+    {
+      "id": "file:src/hooks/inject.ts",
+      "type": "file",
+      "name": "inject.ts",
+      "filePath": "src/hooks/inject.ts",
+      "summary": "Claude Code UserPromptSubmit hook that reads the user prompt from stdin, recalls relevant memories via readPath, logs a checkpoint, and injects retrieved context back into the session via stdout.",
+      "tags": [
+        "entry-point",
+        "event-handler",
+        "hook",
+        "middleware"
+      ]
+    },
+    {
+      "id": "file:src/hooks/silence.ts",
+      "type": "file",
+      "name": "silence.ts",
+      "filePath": "src/hooks/silence.ts",
+      "summary": "Stdout-discipline utility that captures the real stdout writer and redirects stray logging to stderr, ensuring only intended hook protocol output reaches Claude Code on stdout.",
+      "tags": [
+        "utility",
+        "hook",
+        "logging"
+      ]
+    },
+    {
+      "id": "service:.dockerignore",
+      "type": "service",
+      "name": ".dockerignore",
+      "filePath": ".dockerignore",
+      "summary": "Docker build-context exclusion list that keeps node_modules, git metadata, experiments, the dashboard, logs, and secrets out of worker image builds.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "build-system"
+      ]
+    },
+    {
+      "id": "document:AGENTS.md",
+      "type": "document",
+      "name": "AGENTS.md",
+      "filePath": "AGENTS.md",
+      "summary": "Agent-facing guide for working in this HelixDB project, covering the helix CLI workflow, installation fallbacks, container-runtime caveats, and query syntax conventions.",
+      "tags": [
+        "documentation",
+        "helixdb",
+        "workflow",
+        "development"
+      ]
+    },
+    {
+      "id": "document:ARCHITECTURE.mdx",
+      "type": "document",
+      "name": "ARCHITECTURE.mdx",
+      "filePath": "ARCHITECTURE.mdx",
+      "summary": "Authoritative system design doc for Unimind, detailing the HelixDB data model, asynchronous write path, synchronous read path, the reusable matching engine, maintenance crons, MCP server, and deployment topology.",
+      "tags": [
+        "documentation",
+        "architecture",
+        "design-doc",
+        "entry-point"
+      ]
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "type": "service",
+      "name": "docker-compose.yml",
+      "filePath": "docker-compose.yml",
+      "summary": "Full-stack Compose definition that brings up MinIO, a one-shot bucket setup, HelixDB, the iii orchestration engine, the UniMind worker, and the dashboard in dependency order.",
+      "tags": [
+        "orchestration",
+        "infrastructure",
+        "containerization",
+        "deployment"
+      ]
+    },
+    {
+      "id": "service:docker-compose.yml:minio",
+      "type": "service",
+      "name": "minio",
+      "summary": "MinIO object-storage service backing HelixDB's on-disk persistence, exposing an S3-compatible API with a liveness health check.",
+      "tags": [
+        "object-storage",
+        "infrastructure",
+        "s3"
+      ]
+    },
+    {
+      "id": "service:docker-compose.yml:minio-setup",
+      "type": "service",
+      "name": "minio-setup",
+      "summary": "One-shot job that waits for MinIO to be healthy, creates the helix-db bucket via the mc client, and exits.",
+      "tags": [
+        "object-storage",
+        "infrastructure",
+        "bootstrap"
+      ]
+    },
+    {
+      "id": "service:docker-compose.yml:helix",
+      "type": "service",
+      "name": "helix",
+      "summary": "HelixDB enterprise-dev memory store providing graph, vector, and BM25 search, persisting to the MinIO S3 bucket and published on host port 6969.",
+      "tags": [
+        "database",
+        "helixdb",
+        "infrastructure",
+        "vector-search"
+      ]
+    },
+    {
+      "id": "service:docker-compose.yml:iii",
+      "type": "service",
+      "name": "iii",
+      "summary": "iii orchestration engine providing the queues, functions, and cron backbone for the write pipeline, exposing WebSocket, REST, stream, and Prometheus ports.",
+      "tags": [
+        "orchestration",
+        "infrastructure",
+        "queue"
+      ]
+    },
+    {
+      "id": "service:docker-compose.yml:worker",
+      "type": "service",
+      "name": "worker",
+      "summary": "UniMind worker built from docker/worker.Dockerfile that runs the asynchronous write pipeline and maintenance crons against HelixDB and the iii engine.",
+      "tags": [
+        "service",
+        "write-pipeline",
+        "infrastructure",
+        "containerization"
+      ]
+    },
+    {
+      "id": "service:docker-compose.yml:dashboard",
+      "type": "service",
+      "name": "dashboard",
+      "summary": "Next.js HelixDB dashboard built from helix-dashboard, connecting to the Helix service for memory visualization and published on host port 48173.",
+      "tags": [
+        "frontend",
+        "visualization",
+        "infrastructure",
+        "nextjs"
+      ]
+    },
+    {
+      "id": "config:helix.toml",
+      "type": "config",
+      "name": "helix.toml",
+      "filePath": "helix.toml",
+      "summary": "HelixDB project configuration declaring the db queries directory, Docker container runtime, and the local dev instance (port 6969, enterprise-dev image, disk storage).",
+      "tags": [
+        "configuration",
+        "helixdb",
+        "infrastructure"
+      ]
+    },
+    {
+      "id": "document:memory-system-handoff.md",
+      "type": "document",
+      "name": "memory-system-handoff.md",
+      "filePath": "memory-system-handoff.md",
+      "summary": "Authoritative build-handoff spec defining the project goal, tech stack, the six memory types, frozen decisions, the HelixDB data model, write/read paths, risks, and build order for the memory system.",
+      "tags": [
+        "documentation",
+        "design-doc",
+        "specification",
+        "entry-point"
+      ]
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "Node project manifest declaring ESM module type, tsx-driven scripts for the worker, MCP server, db bootstrap, and drift-gate experiments, plus HelixDB, MCP SDK, iii-sdk, and OpenAI dependencies.",
+      "tags": [
+        "configuration",
+        "build-system",
+        "dependencies",
+        "npm"
+      ]
+    },
+    {
+      "id": "config:tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "tsconfig.json",
+      "summary": "TypeScript compiler configuration targeting ES2022 with strict mode, bundler module resolution, and JSON module support, scoped to src and experiments while excluding the dashboard.",
+      "tags": [
+        "configuration",
+        "typescript",
+        "build-system"
+      ]
+    },
+    {
+      "id": "file:.understand-anything/.understandignore",
+      "type": "file",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore",
+      "summary": "Ignore-pattern manifest for the understand-anything analysis tooling, listing files and directories excluded from knowledge-graph scanning.",
+      "tags": [
+        "configuration",
+        "tooling",
+        "ignore-rules"
+      ]
+    },
+    {
+      "id": "file:docker/worker-entrypoint.sh",
+      "type": "file",
+      "name": "worker-entrypoint.sh",
+      "filePath": "docker/worker-entrypoint.sh",
+      "summary": "Container entrypoint that gates worker startup on HelixDB (HTTP) and the iii engine (WS) readiness, bootstraps Helix indexes idempotently, then launches the UniMind write-pipeline worker.",
+      "tags": [
+        "script",
+        "containerization",
+        "infrastructure",
+        "entry-point",
+        "deployment"
+      ]
+    },
+    {
+      "id": "file:docker/worker.Dockerfile",
+      "type": "service",
+      "name": "worker.Dockerfile",
+      "filePath": "docker/worker.Dockerfile",
+      "summary": "Single-stage Node 24 Alpine image that installs dependencies, copies the source tree, and runs the UniMind iii worker (write pipeline plus maintenance crons) via the readiness-gated entrypoint.",
+      "tags": [
+        "containerization",
+        "infrastructure",
+        "deployment",
+        "worker"
+      ]
+    },
+    {
+      "id": "config:examples/request.json",
+      "type": "config",
+      "name": "request.json",
+      "filePath": "examples/request.json",
+      "summary": "Sample ingest request payload illustrating the parameters/query/request_type shape expected by the UniMind memory ingestion pipeline.",
+      "tags": [
+        "configuration",
+        "example",
+        "fixture",
+        "api-schema"
+      ]
+    },
+    {
+      "id": "document:experiments/drift-gate/FINDINGS.md",
+      "type": "document",
+      "name": "FINDINGS.md",
+      "filePath": "experiments/drift-gate/FINDINGS.md",
+      "summary": "Experiment write-up concluding that the embedding-based drift gate fails structurally, and recommending a cheap LLM shift-classifier instead, with method, results, and repro steps across seven sections.",
+      "tags": [
+        "documentation",
+        "experiment",
+        "findings",
+        "research"
+      ]
+    },
+    {
+      "id": "file:experiments/drift-gate/src/extract.ts",
+      "type": "file",
+      "name": "extract.ts",
+      "filePath": "experiments/drift-gate/src/extract.ts",
+      "summary": "Experiment harness that walks Claude project session transcripts, extracts non-meta user prompt text from JSONL content blocks, and writes a chronologically sorted dataset used to evaluate the drift gate.",
+      "tags": [
+        "experiment",
+        "data-pipeline",
+        "extraction",
+        "serialization"
+      ]
+    }
+  ],
+  "importEdges": [
+    {
+      "source": "file:src/db/bootstrap.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/bootstrap.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/client.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/entities.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/entities.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/entities.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/memories.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/memories.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/memories.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/smoke.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/smoke.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/smoke.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/smoke.ts",
+      "target": "file:src/llm/embed.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive.ts",
+      "target": "file:src/hooks/emit.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive_sync.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive_sync.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive_sync.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive_sync.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/erRepair.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/erRepair.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/erRepair.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/erRepair.ts",
+      "target": "file:src/llm/embed.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/erRepair.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/sweeps.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/sweeps.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/sweeps.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/maintain/erRepair.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/maintain/sweeps.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/write/ingest.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/write/pipeline.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/read/readPath.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/write/ingest.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/write/pipeline.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/buffer.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/e2e.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/e2e.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/e2e.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/e2e.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/e2e.ts",
+      "target": "file:src/write/ingest.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/e2e.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/extract.ts",
+      "target": "file:src/llm/complete.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/extract.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/ingest.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/ingest.ts",
+      "target": "file:src/write/pipeline.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/ingest.ts",
+      "target": "file:src/write/salience.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/ingest.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/db/memories.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/llm/embed.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/write/conflict.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/write/entityResolve.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/write/extract.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/remember.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/remember.ts",
+      "target": "file:src/write/pipeline.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/salience.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/types.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/write.test.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/write.test.ts",
+      "target": "file:src/write/salience.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/write.test.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/retrieve.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/retrieve.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/retrieve.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/llm/embed.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/mcp/server.ts",
+      "target": "file:src/read/recall.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/mcp/server.ts",
+      "target": "file:src/write/remember.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/header.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/header.ts",
+      "target": "file:src/read/rank.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/planner.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/planner.ts",
+      "target": "file:src/llm/complete.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/rank.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/rank.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/rank.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/db/memories.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/llm/embed.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/read/header.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/read/planner.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/read/rank.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/recall.ts",
+      "target": "file:src/db/memories.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/recall.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/recall.ts",
+      "target": "file:src/llm/embed.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/recall.ts",
+      "target": "file:src/read/rank.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/match/engine.test.ts",
+      "target": "file:src/match/engine.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/match/engine.test.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/llm/complete.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/match/engine.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/db/entities.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/llm/complete.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/match/engine.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:experiments/drift-gate/src/classify.ts",
+      "target": "file:experiments/drift-gate/src/openai.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:experiments/drift-gate/src/eval.ts",
+      "target": "file:experiments/drift-gate/src/openai.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:experiments/drift-gate/src/label.ts",
+      "target": "file:experiments/drift-gate/src/openai.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "file:src/hooks/emit.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "file:src/hooks/silence.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/emit.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/hooks/emit.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/hooks/silence.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/read/readPath.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ],
+  "allEdges": [
+    {
+      "source": "file:src/db/bootstrap.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/bootstrap.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/client.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/entities.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/entities.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/entities.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/memories.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/memories.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/memories.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/smoke.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/smoke.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/smoke.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/smoke.ts",
+      "target": "file:src/llm/embed.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive.ts",
+      "target": "file:src/hooks/emit.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive_sync.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive_sync.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive_sync.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/drive_sync.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/erRepair.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/erRepair.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/erRepair.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/erRepair.ts",
+      "target": "file:src/llm/embed.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/erRepair.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/sweeps.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/sweeps.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/maintain/sweeps.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/maintain/erRepair.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/maintain/sweeps.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/write/ingest.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/write/pipeline.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/iii/worker.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/read/readPath.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/write/ingest.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/write/pipeline.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/e2e.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/buffer.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/e2e.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/e2e.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/e2e.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/e2e.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/e2e.ts",
+      "target": "file:src/write/ingest.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/e2e.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/extract.ts",
+      "target": "file:src/llm/complete.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/extract.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/ingest.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/ingest.ts",
+      "target": "file:src/write/pipeline.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/ingest.ts",
+      "target": "file:src/write/salience.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/ingest.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/db/memories.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/llm/embed.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/write/conflict.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/write/entityResolve.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/write/extract.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/pipeline.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/remember.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/remember.ts",
+      "target": "file:src/write/pipeline.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/salience.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/types.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/write.test.ts",
+      "target": "file:src/write/buffer.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/write.test.ts",
+      "target": "file:src/write/salience.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/write.test.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/buffer.ts",
+      "target": "file:src/write/write.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/write/salience.ts",
+      "target": "file:src/write/write.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/db/retrieve.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/retrieve.ts",
+      "target": "file:src/db/client.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/db/retrieve.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/llm/embed.ts",
+      "target": "file:src/config.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/mcp/server.ts",
+      "target": "file:src/read/recall.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/mcp/server.ts",
+      "target": "file:src/write/remember.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/header.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/header.ts",
+      "target": "file:src/read/rank.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/planner.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/planner.ts",
+      "target": "file:src/llm/complete.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/rank.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/rank.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/rank.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/db/memories.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/llm/embed.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/read/header.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/read/planner.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/readPath.ts",
+      "target": "file:src/read/rank.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/recall.ts",
+      "target": "file:src/db/memories.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/recall.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/recall.ts",
+      "target": "file:src/llm/embed.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/read/recall.ts",
+      "target": "file:src/read/rank.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/match/engine.test.ts",
+      "target": "file:src/match/engine.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/match/engine.test.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/match/engine.ts",
+      "target": "file:src/match/engine.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/match/scorers.ts",
+      "target": "file:src/match/engine.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/llm/complete.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/match/engine.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/db/entities.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/llm/complete.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/match/engine.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:experiments/drift-gate/src/classify.ts",
+      "target": "file:experiments/drift-gate/src/openai.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:experiments/drift-gate/src/eval.ts",
+      "target": "file:experiments/drift-gate/src/openai.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:experiments/drift-gate/src/label.ts",
+      "target": "file:experiments/drift-gate/src/openai.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "file:src/hooks/emit.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "file:src/hooks/silence.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/emit.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/hooks/emit.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/hooks/silence.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/read/readPath.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:minio",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:minio-setup",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:helix",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:iii",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:worker",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml",
+      "target": "service:docker-compose.yml:dashboard",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:minio-setup",
+      "target": "service:docker-compose.yml:minio",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:helix",
+      "target": "service:docker-compose.yml:minio-setup",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:iii",
+      "target": "service:docker-compose.yml:helix",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:worker",
+      "target": "service:docker-compose.yml:helix",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:worker",
+      "target": "service:docker-compose.yml:iii",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:dashboard",
+      "target": "service:docker-compose.yml:helix",
+      "type": "depends_on",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "service:docker-compose.yml:worker",
+      "target": "file:src/iii/worker.ts",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "service:docker-compose.yml:worker",
+      "target": "file:src/maintain/sweeps.ts",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "config:helix.toml",
+      "target": "file:src/db/client.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:helix.toml",
+      "target": "service:docker-compose.yml:helix",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:src/iii/worker.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:src/mcp/server.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:package.json",
+      "target": "file:src/db/bootstrap.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.json",
+      "target": "file:src/config.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "config:tsconfig.json",
+      "target": "file:src/iii/worker.ts",
+      "type": "configures",
+      "direction": "forward",
+      "weight": 0.6
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/db/schema.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/write/pipeline.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/write/ingest.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/read/readPath.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/read/planner.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/read/recall.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/read/rank.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/match/engine.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/write/entityResolve.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/write/conflict.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/maintain/sweeps.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/mcp/server.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "file:src/hooks/inject.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:ARCHITECTURE.mdx",
+      "target": "service:docker-compose.yml",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:memory-system-handoff.md",
+      "target": "file:src/db/schema.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:memory-system-handoff.md",
+      "target": "file:src/write/pipeline.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:memory-system-handoff.md",
+      "target": "file:src/read/readPath.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:memory-system-handoff.md",
+      "target": "file:src/hooks/capture.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:memory-system-handoff.md",
+      "target": "file:src/hooks/inject.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:memory-system-handoff.md",
+      "target": "service:docker-compose.yml",
+      "type": "related",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "config:helix.toml",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:AGENTS.md",
+      "target": "file:src/db/schema.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "document:experiments/drift-gate/FINDINGS.md",
+      "target": "file:experiments/drift-gate/src/extract.ts",
+      "type": "documents",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:docker/worker.Dockerfile",
+      "target": "file:docker/worker-entrypoint.sh",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:docker/worker.Dockerfile",
+      "target": "file:src/iii/worker.ts",
+      "type": "deploys",
+      "direction": "forward",
+      "weight": 0.7
+    }
+  ]
+}

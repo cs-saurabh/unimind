@@ -1,0 +1,41 @@
+{
+  "projectRoot": "/Users/saurabh.pawar/Work/pet-projects/unimind",
+  "batchFiles": [
+    {
+      "path": "experiments/drift-gate/src/classify.ts",
+      "language": "typescript",
+      "sizeLines": 73,
+      "fileCategory": "code"
+    },
+    {
+      "path": "experiments/drift-gate/src/eval.ts",
+      "language": "typescript",
+      "sizeLines": 189,
+      "fileCategory": "code"
+    },
+    {
+      "path": "experiments/drift-gate/src/label.ts",
+      "language": "typescript",
+      "sizeLines": 73,
+      "fileCategory": "code"
+    },
+    {
+      "path": "experiments/drift-gate/src/openai.ts",
+      "language": "typescript",
+      "sizeLines": 21,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "experiments/drift-gate/src/classify.ts": [
+      "experiments/drift-gate/src/openai.ts"
+    ],
+    "experiments/drift-gate/src/eval.ts": [
+      "experiments/drift-gate/src/openai.ts"
+    ],
+    "experiments/drift-gate/src/label.ts": [
+      "experiments/drift-gate/src/openai.ts"
+    ],
+    "experiments/drift-gate/src/openai.ts": []
+  }
+}

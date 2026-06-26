@@ -1,0 +1,436 @@
+{
+  "scriptCompleted": true,
+  "commonPrefix": "",
+  "directoryGroups": {
+    "src": [
+      "file:src/config.ts",
+      "file:src/db/bootstrap.ts",
+      "file:src/db/client.ts",
+      "file:src/db/entities.ts",
+      "file:src/db/memories.ts",
+      "file:src/db/schema.ts",
+      "file:src/db/smoke.ts",
+      "file:src/iii/drive.ts",
+      "file:src/iii/drive_sync.ts",
+      "file:src/maintain/erRepair.ts",
+      "file:src/maintain/sweeps.ts",
+      "file:src/iii/worker.ts",
+      "file:src/read/e2e.ts",
+      "file:src/write/buffer.ts",
+      "file:src/write/e2e.ts",
+      "file:src/write/extract.ts",
+      "file:src/write/ingest.ts",
+      "file:src/write/pipeline.ts",
+      "file:src/write/remember.ts",
+      "file:src/write/salience.ts",
+      "file:src/write/types.ts",
+      "file:src/write/write.test.ts",
+      "file:src/db/retrieve.ts",
+      "file:src/llm/embed.ts",
+      "file:src/mcp/server.ts",
+      "file:src/read/header.ts",
+      "file:src/read/planner.ts",
+      "file:src/read/rank.ts",
+      "file:src/read/readPath.ts",
+      "file:src/read/recall.ts",
+      "file:src/llm/complete.ts",
+      "file:src/match/engine.test.ts",
+      "file:src/match/engine.ts",
+      "file:src/match/scorers.ts",
+      "file:src/write/conflict.ts",
+      "file:src/write/entityResolve.ts",
+      "file:src/hooks/capture.ts",
+      "file:src/hooks/emit.ts",
+      "file:src/hooks/inject.ts",
+      "file:src/hooks/silence.ts"
+    ],
+    "experiments": [
+      "file:experiments/drift-gate/src/classify.ts",
+      "file:experiments/drift-gate/src/eval.ts",
+      "file:experiments/drift-gate/src/label.ts",
+      "file:experiments/drift-gate/src/openai.ts",
+      "document:experiments/drift-gate/FINDINGS.md",
+      "file:experiments/drift-gate/src/extract.ts"
+    ],
+    "root": [
+      "service:.dockerignore",
+      "document:AGENTS.md",
+      "document:ARCHITECTURE.mdx",
+      "service:docker-compose.yml",
+      "service:docker-compose.yml:minio",
+      "service:docker-compose.yml:minio-setup",
+      "service:docker-compose.yml:helix",
+      "service:docker-compose.yml:iii",
+      "service:docker-compose.yml:worker",
+      "service:docker-compose.yml:dashboard",
+      "config:helix.toml",
+      "document:memory-system-handoff.md",
+      "config:package.json",
+      "config:tsconfig.json"
+    ],
+    ".understand-anything": [
+      "file:.understand-anything/.understandignore"
+    ],
+    "docker": [
+      "file:docker/worker-entrypoint.sh",
+      "file:docker/worker.Dockerfile"
+    ],
+    "examples": [
+      "config:examples/request.json"
+    ]
+  },
+  "nodeTypeGroups": {
+    "file": [
+      "file:src/config.ts",
+      "file:src/db/bootstrap.ts",
+      "file:src/db/client.ts",
+      "file:src/db/entities.ts",
+      "file:src/db/memories.ts",
+      "file:src/db/schema.ts",
+      "file:src/db/smoke.ts",
+      "file:src/iii/drive.ts",
+      "file:src/iii/drive_sync.ts",
+      "file:src/maintain/erRepair.ts",
+      "file:src/maintain/sweeps.ts",
+      "file:src/iii/worker.ts",
+      "file:src/read/e2e.ts",
+      "file:src/write/buffer.ts",
+      "file:src/write/e2e.ts",
+      "file:src/write/extract.ts",
+      "file:src/write/ingest.ts",
+      "file:src/write/pipeline.ts",
+      "file:src/write/remember.ts",
+      "file:src/write/salience.ts",
+      "file:src/write/types.ts",
+      "file:src/write/write.test.ts",
+      "file:src/db/retrieve.ts",
+      "file:src/llm/embed.ts",
+      "file:src/mcp/server.ts",
+      "file:src/read/header.ts",
+      "file:src/read/planner.ts",
+      "file:src/read/rank.ts",
+      "file:src/read/readPath.ts",
+      "file:src/read/recall.ts",
+      "file:src/llm/complete.ts",
+      "file:src/match/engine.test.ts",
+      "file:src/match/engine.ts",
+      "file:src/match/scorers.ts",
+      "file:src/write/conflict.ts",
+      "file:src/write/entityResolve.ts",
+      "file:experiments/drift-gate/src/classify.ts",
+      "file:experiments/drift-gate/src/eval.ts",
+      "file:experiments/drift-gate/src/label.ts",
+      "file:experiments/drift-gate/src/openai.ts",
+      "file:src/hooks/capture.ts",
+      "file:src/hooks/emit.ts",
+      "file:src/hooks/inject.ts",
+      "file:src/hooks/silence.ts",
+      "file:.understand-anything/.understandignore",
+      "file:docker/worker-entrypoint.sh",
+      "file:experiments/drift-gate/src/extract.ts"
+    ],
+    "service": [
+      "service:.dockerignore",
+      "service:docker-compose.yml",
+      "service:docker-compose.yml:minio",
+      "service:docker-compose.yml:minio-setup",
+      "service:docker-compose.yml:helix",
+      "service:docker-compose.yml:iii",
+      "service:docker-compose.yml:worker",
+      "service:docker-compose.yml:dashboard",
+      "file:docker/worker.Dockerfile"
+    ],
+    "document": [
+      "document:AGENTS.md",
+      "document:ARCHITECTURE.mdx",
+      "document:memory-system-handoff.md",
+      "document:experiments/drift-gate/FINDINGS.md"
+    ],
+    "config": [
+      "config:helix.toml",
+      "config:package.json",
+      "config:tsconfig.json",
+      "config:examples/request.json"
+    ]
+  },
+  "crossCategoryEdges": [
+    {
+      "fromType": "document",
+      "toType": "file",
+      "edgeType": "documents",
+      "count": 20
+    },
+    {
+      "fromType": "config",
+      "toType": "file",
+      "edgeType": "configures",
+      "count": 6
+    },
+    {
+      "fromType": "service",
+      "toType": "file",
+      "edgeType": "deploys",
+      "count": 4
+    },
+    {
+      "fromType": "config",
+      "toType": "service",
+      "edgeType": "configures",
+      "count": 1
+    },
+    {
+      "fromType": "document",
+      "toType": "service",
+      "edgeType": "documents",
+      "count": 1
+    },
+    {
+      "fromType": "document",
+      "toType": "service",
+      "edgeType": "related",
+      "count": 1
+    },
+    {
+      "fromType": "document",
+      "toType": "config",
+      "edgeType": "documents",
+      "count": 1
+    }
+  ],
+  "interGroupImports": [],
+  "intraGroupDensity": {
+    "src": {
+      "internalEdges": 115,
+      "totalEdges": 115,
+      "density": 1
+    },
+    "experiments": {
+      "internalEdges": 3,
+      "totalEdges": 3,
+      "density": 1
+    },
+    "root": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    ".understand-anything": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    "docker": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    },
+    "examples": {
+      "internalEdges": 0,
+      "totalEdges": 0,
+      "density": 0
+    }
+  },
+  "patternMatches": {
+    "experiments": "experiment",
+    "docker": "infrastructure"
+  },
+  "deploymentTopology": {
+    "hasDockerfile": true,
+    "hasCompose": true,
+    "hasK8s": false,
+    "hasTerraform": false,
+    "hasCI": false,
+    "infraFiles": [
+      ".dockerignore",
+      "docker-compose.yml",
+      "service:docker-compose.yml:minio",
+      "service:docker-compose.yml:minio-setup",
+      "service:docker-compose.yml:helix",
+      "service:docker-compose.yml:iii",
+      "service:docker-compose.yml:worker",
+      "service:docker-compose.yml:dashboard",
+      "docker/worker-entrypoint.sh",
+      "docker/worker.Dockerfile"
+    ]
+  },
+  "dataPipeline": {
+    "schemaFiles": [
+      "src/db/schema.ts"
+    ],
+    "migrationFiles": [
+      "src/db/bootstrap.ts"
+    ],
+    "dataModelFiles": [
+      "src/db/entities.ts",
+      "src/db/memories.ts",
+      "src/db/schema.ts",
+      "src/write/buffer.ts",
+      "src/write/types.ts"
+    ],
+    "apiHandlerFiles": [
+      "src/mcp/server.ts",
+      "src/read/recall.ts"
+    ]
+  },
+  "docCoverage": {
+    "groupsWithDocs": 2,
+    "totalGroups": 6,
+    "coverageRatio": 0.33,
+    "undocumentedGroups": [
+      "src",
+      ".understand-anything",
+      "docker",
+      "examples"
+    ]
+  },
+  "dependencyDirection": [],
+  "fileStats": {
+    "totalFileNodes": 64,
+    "filesPerGroup": {
+      "src": 40,
+      "experiments": 6,
+      "root": 14,
+      ".understand-anything": 1,
+      "docker": 2,
+      "examples": 1
+    },
+    "nodeTypeCounts": {
+      "file": 47,
+      "service": 9,
+      "document": 4,
+      "config": 4
+    }
+  },
+  "fileFanIn": {
+    "file:src/config.ts": 12,
+    "file:src/db/bootstrap.ts": 0,
+    "file:src/db/client.ts": 11,
+    "file:src/db/entities.ts": 1,
+    "file:src/db/memories.ts": 3,
+    "file:src/db/schema.ts": 15,
+    "file:src/db/smoke.ts": 0,
+    "file:src/iii/drive.ts": 0,
+    "file:src/iii/drive_sync.ts": 0,
+    "file:src/maintain/erRepair.ts": 1,
+    "file:src/maintain/sweeps.ts": 1,
+    "file:src/iii/worker.ts": 0,
+    "file:src/read/e2e.ts": 0,
+    "file:src/write/buffer.ts": 7,
+    "file:src/write/e2e.ts": 0,
+    "file:src/write/extract.ts": 1,
+    "file:src/write/ingest.ts": 3,
+    "file:src/write/pipeline.ts": 4,
+    "file:src/write/remember.ts": 1,
+    "file:src/write/salience.ts": 2,
+    "file:src/write/types.ts": 16,
+    "file:src/write/write.test.ts": 0,
+    "file:src/db/retrieve.ts": 5,
+    "file:src/llm/embed.ts": 5,
+    "file:src/mcp/server.ts": 0,
+    "file:src/read/header.ts": 1,
+    "file:src/read/planner.ts": 1,
+    "file:src/read/rank.ts": 3,
+    "file:src/read/readPath.ts": 2,
+    "file:src/read/recall.ts": 1,
+    "file:src/llm/complete.ts": 4,
+    "file:src/match/engine.test.ts": 0,
+    "file:src/match/engine.ts": 3,
+    "file:src/match/scorers.ts": 5,
+    "file:src/write/conflict.ts": 1,
+    "file:src/write/entityResolve.ts": 1,
+    "file:experiments/drift-gate/src/classify.ts": 0,
+    "file:experiments/drift-gate/src/eval.ts": 0,
+    "file:experiments/drift-gate/src/label.ts": 0,
+    "file:experiments/drift-gate/src/openai.ts": 3,
+    "file:src/hooks/capture.ts": 0,
+    "file:src/hooks/emit.ts": 3,
+    "file:src/hooks/inject.ts": 0,
+    "file:src/hooks/silence.ts": 2,
+    "service:.dockerignore": 0,
+    "document:AGENTS.md": 0,
+    "document:ARCHITECTURE.mdx": 0,
+    "service:docker-compose.yml": 0,
+    "service:docker-compose.yml:minio": 0,
+    "service:docker-compose.yml:minio-setup": 0,
+    "service:docker-compose.yml:helix": 0,
+    "service:docker-compose.yml:iii": 0,
+    "service:docker-compose.yml:worker": 0,
+    "service:docker-compose.yml:dashboard": 0,
+    "config:helix.toml": 0,
+    "document:memory-system-handoff.md": 0,
+    "config:package.json": 0,
+    "config:tsconfig.json": 0,
+    "file:.understand-anything/.understandignore": 0,
+    "file:docker/worker-entrypoint.sh": 0,
+    "file:docker/worker.Dockerfile": 0,
+    "config:examples/request.json": 0,
+    "document:experiments/drift-gate/FINDINGS.md": 0,
+    "file:experiments/drift-gate/src/extract.ts": 0
+  },
+  "fileFanOut": {
+    "file:src/config.ts": 0,
+    "file:src/db/bootstrap.ts": 2,
+    "file:src/db/client.ts": 1,
+    "file:src/db/entities.ts": 3,
+    "file:src/db/memories.ts": 3,
+    "file:src/db/schema.ts": 0,
+    "file:src/db/smoke.ts": 4,
+    "file:src/iii/drive.ts": 5,
+    "file:src/iii/drive_sync.ts": 4,
+    "file:src/maintain/erRepair.ts": 5,
+    "file:src/maintain/sweeps.ts": 3,
+    "file:src/iii/worker.ts": 6,
+    "file:src/read/e2e.ts": 8,
+    "file:src/write/buffer.ts": 1,
+    "file:src/write/e2e.ts": 6,
+    "file:src/write/extract.ts": 2,
+    "file:src/write/ingest.ts": 4,
+    "file:src/write/pipeline.ts": 7,
+    "file:src/write/remember.ts": 2,
+    "file:src/write/salience.ts": 1,
+    "file:src/write/types.ts": 1,
+    "file:src/write/write.test.ts": 3,
+    "file:src/db/retrieve.ts": 3,
+    "file:src/llm/embed.ts": 1,
+    "file:src/mcp/server.ts": 2,
+    "file:src/read/header.ts": 2,
+    "file:src/read/planner.ts": 2,
+    "file:src/read/rank.ts": 3,
+    "file:src/read/readPath.ts": 6,
+    "file:src/read/recall.ts": 4,
+    "file:src/llm/complete.ts": 0,
+    "file:src/match/engine.test.ts": 2,
+    "file:src/match/engine.ts": 0,
+    "file:src/match/scorers.ts": 0,
+    "file:src/write/conflict.ts": 6,
+    "file:src/write/entityResolve.ts": 5,
+    "file:experiments/drift-gate/src/classify.ts": 1,
+    "file:experiments/drift-gate/src/eval.ts": 1,
+    "file:experiments/drift-gate/src/label.ts": 1,
+    "file:experiments/drift-gate/src/openai.ts": 0,
+    "file:src/hooks/capture.ts": 3,
+    "file:src/hooks/emit.ts": 1,
+    "file:src/hooks/inject.ts": 4,
+    "file:src/hooks/silence.ts": 0,
+    "service:.dockerignore": 0,
+    "document:AGENTS.md": 0,
+    "document:ARCHITECTURE.mdx": 0,
+    "service:docker-compose.yml": 0,
+    "service:docker-compose.yml:minio": 0,
+    "service:docker-compose.yml:minio-setup": 0,
+    "service:docker-compose.yml:helix": 0,
+    "service:docker-compose.yml:iii": 0,
+    "service:docker-compose.yml:worker": 0,
+    "service:docker-compose.yml:dashboard": 0,
+    "config:helix.toml": 0,
+    "document:memory-system-handoff.md": 0,
+    "config:package.json": 0,
+    "config:tsconfig.json": 0,
+    "file:.understand-anything/.understandignore": 0,
+    "file:docker/worker-entrypoint.sh": 0,
+    "file:docker/worker.Dockerfile": 0,
+    "config:examples/request.json": 0,
+    "document:experiments/drift-gate/FINDINGS.md": 0,
+    "file:experiments/drift-gate/src/extract.ts": 0
+  }
+}

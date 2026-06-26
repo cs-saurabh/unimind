@@ -1,0 +1,16 @@
+{
+  "fixedSectionOk": true,
+  "nodesRecovered": 0,
+  "edgesRestored": 0,
+  "crossBatchEdgesAdded": 0,
+  "typesRemapped": 0,
+  "complexityRemapped": 0,
+  "notes": [
+    "Fixed section is reasonable: 134 nodes / 330 edges in and out, 0 edges dropped, batch-5 trailing-comma error already re-merged.",
+    "Cross-batch imports coverage is complete: all 118 importMap relationships (across 37 non-empty entries) have a matching forward 'imports' edge. None missing, so 0 cross-batch edges added.",
+    "Inventory coverage is exact: all 58 scan files have a file-level node and every node filePath exists in the scan inventory. No orphans either way.",
+    "No data-quality defects: 0 nodes missing id, 0 unknown node types, 0 unknown complexity values, 0 dangling edges, 0 self-loops, 0 duplicate edges, 0 duplicate node ids.",
+    "Edge direction is semantically correct across all types: imports (importer->imported, 0 reversed), calls (caller->callee, all 5 file->function calls are import-backed), tested_by (production->test), deploys (docker service->deployed code), documents/exports/contains all forward and consistent.",
+    "Cosmetic only (not fixed, non-breaking): node id 'file:docker/worker.Dockerfile' carries type 'service' after the reported deploys-edge reconciliation. Edges reference it correctly; the id prefix and type field disagree but nothing depends on the prefix matching the type."
+  ]
+}

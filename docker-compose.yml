@@ -1,0 +1,134 @@
+# UniMind — full app, one compose. Brings services up in order:
+#   minio (healthy) → minio-setup (creates bucket) → helix → iii engine → worker → dashboard
+#
+# The MCP server and Claude Code hooks are NOT services — they are stdio processes
+# spawned by Claude Code on demand; register them separately (see README).
+#
+# Needs OPENAI_API_KEY in a sibling .env (already present). Host access:
+#   Helix  http://localhost:6969   iii  ws://localhost:49134   Dashboard  http://localhost:48173
+
+services:
+  # ---- object storage backing HelixDB's on-disk persistence ----
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+    restart: unless-stopped
+
+  # ---- one-shot: create the bucket HelixDB expects, then exit ----
+  minio-setup:
+    image: minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 minioadmin minioadmin &&
+      mc mb --ignore-existing local/helix-db &&
+      echo 'bucket helix-db ready'
+      "
+
+  # ---- HelixDB: the memory store (graph + vector + BM25) ----
+  helix:
+    image: ghcr.io/helixdb/enterprise-dev:latest
+    depends_on:
+      minio-setup:
+        condition: service_completed_successfully
+    environment:
+      AWS_ACCESS_KEY_ID: minioadmin
+      AWS_SECRET_ACCESS_KEY: minioadmin
+      AWS_ENDPOINT: http://minio:9000
+      AWS_ALLOW_HTTP: "true"
+      S3_BUCKET: helix-db
+      S3_REGION: us-east-1
+      FTS_GENERATION_CACHE_MEMORY_BYTES: "1048576"
+      FTS_GENERATION_CACHE_DISK_ROOT: /tmp/fts
+      FTS_GENERATION_CACHE_DISK_BYTES: "1048576"
+      RUST_LOG: gateway=info,hyperscale=info,helix::db::helix_db=info,slatedb=info
+    ports:
+      - "6969:8080" # host access; in-network peers use helix:8080
+    restart: unless-stopped
+
+  # ---- iii engine: orchestration backbone (queues, functions, cron) ----
+  iii:
+    image: iiidev/iii:latest
+    depends_on:
+      helix:
+        condition: service_started
+    environment:
+      III_EXECUTION_CONTEXT: docker
+      RUST_LOG: info
+    volumes:
+      - ./config.yaml:/app/config.yaml:ro
+    command: ["--config", "/app/config.yaml"]
+    ports:
+      - "49134:49134" # worker WebSocket (console bridge port)
+      - "3111:3111" # REST API (console engine port)
+      - "3112:3112" # Stream/WS (console ws port — needed for `iii console`)
+      - "9464:9464" # Prometheus metrics
+    restart: unless-stopped
+
+  # ---- UniMind worker: write pipeline + maintenance crons + audit log (sole writer) ----
+  worker:
+    build:
+      context: .
+      dockerfile: docker/worker.Dockerfile
+    depends_on:
+      helix:
+        condition: service_started
+      iii:
+        condition: service_started
+    environment:
+      HELIX_URL: http://helix:8080
+      III_URL: ws://iii:49134
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      UNIMIND_TENANT: unimind
+      UNIMIND_USER: default
+      UNIMIND_BUFFER_DIR: /data/buffers
+      UNIMIND_CHECKPOINT_LOG: /data/checkpoint1.jsonl
+      # Audit log: the worker owns audit.db and drains the host-written spool. Both live
+      # on the bind-mounted host dir (~/.unimind) so host hooks/MCP and the worker share
+      # one spool file. The dashboard reads via the GET API on AUDIT_PORT.
+      AUDIT_DB_PATH: /host-unimind/audit.db
+      AUDIT_SPOOL_PATH: /host-unimind/audit-spool.jsonl
+      AUDIT_PORT: "48180"
+      AUDIT_DRAIN_MS: "1000"
+    volumes:
+      - unimind-data:/data
+      - ${HOME}/.unimind:/host-unimind # shared with host hooks/MCP (spool) + persists audit.db
+    ports:
+      - "48180:48180" # audit read API (used by the dashboard; published for local debugging)
+    restart: unless-stopped
+
+  # ---- HelixDB dashboard (Next.js) ----
+  dashboard:
+    build:
+      context: ./unimind-dashboard
+      dockerfile: Dockerfile
+    depends_on:
+      helix:
+        condition: service_started
+      worker:
+        condition: service_started
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HELIX_HOST: helix
+      HELIX_PORT: "8080"
+      WORKER_AUDIT_URL: http://worker:48180 # audit log read API (proxied by /api/audit-logs)
+    ports:
+      - "48173:3000" # host:container — Next.js listens on 3000 inside; 48173 published to avoid the common 3000
+    restart: unless-stopped
+
+volumes:
+  minio-data:
+  unimind-data:

@@ -1,0 +1,295 @@
+{
+  "projectRoot": "/Users/saurabh.pawar/Work/pet-projects/unimind",
+  "files": [
+    {
+      "path": ".dockerignore",
+      "language": "unknown",
+      "fileCategory": "infra"
+    },
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "fileCategory": "code"
+    },
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "ARCHITECTURE.mdx",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "fileCategory": "infra"
+    },
+    {
+      "path": "docker/worker-entrypoint.sh",
+      "language": "shell",
+      "fileCategory": "script"
+    },
+    {
+      "path": "docker/worker.Dockerfile",
+      "language": "dockerfile",
+      "fileCategory": "code"
+    },
+    {
+      "path": "examples/request.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "experiments/drift-gate/FINDINGS.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "experiments/drift-gate/src/classify.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "experiments/drift-gate/src/eval.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "experiments/drift-gate/src/extract.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "experiments/drift-gate/src/label.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "experiments/drift-gate/src/openai.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "helix.toml",
+      "language": "toml",
+      "fileCategory": "config"
+    },
+    {
+      "path": "memory-system-handoff.md",
+      "language": "markdown",
+      "fileCategory": "docs"
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "fileCategory": "config"
+    },
+    {
+      "path": "src/config.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/db/bootstrap.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/db/client.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/db/entities.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/db/memories.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/db/retrieve.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/db/schema.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/db/smoke.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/hooks/capture.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/hooks/emit.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/hooks/inject.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/hooks/silence.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/iii/drive_sync.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/iii/drive.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/iii/worker.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/llm/complete.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/llm/embed.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/maintain/erRepair.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/maintain/sweeps.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/match/engine.test.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/match/engine.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/match/scorers.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/mcp/server.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/read/e2e.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/read/header.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/read/planner.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/read/rank.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/read/readPath.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/read/recall.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/buffer.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/conflict.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/e2e.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/entityResolve.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/extract.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/ingest.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/pipeline.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/remember.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/salience.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/types.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/write.test.ts",
+      "language": "typescript",
+      "fileCategory": "code"
+    },
+    {
+      "path": "tsconfig.json",
+      "language": "json",
+      "fileCategory": "config"
+    }
+  ]
+}

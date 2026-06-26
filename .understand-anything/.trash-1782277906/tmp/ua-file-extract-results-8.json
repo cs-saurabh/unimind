@@ -1,0 +1,356 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".understand-anything/.understandignore",
+      "language": "unknown",
+      "fileCategory": "code",
+      "totalLines": 44,
+      "nonEmptyLines": 37,
+      "metrics": {}
+    },
+    {
+      "path": "docker/worker-entrypoint.sh",
+      "language": "shell",
+      "fileCategory": "script",
+      "totalLines": 24,
+      "nonEmptyLines": 19,
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "docker/worker.Dockerfile",
+      "language": "dockerfile",
+      "fileCategory": "code",
+      "totalLines": 18,
+      "nonEmptyLines": 13,
+      "metrics": {}
+    },
+    {
+      "path": "examples/request.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 30,
+      "nonEmptyLines": 30,
+      "sections": [
+        {
+          "heading": "parameters",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "query",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "request_type",
+          "level": 1,
+          "line": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "experiments/drift-gate/FINDINGS.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 95,
+      "nonEmptyLines": 77,
+      "sections": [
+        {
+          "heading": "Drift-Gate Validation — Findings",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Method",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "Result: the embedding drift gate does NOT work",
+          "level": 2,
+          "line": 20
+        },
+        {
+          "heading": "Why — the failure is structural, not a tuning problem",
+          "level": 3,
+          "line": 35
+        },
+        {
+          "heading": "Constructive half: a cheap LLM shift-classifier",
+          "level": 2,
+          "line": 49
+        },
+        {
+          "heading": "Recommendation for the build",
+          "level": 2,
+          "line": 69
+        },
+        {
+          "heading": "Repro",
+          "level": 2,
+          "line": 87
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 7
+      }
+    },
+    {
+      "path": "experiments/drift-gate/src/extract.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 83,
+      "nonEmptyLines": 75,
+      "functions": [
+        {
+          "name": "textFromContent",
+          "startLine": 20,
+          "endLine": 29,
+          "params": [
+            "content"
+          ]
+        },
+        {
+          "name": "isMeta",
+          "startLine": 31,
+          "endLine": 34,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "extractFile",
+          "startLine": 38,
+          "endLine": 56,
+          "params": [
+            "file",
+            "project"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 58,
+          "endLine": 81,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "textFromContent",
+          "callee": "Array.isArray",
+          "lineNumber": 22
+        },
+        {
+          "caller": "textFromContent",
+          "callee": "content.some",
+          "lineNumber": 24
+        },
+        {
+          "caller": "textFromContent",
+          "callee": "content\n    .filter((b: any) => b && b.type === \"text\" && typeof b.text === \"string\")\n    .map",
+          "lineNumber": 25
+        },
+        {
+          "caller": "textFromContent",
+          "callee": "content\n    .filter",
+          "lineNumber": 25
+        },
+        {
+          "caller": "textFromContent",
+          "callee": "parts.join",
+          "lineNumber": 28
+        },
+        {
+          "caller": "isMeta",
+          "callee": "text.trimStart",
+          "lineNumber": 32
+        },
+        {
+          "caller": "isMeta",
+          "callee": "META_PREFIXES.some",
+          "lineNumber": 33
+        },
+        {
+          "caller": "isMeta",
+          "callee": "t.startsWith",
+          "lineNumber": 33
+        },
+        {
+          "caller": "extractFile",
+          "callee": "readFileSync(file, \"utf8\").split(\"\\n\").filter",
+          "lineNumber": 39
+        },
+        {
+          "caller": "extractFile",
+          "callee": "readFileSync(file, \"utf8\").split",
+          "lineNumber": 39
+        },
+        {
+          "caller": "extractFile",
+          "callee": "readFileSync",
+          "lineNumber": 39
+        },
+        {
+          "caller": "extractFile",
+          "callee": "JSON.parse",
+          "lineNumber": 44
+        },
+        {
+          "caller": "extractFile",
+          "callee": "textFromContent",
+          "lineNumber": 47
+        },
+        {
+          "caller": "extractFile",
+          "callee": "text.trim",
+          "lineNumber": 49
+        },
+        {
+          "caller": "extractFile",
+          "callee": "isMeta",
+          "lineNumber": 50
+        },
+        {
+          "caller": "extractFile",
+          "callee": "prompts.push",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "readdirSync(PROJECTS).filter",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "readdirSync",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "statSync(join(PROJECTS, d)).isDirectory",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "statSync",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "join",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "join",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "readdirSync(dir).filter",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "readdirSync",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "f.endsWith",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "extractFile",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "join",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "sessions.push",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "sessions.sort",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "join",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "writeFileSync",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "sessions.reduce",
+          "lineNumber": 75
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "sessions.slice",
+          "lineNumber": 78
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "s.project.slice",
+          "lineNumber": 79
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    }
+  ]
+}

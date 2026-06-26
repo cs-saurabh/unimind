@@ -1,0 +1,127 @@
+[
+  {
+    "order": 1,
+    "title": "Mental Model & Architecture",
+    "description": "Start with ARCHITECTURE.mdx, the authoritative design doc for Unimind. It explains the central idea: a long-term memory system for Claude Code with a slow, asynchronous write path that distills turns into memories and a fast, synchronous read path that injects relevant memories back into prompts. Read this first to build the mental model the rest of the tour fills in with real code; memory-system-handoff.md is included as the deeper rationale behind the frozen design decisions and the six memory types.",
+    "nodeIds": [
+      "document:ARCHITECTURE.mdx",
+      "document:memory-system-handoff.md"
+    ]
+  },
+  {
+    "order": 2,
+    "title": "Data Model & Persistence Foundation",
+    "description": "Every layer above depends on this foundation, which is why these files top the fan-in ranking. schema.ts is the single source of truth for the memory graph's node labels and edge names plus the tenant-safe key normalizer; client.ts constructs the shared HelixDB client and the writeWithRetry helper that retries writes with backoff on conflicts; config.ts centralizes the tenant/user identity and embedding settings the whole pipeline reads. Together they define how UniMind talks to HelixDB's combined graph + vector + BM25 store.",
+    "nodeIds": [
+      "file:src/db/schema.ts",
+      "file:src/db/client.ts",
+      "file:src/config.ts"
+    ],
+    "languageLesson": "These modules are imported by 12-18 other files each. In TypeScript, centralizing label/edge-name constants in one module (rather than string literals scattered across call sites) gives you compile-time safety and a single place to evolve the schema."
+  },
+  {
+    "order": 3,
+    "title": "Persisting Memories & Entities",
+    "description": "Building on the schema and client from Step 2, these modules are the concrete read/write access layer over HelixDB. memories.ts writes Memory nodes with type-driven decay/TTL and handles the supersede/extend/bump lifecycle; entities.ts manages canonical Entity nodes with hybrid candidate search and alias merging; retrieve.ts is the read-side counterpart providing hybrid vector + BM25 recall and relational-fact traversal. This is the boundary between application logic and the database.",
+    "nodeIds": [
+      "file:src/db/memories.ts",
+      "file:src/db/entities.ts",
+      "file:src/db/retrieve.ts"
+    ]
+  },
+  {
+    "order": 4,
+    "title": "Capture Side — Claude Code Hooks",
+    "description": "This is where memory begins: Claude Code lifecycle hooks. capture.ts is the PostToolUse hook that reads a tool-use payload from stdin, normalizes it into a TurnEvent, and fires it asynchronously without blocking the user. emit.ts is the fire-and-forget bridge that triggers the worker's ingestTurn function and shuts down immediately; silence.ts enforces stdout discipline so only protocol output reaches Claude Code. The non-blocking design here is what keeps the slow write path off the user's critical path.",
+    "nodeIds": [
+      "file:src/hooks/capture.ts",
+      "file:src/hooks/emit.ts",
+      "file:src/hooks/silence.ts"
+    ],
+    "languageLesson": "Claude Code hooks communicate over stdin/stdout. Stray console.log output would corrupt the hook protocol, so silence.ts captures the real stdout writer and redirects logging to stderr — a common discipline for stdio-based integrations."
+  },
+  {
+    "order": 5,
+    "title": "Async Orchestration — the Worker",
+    "description": "The TurnEvent emitted in Step 4 lands here. worker.ts is the orchestration backbone built on the iii engine: it registers queue worker functions (ingestTurn, flushSession, sweepIdle) and the cron triggers for idle flushing and maintenance. This is what decouples capture from processing — turns are queued and handled asynchronously, so heavy LLM work never stalls the session. The drive scripts let you exercise the same flow without the full async stack.",
+    "nodeIds": [
+      "file:src/iii/worker.ts",
+      "file:src/iii/drive.ts"
+    ]
+  },
+  {
+    "order": 6,
+    "title": "Write Pipeline — Gate & Buffer",
+    "description": "Inside ingestTurn, the first two stages decide whether a turn is even worth remembering. salience.ts scores a turn against regex signals (named entities, commitments, preferences, goals, assertions) and gates out the noise; ingest.ts then appends salient turns to a session buffer. buffer.ts accumulates a session window and decides when to flush based on size, conversation boundary, topic shift, or a time cap. types.ts defines the shared vocabulary (TurnEvent, BufferedTurn, SessionBuffer, CandidateMemory) used across the whole write path.",
+    "nodeIds": [
+      "file:src/write/salience.ts",
+      "file:src/write/ingest.ts",
+      "file:src/write/buffer.ts",
+      "file:src/write/types.ts"
+    ]
+  },
+  {
+    "order": 7,
+    "title": "Write Pipeline — Extract, Resolve, Persist",
+    "description": "When the buffer flushes, pipeline.ts runs the end-to-end write path: it calls extract.ts to render the session window into a prompt and have the LLM produce validated candidate memories and coreference clusters, embeds them via the LLM clients, then resolves entities and conflicts before persisting with supersede/extends links. entityResolve.ts matches each mention cluster to a canonical entity (creating or merging as needed), and conflict.ts adjudicates incoming memories against similar existing ones to decide create/update/skip. This is the heart of how raw conversation becomes durable, deduplicated memory.",
+    "nodeIds": [
+      "file:src/write/pipeline.ts",
+      "file:src/write/extract.ts",
+      "file:src/write/entityResolve.ts",
+      "file:src/write/conflict.ts"
+    ]
+  },
+  {
+    "order": 8,
+    "title": "The Reusable Matching Engine",
+    "description": "Both entityResolve and conflict from Step 7 lean on a shared, generic matching engine rather than bespoke logic. engine.ts blocks candidates, scores them via a pluggable config, sorts by score, and optionally sends gray-zone matches to LLM adjudication; scorers.ts supplies the similarity primitives — cosine similarity, vector-distance conversion, trigram fuzzy matching, alias matching, and weighted combination. Factoring this out means entity resolution, conflict detection, and the repair sweep all share one tunable matcher.",
+    "nodeIds": [
+      "file:src/match/engine.ts",
+      "file:src/match/scorers.ts"
+    ],
+    "languageLesson": "engine.ts is generic over its candidate and config types — a TypeScript generic matching engine. Parameterizing the scoring config lets the same blocking/scoring/adjudication algorithm serve entity resolution and memory-conflict resolution with different similarity functions plugged in."
+  },
+  {
+    "order": 9,
+    "title": "Read Path — Fast Synchronous Recall",
+    "description": "Now the fast side, which runs on every user prompt within a tight latency budget. readPath.ts orchestrates it: planner.ts uses an LLM to extract the relevant memory types, entities, and topics from the prompt; recall.ts and retrieve.ts fetch hybrid candidates in parallel; rank.ts merges the multi-channel candidates, scores by similarity and recency decay, and selects the top set within a token budget; header.ts formats the survivors into the injected context string. This is the payoff — the memories written slowly in Steps 6-7 surface here instantly.",
+    "nodeIds": [
+      "file:src/read/readPath.ts",
+      "file:src/read/planner.ts",
+      "file:src/read/recall.ts",
+      "file:src/read/rank.ts",
+      "file:src/read/header.ts"
+    ]
+  },
+  {
+    "order": 10,
+    "title": "Injecting Memory & the MCP Interface",
+    "description": "Two surfaces consume the read path. inject.ts is the UserPromptSubmit hook that reads the prompt from stdin, calls readPath to recall memories, and writes the formatted context back via stdout — closing the loop opened by the capture hook in Step 4. server.ts is the MCP server (the BFS entry point) that exposes recall and remember tools over stdio, letting Claude Code search memory or store something on demand via remember.ts, which buffers explicit content and flushes it straight through the write pipeline.",
+    "nodeIds": [
+      "file:src/hooks/inject.ts",
+      "file:src/mcp/server.ts",
+      "file:src/write/remember.ts"
+    ]
+  },
+  {
+    "order": 11,
+    "title": "Maintenance Sweeps",
+    "description": "Memory left untended drifts and bloats, so cron-triggered sweeps (registered back in worker.ts) keep the graph healthy. sweeps.ts decays idle memory weights, forgets low-weight stale memories, and expires contextual TTL memories; erRepair.ts detects duplicate entities via the same similarity scoring from Step 8 and merges them to keep the canonical graph clean. These background jobs are why the system stays accurate over weeks of use rather than accumulating contradictions.",
+    "nodeIds": [
+      "file:src/maintain/sweeps.ts",
+      "file:src/maintain/erRepair.ts"
+    ]
+  },
+  {
+    "order": 12,
+    "title": "Deployment & Infrastructure",
+    "description": "Finally, how it all runs in production. docker-compose.yml brings the full stack up in dependency order — MinIO object storage, the HelixDB memory store that persists to it, the iii orchestration engine, the UniMind worker, and a visualization dashboard. The worker.Dockerfile packages the async write-pipeline worker into a Node Alpine image, and helix.toml configures the HelixDB instance. This ties together the persistence (Step 2-3), orchestration (Step 5), and pipelines into a deployable system.",
+    "nodeIds": [
+      "service:docker-compose.yml",
+      "file:docker/worker.Dockerfile",
+      "config:helix.toml",
+      "config:package.json"
+    ],
+    "languageLesson": "docker-compose uses depends_on with health checks to enforce startup ordering: MinIO must be healthy and its bucket created before HelixDB starts, and HelixDB plus the iii engine must be ready before the worker boots — mirroring the runtime dependency chain you traced through the code."
+  }
+]

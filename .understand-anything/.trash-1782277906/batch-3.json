@@ -1,0 +1,256 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/db/retrieve.ts",
+      "type": "file",
+      "name": "retrieve.ts",
+      "filePath": "src/db/retrieve.ts",
+      "summary": "Read-side HelixDB access layer providing hybrid vector + BM25 recall, similarity search, relational fact traversal, and entity validation against the tenant-scoped memory graph.",
+      "tags": ["service", "database", "vector-search", "retrieval", "tenant-scoped"],
+      "complexity": "moderate",
+      "languageNotes": "Builds dynamic Helix queries via readBatch().varAs(...) projection batches and live/expiry filtering helpers."
+    },
+    {
+      "id": "function:src/db/retrieve.ts:recall",
+      "type": "function",
+      "name": "recall",
+      "filePath": "src/db/retrieve.ts",
+      "lineRange": [66, 96],
+      "summary": "Runs a batched Helix query combining vector search, BM25 text search, active goals, and contextual memories, then returns live, non-expired result rows per channel.",
+      "tags": ["retrieval", "vector-search", "bm25", "hybrid-search"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/db/retrieve.ts:similarMemories",
+      "type": "function",
+      "name": "similarMemories",
+      "filePath": "src/db/retrieve.ts",
+      "lineRange": [99, 108],
+      "summary": "Performs a tenant-scoped vector similarity search for a given embedding and filters the live hits to a single primary memory type.",
+      "tags": ["retrieval", "vector-search", "similarity"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/db/retrieve.ts:relationalFacts",
+      "type": "function",
+      "name": "relationalFacts",
+      "filePath": "src/db/retrieve.ts",
+      "lineRange": [117, 140],
+      "summary": "Traverses outgoing and incoming REL edges for the given entity keys to collect deduplicated relational facts from the entity graph.",
+      "tags": ["retrieval", "graph-traversal", "entity"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/db/retrieve.ts:validateEntities",
+      "type": "function",
+      "name": "validateEntities",
+      "filePath": "src/db/retrieve.ts",
+      "lineRange": [147, 173],
+      "summary": "Resolves entity names to canonical entity keys via exact key lookup and alias text search, returning a deduplicated key-to-name map.",
+      "tags": ["validation", "entity", "retrieval"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/llm/embed.ts",
+      "type": "file",
+      "name": "embed.ts",
+      "filePath": "src/llm/embed.ts",
+      "summary": "Embedding helper that loads env config and produces vector embeddings for one or many texts via the configured embedding model client.",
+      "tags": ["llm", "embedding", "utility", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/llm/embed.ts:embed",
+      "type": "function",
+      "name": "embed",
+      "filePath": "src/llm/embed.ts",
+      "lineRange": [21, 29],
+      "summary": "Requests embeddings for a batch of texts from the embedding model client and returns the vector array for each input.",
+      "tags": ["embedding", "llm", "batch"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/mcp/server.ts",
+      "type": "file",
+      "name": "server.ts",
+      "filePath": "src/mcp/server.ts",
+      "summary": "UniMind MCP server entry point that registers the recall and remember tools over stdio, exposing long-term memory search and on-demand storage to Claude Code.",
+      "tags": ["entry-point", "mcp", "api-handler", "service"],
+      "complexity": "simple",
+      "languageNotes": "Uses @modelcontextprotocol/sdk McpServer with zod input schemas and a StdioServerTransport; tool handlers run at module scope."
+    },
+    {
+      "id": "file:src/read/header.ts",
+      "type": "file",
+      "name": "header.ts",
+      "filePath": "src/read/header.ts",
+      "summary": "Formats ranked memory parts (goals, contextual notes, relational facts) into the injected context header string and tracks which memory ids were surfaced.",
+      "tags": ["utility", "formatting", "serialization", "read-path"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/read/header.ts:buildHeader",
+      "type": "function",
+      "name": "buildHeader",
+      "filePath": "src/read/header.ts",
+      "lineRange": [17, 41],
+      "summary": "Assembles a multi-section header from goals, contextual memories, and relational facts, collecting the used memory ids for downstream bump tracking.",
+      "tags": ["formatting", "serialization", "read-path"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/read/planner.ts",
+      "type": "file",
+      "name": "planner.ts",
+      "filePath": "src/read/planner.ts",
+      "summary": "Query planner that uses an LLM to extract relevant memory types, entities, topics, and context scope from a prompt before retrieval runs.",
+      "tags": ["llm", "read-path", "planning", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/read/planner.ts:planQuery",
+      "type": "function",
+      "name": "planQuery",
+      "filePath": "src/read/planner.ts",
+      "lineRange": [37, 55],
+      "summary": "Calls the LLM with the prompt and recent context to produce a structured retrieval plan, sanitizing the JSON response into validated types, entities, topics, and scope.",
+      "tags": ["llm", "planning", "validation"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/read/rank.ts",
+      "type": "file",
+      "name": "rank.ts",
+      "filePath": "src/read/rank.ts",
+      "summary": "Ranking module that merges multi-channel memory candidates, scores them by similarity and recency decay, and selects the top set within a token budget.",
+      "tags": ["read-path", "ranking", "scoring", "utility"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/read/rank.ts:rankMemories",
+      "type": "function",
+      "name": "rankMemories",
+      "filePath": "src/read/rank.ts",
+      "lineRange": [32, 52],
+      "summary": "Deduplicates candidate memory lists by id, scores and sorts them, and accumulates the highest-ranked memories until the token budget is exhausted.",
+      "tags": ["ranking", "scoring", "read-path"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/read/rank.ts:scoreRow",
+      "type": "function",
+      "name": "scoreRow",
+      "filePath": "src/read/rank.ts",
+      "lineRange": [23, 29],
+      "summary": "Computes a combined relevance score for a memory row from vector-distance similarity and recency decay.",
+      "tags": ["scoring", "ranking"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/read/readPath.ts",
+      "type": "file",
+      "name": "readPath.ts",
+      "filePath": "src/read/readPath.ts",
+      "summary": "Orchestrates the full read path: plan the query, embed and validate entities, fetch recall and relational facts in parallel, rank results, and build the injected context header.",
+      "tags": ["read-path", "orchestration", "entry-point", "service"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/read/readPath.ts:readPath",
+      "type": "function",
+      "name": "readPath",
+      "filePath": "src/read/readPath.ts",
+      "lineRange": [21, 58],
+      "summary": "End-to-end read orchestration that plans, embeds, validates entities, runs recall and relational fact lookups, ranks the merged results, and returns the formatted header while bumping used memories.",
+      "tags": ["orchestration", "read-path", "async"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/read/recall.ts",
+      "type": "file",
+      "name": "recall.ts",
+      "filePath": "src/read/recall.ts",
+      "summary": "Public recall entry point that embeds a query, fetches hybrid candidates, ranks them, bumps usage counters, and returns formatted memory hits for the MCP recall tool.",
+      "tags": ["read-path", "entry-point", "retrieval", "api-handler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/read/recall.ts:recall",
+      "type": "function",
+      "name": "recall",
+      "filePath": "src/read/recall.ts",
+      "lineRange": [17, 27],
+      "summary": "Embeds the query, runs the database recall across vector/BM25/goals/contextual channels, ranks the merged results to a limit, and returns scored memory entries.",
+      "tags": ["retrieval", "read-path", "ranking"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {"source": "file:src/db/retrieve.ts", "target": "file:src/config.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/db/retrieve.ts", "target": "file:src/db/client.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/db/retrieve.ts", "target": "file:src/db/schema.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/llm/embed.ts", "target": "file:src/config.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/mcp/server.ts", "target": "file:src/read/recall.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/mcp/server.ts", "target": "file:src/write/remember.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/header.ts", "target": "file:src/db/retrieve.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/header.ts", "target": "file:src/read/rank.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/planner.ts", "target": "file:src/db/schema.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/planner.ts", "target": "file:src/llm/complete.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/rank.ts", "target": "file:src/db/retrieve.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/rank.ts", "target": "file:src/db/schema.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/rank.ts", "target": "file:src/match/scorers.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/readPath.ts", "target": "file:src/db/memories.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/readPath.ts", "target": "file:src/db/retrieve.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/readPath.ts", "target": "file:src/llm/embed.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/readPath.ts", "target": "file:src/read/header.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/readPath.ts", "target": "file:src/read/planner.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/readPath.ts", "target": "file:src/read/rank.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/recall.ts", "target": "file:src/db/memories.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/recall.ts", "target": "file:src/db/retrieve.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/recall.ts", "target": "file:src/llm/embed.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+    {"source": "file:src/read/recall.ts", "target": "file:src/read/rank.ts", "type": "imports", "direction": "forward", "weight": 0.7},
+
+    {"source": "file:src/db/retrieve.ts", "target": "function:src/db/retrieve.ts:recall", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/db/retrieve.ts", "target": "function:src/db/retrieve.ts:similarMemories", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/db/retrieve.ts", "target": "function:src/db/retrieve.ts:relationalFacts", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/db/retrieve.ts", "target": "function:src/db/retrieve.ts:validateEntities", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/db/retrieve.ts", "target": "function:src/db/retrieve.ts:recall", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/db/retrieve.ts", "target": "function:src/db/retrieve.ts:similarMemories", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/db/retrieve.ts", "target": "function:src/db/retrieve.ts:relationalFacts", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/db/retrieve.ts", "target": "function:src/db/retrieve.ts:validateEntities", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:src/llm/embed.ts", "target": "function:src/llm/embed.ts:embed", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/llm/embed.ts", "target": "function:src/llm/embed.ts:embed", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:src/read/header.ts", "target": "function:src/read/header.ts:buildHeader", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/read/header.ts", "target": "function:src/read/header.ts:buildHeader", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:src/read/planner.ts", "target": "function:src/read/planner.ts:planQuery", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/read/planner.ts", "target": "function:src/read/planner.ts:planQuery", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:src/read/rank.ts", "target": "function:src/read/rank.ts:rankMemories", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/read/rank.ts", "target": "function:src/read/rank.ts:scoreRow", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/read/rank.ts", "target": "function:src/read/rank.ts:rankMemories", "type": "exports", "direction": "forward", "weight": 0.8},
+    {"source": "file:src/read/rank.ts", "target": "function:src/read/rank.ts:scoreRow", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:src/read/readPath.ts", "target": "function:src/read/readPath.ts:readPath", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/read/readPath.ts", "target": "function:src/read/readPath.ts:readPath", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "file:src/read/recall.ts", "target": "function:src/read/recall.ts:recall", "type": "contains", "direction": "forward", "weight": 1.0},
+    {"source": "file:src/read/recall.ts", "target": "function:src/read/recall.ts:recall", "type": "exports", "direction": "forward", "weight": 0.8},
+
+    {"source": "function:src/read/recall.ts:recall", "target": "function:src/llm/embed.ts:embed", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:src/read/recall.ts:recall", "target": "function:src/db/retrieve.ts:recall", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:src/read/recall.ts:recall", "target": "function:src/read/rank.ts:rankMemories", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "function:src/read/readPath.ts:readPath", "target": "function:src/read/planner.ts:planQuery", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:src/read/readPath.ts:readPath", "target": "function:src/llm/embed.ts:embed", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:src/read/readPath.ts:readPath", "target": "function:src/db/retrieve.ts:validateEntities", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:src/read/readPath.ts:readPath", "target": "function:src/db/retrieve.ts:recall", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:src/read/readPath.ts:readPath", "target": "function:src/db/retrieve.ts:relationalFacts", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:src/read/readPath.ts:readPath", "target": "function:src/read/rank.ts:rankMemories", "type": "calls", "direction": "forward", "weight": 0.8},
+    {"source": "function:src/read/readPath.ts:readPath", "target": "function:src/read/header.ts:buildHeader", "type": "calls", "direction": "forward", "weight": 0.8},
+
+    {"source": "function:src/read/rank.ts:scoreRow", "target": "function:src/read/rank.ts:rankMemories", "type": "calls", "direction": "forward", "weight": 0.8}
+  ]
+}

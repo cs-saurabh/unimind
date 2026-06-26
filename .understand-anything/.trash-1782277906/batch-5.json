@@ -1,0 +1,300 @@
+{
+  "nodes": [
+    {
+      "id": "file:experiments/drift-gate/src/classify.ts",
+      "type": "file",
+      "name": "classify.ts",
+      "filePath": "experiments/drift-gate/src/classify.ts",
+      "summary": "LLM-based baseline classifier for the drift-gate experiment: asks an OpenAI chat model whether consecutive prompts represent a topic shift, then scores precision/recall/F1 against labeled data.",
+      "tags": ["classifier", "evaluation", "llm", "entry-point", "experiment"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:experiments/drift-gate/src/classify.ts:classify",
+      "type": "function",
+      "name": "classify",
+      "filePath": "experiments/drift-gate/src/classify.ts",
+      "lineRange": [23, 35],
+      "summary": "Builds a context prompt from the recent segment and current prompt, queries the OpenAI chat completion API, and returns a boolean drift decision based on a yes/no answer.",
+      "tags": ["classifier", "llm", "api-call", "drift-detection"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:experiments/drift-gate/src/classify.ts:score",
+      "type": "function",
+      "name": "score",
+      "filePath": "experiments/drift-gate/src/classify.ts",
+      "lineRange": [37, 46],
+      "summary": "Computes precision, recall, and F1 from an array of prediction/label pairs.",
+      "tags": ["metrics", "evaluation", "scoring"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:experiments/drift-gate/src/classify.ts:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "experiments/drift-gate/src/classify.ts",
+      "lineRange": [48, 71],
+      "summary": "Loads labeled session data, runs the classifier over each prompt transition, collects predictions and per-decision detail, then writes results and logs the aggregate score.",
+      "tags": ["entry-point", "orchestration", "evaluation", "io"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:experiments/drift-gate/src/eval.ts",
+      "type": "file",
+      "name": "eval.ts",
+      "filePath": "experiments/drift-gate/src/eval.ts",
+      "summary": "Embedding-based drift-gate evaluation harness that sweeps cosine-distance thresholds and entity-overlap parameters to find the F1-optimal heuristic gate configuration against labeled sessions.",
+      "tags": ["evaluation", "embeddings", "threshold-sweep", "entry-point", "experiment"],
+      "complexity": "complex",
+      "languageNotes": "Caches embeddings to disk and uses Math-based cosine distance plus regex entity extraction to approximate a no-LLM drift gate."
+    },
+    {
+      "id": "function:experiments/drift-gate/src/eval.ts:embedAll",
+      "type": "function",
+      "name": "embedAll",
+      "filePath": "experiments/drift-gate/src/eval.ts",
+      "lineRange": [20, 32],
+      "summary": "Returns embeddings for a list of texts, using a disk-backed cache and fetching only the missing entries from the OpenAI embeddings API.",
+      "tags": ["embeddings", "caching", "api-call", "io"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:experiments/drift-gate/src/eval.ts:entities",
+      "type": "function",
+      "name": "entities",
+      "filePath": "experiments/drift-gate/src/eval.ts",
+      "lineRange": [42, 51],
+      "summary": "Extracts candidate entity tokens (identifiers, paths, capitalized words) from a text via regex heuristics, returning a lowercased set.",
+      "tags": ["entity-extraction", "heuristic", "nlp", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:experiments/drift-gate/src/eval.ts:score",
+      "type": "function",
+      "name": "score",
+      "filePath": "experiments/drift-gate/src/eval.ts",
+      "lineRange": [55, 67],
+      "summary": "Computes precision, recall, and F1 from prediction/label pairs for a gate configuration.",
+      "tags": ["metrics", "evaluation", "scoring"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:experiments/drift-gate/src/eval.ts:runGate",
+      "type": "function",
+      "name": "runGate",
+      "filePath": "experiments/drift-gate/src/eval.ts",
+      "lineRange": [71, 115],
+      "summary": "Runs the heuristic drift gate over a prompt sequence for a given variant, threshold, and entity-overlap parameter, accumulating segment statistics and emitting per-transition drift predictions.",
+      "tags": ["drift-detection", "heuristic", "embeddings", "core-logic"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:experiments/drift-gate/src/eval.ts:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "experiments/drift-gate/src/eval.ts",
+      "lineRange": [117, 181],
+      "summary": "Orchestrates the full evaluation: embeds all prompts, sweeps thresholds and entity parameters across variants, selects the best F1 configuration, records disagreements, and writes the curve and summary outputs.",
+      "tags": ["entry-point", "orchestration", "threshold-sweep", "evaluation", "io"],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:experiments/drift-gate/src/label.ts",
+      "type": "file",
+      "name": "label.ts",
+      "filePath": "experiments/drift-gate/src/label.ts",
+      "summary": "Ground-truth labeling tool that asks an OpenAI chat model to identify topic-shift points within each session's prompt sequence and writes the labeled dataset for downstream evaluation.",
+      "tags": ["labeling", "llm", "dataset", "entry-point", "experiment"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:experiments/drift-gate/src/label.ts:labelSession",
+      "type": "function",
+      "name": "labelSession",
+      "filePath": "experiments/drift-gate/src/label.ts",
+      "lineRange": [33, 55],
+      "summary": "Formats a session's prompts, queries the OpenAI chat API to detect drift indices, parses the JSON response, and returns a per-prompt boolean drift label array.",
+      "tags": ["labeling", "llm", "api-call", "drift-detection"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:experiments/drift-gate/src/label.ts:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "experiments/drift-gate/src/label.ts",
+      "lineRange": [57, 71],
+      "summary": "Loads raw sessions, labels each one via the LLM, writes the labeled dataset, and logs the overall fraction of detected topic shifts.",
+      "tags": ["entry-point", "orchestration", "io", "dataset"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:experiments/drift-gate/src/openai.ts",
+      "type": "file",
+      "name": "openai.ts",
+      "filePath": "experiments/drift-gate/src/openai.ts",
+      "summary": "Shared utility module for the drift-gate experiment that loads .env credentials, exports a configured OpenAI client, and provides data/output path helpers.",
+      "tags": ["utility", "config", "openai-client", "shared", "experiment"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:experiments/drift-gate/src/openai.ts:loadEnv",
+      "type": "function",
+      "name": "loadEnv",
+      "filePath": "experiments/drift-gate/src/openai.ts",
+      "lineRange": [6, 15],
+      "summary": "Reads the project root .env file and injects parsed key/value pairs into process.env so the OpenAI client can pick up the API key.",
+      "tags": ["config", "env", "bootstrap", "io"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:experiments/drift-gate/src/classify.ts",
+      "target": "file:experiments/drift-gate/src/openai.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:experiments/drift-gate/src/eval.ts",
+      "target": "file:experiments/drift-gate/src/openai.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:experiments/drift-gate/src/label.ts",
+      "target": "file:experiments/drift-gate/src/openai.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:experiments/drift-gate/src/classify.ts",
+      "target": "function:experiments/drift-gate/src/classify.ts:classify",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:experiments/drift-gate/src/classify.ts",
+      "target": "function:experiments/drift-gate/src/classify.ts:score",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:experiments/drift-gate/src/classify.ts",
+      "target": "function:experiments/drift-gate/src/classify.ts:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:experiments/drift-gate/src/eval.ts",
+      "target": "function:experiments/drift-gate/src/eval.ts:embedAll",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:experiments/drift-gate/src/eval.ts",
+      "target": "function:experiments/drift-gate/src/eval.ts:entities",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:experiments/drift-gate/src/eval.ts",
+      "target": "function:experiments/drift-gate/src/eval.ts:score",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:experiments/drift-gate/src/eval.ts",
+      "target": "function:experiments/drift-gate/src/eval.ts:runGate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:experiments/drift-gate/src/eval.ts",
+      "target": "function:experiments/drift-gate/src/eval.ts:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:experiments/drift-gate/src/label.ts",
+      "target": "function:experiments/drift-gate/src/label.ts:labelSession",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:experiments/drift-gate/src/label.ts",
+      "target": "function:experiments/drift-gate/src/label.ts:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:experiments/drift-gate/src/openai.ts",
+      "target": "function:experiments/drift-gate/src/openai.ts:loadEnv",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "function:experiments/drift-gate/src/classify.ts:main",
+      "target": "function:experiments/drift-gate/src/classify.ts:classify",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:experiments/drift-gate/src/classify.ts:main",
+      "target": "function:experiments/drift-gate/src/classify.ts:score",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:experiments/drift-gate/src/eval.ts:runGate",
+      "target": "function:experiments/drift-gate/src/eval.ts:entities",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:experiments/drift-gate/src/eval.ts:main",
+      "target": "function:experiments/drift-gate/src/eval.ts:embedAll",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:experiments/drift-gate/src/eval.ts:main",
+      "target": "function:experiments/drift-gate/src/eval.ts:runGate",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:experiments/drift-gate/src/eval.ts:main",
+      "target": "function:experiments/drift-gate/src/eval.ts:score",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:experiments/drift-gate/src/label.ts:main",
+      "target": "function:experiments/drift-gate/src/label.ts:labelSession",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

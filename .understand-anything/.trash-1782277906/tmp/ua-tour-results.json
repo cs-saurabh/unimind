@@ -1,0 +1,804 @@
+{
+  "scriptCompleted": true,
+  "entryPointCandidates": [
+    {
+      "id": "file:src/mcp/server.ts",
+      "score": 3,
+      "name": "server.ts",
+      "summary": "UniMind MCP server entry point that registers the recall and remember tools over stdio, exposing long-term memory search and on-demand storage to Claude Code."
+    },
+    {
+      "id": "file:src/read/e2e.ts",
+      "score": 2,
+      "name": "e2e.ts",
+      "summary": "End-to-end test harness for the read path: wipes the tenant, ingests a session's prompts through the write pipeline, then exercises readPath and prints recall results."
+    },
+    {
+      "id": "file:src/write/e2e.ts",
+      "score": 2,
+      "name": "e2e.ts",
+      "summary": "End-to-end test harness for the write path: wipes the tenant, ingests a session through the pipeline, then dumps persisted memories and entities to verify extraction and persistence."
+    },
+    {
+      "id": "document:AGENTS.md",
+      "score": 2,
+      "name": "AGENTS.md",
+      "summary": "Agent-facing guide for working in this HelixDB project, covering the helix CLI workflow, installation fallbacks, container-runtime caveats, and query syntax conventions."
+    },
+    {
+      "id": "document:ARCHITECTURE.mdx",
+      "score": 2,
+      "name": "ARCHITECTURE.mdx",
+      "summary": "Authoritative system design doc for Unimind, detailing the HelixDB data model, asynchronous write path, synchronous read path, the reusable matching engine, maintenance crons, MCP server, and deployment topology."
+    }
+  ],
+  "fanInRanking": [
+    {
+      "id": "file:src/db/schema.ts",
+      "fanIn": 18,
+      "name": "schema.ts"
+    },
+    {
+      "id": "file:src/write/types.ts",
+      "fanIn": 16,
+      "name": "types.ts"
+    },
+    {
+      "id": "file:src/config.ts",
+      "fanIn": 13,
+      "name": "config.ts"
+    },
+    {
+      "id": "file:src/db/client.ts",
+      "fanIn": 12,
+      "name": "client.ts"
+    },
+    {
+      "id": "file:src/write/buffer.ts",
+      "fanIn": 7,
+      "name": "buffer.ts"
+    },
+    {
+      "id": "file:src/write/pipeline.ts",
+      "fanIn": 6,
+      "name": "pipeline.ts"
+    },
+    {
+      "id": "file:src/db/retrieve.ts",
+      "fanIn": 5,
+      "name": "retrieve.ts"
+    },
+    {
+      "id": "file:src/llm/embed.ts",
+      "fanIn": 5,
+      "name": "embed.ts"
+    },
+    {
+      "id": "file:src/match/scorers.ts",
+      "fanIn": 5,
+      "name": "scorers.ts"
+    },
+    {
+      "id": "service:docker-compose.yml:helix",
+      "fanIn": 5,
+      "name": "helix"
+    },
+    {
+      "id": "file:src/iii/worker.ts",
+      "fanIn": 4,
+      "name": "worker.ts"
+    },
+    {
+      "id": "file:src/write/ingest.ts",
+      "fanIn": 4,
+      "name": "ingest.ts"
+    },
+    {
+      "id": "file:src/read/rank.ts",
+      "fanIn": 4,
+      "name": "rank.ts"
+    },
+    {
+      "id": "file:src/read/readPath.ts",
+      "fanIn": 4,
+      "name": "readPath.ts"
+    },
+    {
+      "id": "file:src/llm/complete.ts",
+      "fanIn": 4,
+      "name": "complete.ts"
+    },
+    {
+      "id": "file:src/match/engine.ts",
+      "fanIn": 4,
+      "name": "engine.ts"
+    },
+    {
+      "id": "file:src/db/memories.ts",
+      "fanIn": 3,
+      "name": "memories.ts"
+    },
+    {
+      "id": "file:src/maintain/sweeps.ts",
+      "fanIn": 3,
+      "name": "sweeps.ts"
+    },
+    {
+      "id": "file:experiments/drift-gate/src/openai.ts",
+      "fanIn": 3,
+      "name": "openai.ts"
+    },
+    {
+      "id": "file:src/hooks/emit.ts",
+      "fanIn": 3,
+      "name": "emit.ts"
+    }
+  ],
+  "fanOutRanking": [
+    {
+      "id": "document:ARCHITECTURE.mdx",
+      "fanOut": 14,
+      "name": "ARCHITECTURE.mdx"
+    },
+    {
+      "id": "file:src/read/e2e.ts",
+      "fanOut": 8,
+      "name": "e2e.ts"
+    },
+    {
+      "id": "file:src/write/pipeline.ts",
+      "fanOut": 7,
+      "name": "pipeline.ts"
+    },
+    {
+      "id": "file:src/iii/worker.ts",
+      "fanOut": 6,
+      "name": "worker.ts"
+    },
+    {
+      "id": "file:src/write/e2e.ts",
+      "fanOut": 6,
+      "name": "e2e.ts"
+    },
+    {
+      "id": "file:src/read/readPath.ts",
+      "fanOut": 6,
+      "name": "readPath.ts"
+    },
+    {
+      "id": "file:src/write/conflict.ts",
+      "fanOut": 6,
+      "name": "conflict.ts"
+    },
+    {
+      "id": "service:docker-compose.yml",
+      "fanOut": 6,
+      "name": "docker-compose.yml"
+    },
+    {
+      "id": "document:memory-system-handoff.md",
+      "fanOut": 6,
+      "name": "memory-system-handoff.md"
+    },
+    {
+      "id": "file:src/iii/drive.ts",
+      "fanOut": 5,
+      "name": "drive.ts"
+    },
+    {
+      "id": "file:src/maintain/erRepair.ts",
+      "fanOut": 5,
+      "name": "erRepair.ts"
+    },
+    {
+      "id": "file:src/write/entityResolve.ts",
+      "fanOut": 5,
+      "name": "entityResolve.ts"
+    },
+    {
+      "id": "file:src/db/smoke.ts",
+      "fanOut": 4,
+      "name": "smoke.ts"
+    },
+    {
+      "id": "file:src/iii/drive_sync.ts",
+      "fanOut": 4,
+      "name": "drive_sync.ts"
+    },
+    {
+      "id": "file:src/write/ingest.ts",
+      "fanOut": 4,
+      "name": "ingest.ts"
+    },
+    {
+      "id": "file:src/read/recall.ts",
+      "fanOut": 4,
+      "name": "recall.ts"
+    },
+    {
+      "id": "file:src/hooks/inject.ts",
+      "fanOut": 4,
+      "name": "inject.ts"
+    },
+    {
+      "id": "service:docker-compose.yml:worker",
+      "fanOut": 4,
+      "name": "worker"
+    },
+    {
+      "id": "file:src/db/entities.ts",
+      "fanOut": 3,
+      "name": "entities.ts"
+    },
+    {
+      "id": "file:src/db/memories.ts",
+      "fanOut": 3,
+      "name": "memories.ts"
+    }
+  ],
+  "bfsTraversal": {
+    "startNode": "file:src/mcp/server.ts",
+    "order": [
+      "file:src/mcp/server.ts",
+      "file:src/read/recall.ts",
+      "file:src/write/remember.ts",
+      "file:src/db/memories.ts",
+      "file:src/db/retrieve.ts",
+      "file:src/llm/embed.ts",
+      "file:src/read/rank.ts",
+      "file:src/write/buffer.ts",
+      "file:src/write/pipeline.ts",
+      "file:src/config.ts",
+      "file:src/db/client.ts",
+      "file:src/db/schema.ts",
+      "file:src/match/scorers.ts",
+      "file:src/write/types.ts",
+      "file:src/write/conflict.ts",
+      "file:src/write/entityResolve.ts",
+      "file:src/write/extract.ts",
+      "file:src/llm/complete.ts",
+      "file:src/match/engine.ts",
+      "file:src/db/entities.ts"
+    ],
+    "depthMap": {
+      "file:src/mcp/server.ts": 0,
+      "file:src/read/recall.ts": 1,
+      "file:src/write/remember.ts": 1,
+      "file:src/db/memories.ts": 2,
+      "file:src/db/retrieve.ts": 2,
+      "file:src/llm/embed.ts": 2,
+      "file:src/read/rank.ts": 2,
+      "file:src/write/buffer.ts": 2,
+      "file:src/write/pipeline.ts": 2,
+      "file:src/config.ts": 3,
+      "file:src/db/client.ts": 3,
+      "file:src/db/schema.ts": 3,
+      "file:src/match/scorers.ts": 3,
+      "file:src/write/types.ts": 3,
+      "file:src/write/conflict.ts": 3,
+      "file:src/write/entityResolve.ts": 3,
+      "file:src/write/extract.ts": 3,
+      "file:src/llm/complete.ts": 4,
+      "file:src/match/engine.ts": 4,
+      "file:src/db/entities.ts": 4
+    },
+    "byDepth": {
+      "0": [
+        "file:src/mcp/server.ts"
+      ],
+      "1": [
+        "file:src/read/recall.ts",
+        "file:src/write/remember.ts"
+      ],
+      "2": [
+        "file:src/db/memories.ts",
+        "file:src/db/retrieve.ts",
+        "file:src/llm/embed.ts",
+        "file:src/read/rank.ts",
+        "file:src/write/buffer.ts",
+        "file:src/write/pipeline.ts"
+      ],
+      "3": [
+        "file:src/config.ts",
+        "file:src/db/client.ts",
+        "file:src/db/schema.ts",
+        "file:src/match/scorers.ts",
+        "file:src/write/types.ts",
+        "file:src/write/conflict.ts",
+        "file:src/write/entityResolve.ts",
+        "file:src/write/extract.ts"
+      ],
+      "4": [
+        "file:src/llm/complete.ts",
+        "file:src/match/engine.ts",
+        "file:src/db/entities.ts"
+      ]
+    }
+  },
+  "nonCodeFiles": {
+    "documentation": [
+      {
+        "id": "document:AGENTS.md",
+        "name": "AGENTS.md",
+        "type": "document",
+        "summary": "Agent-facing guide for working in this HelixDB project, covering the helix CLI workflow, installation fallbacks, container-runtime caveats, and query syntax conventions."
+      },
+      {
+        "id": "document:ARCHITECTURE.mdx",
+        "name": "ARCHITECTURE.mdx",
+        "type": "document",
+        "summary": "Authoritative system design doc for Unimind, detailing the HelixDB data model, asynchronous write path, synchronous read path, the reusable matching engine, maintenance crons, MCP server, and deployment topology."
+      },
+      {
+        "id": "document:memory-system-handoff.md",
+        "name": "memory-system-handoff.md",
+        "type": "document",
+        "summary": "Authoritative build-handoff spec defining the project goal, tech stack, the six memory types, frozen decisions, the HelixDB data model, write/read paths, risks, and build order for the memory system."
+      },
+      {
+        "id": "document:experiments/drift-gate/FINDINGS.md",
+        "name": "FINDINGS.md",
+        "type": "document",
+        "summary": "Experiment write-up concluding that the embedding-based drift gate fails structurally, and recommending a cheap LLM shift-classifier instead, with method, results, and repro steps across seven sections."
+      }
+    ],
+    "infrastructure": [
+      {
+        "id": "service:.dockerignore",
+        "name": ".dockerignore",
+        "type": "service",
+        "summary": "Docker build-context exclusion list that keeps node_modules, git metadata, experiments, the dashboard, logs, and secrets out of worker image builds."
+      },
+      {
+        "id": "service:docker-compose.yml",
+        "name": "docker-compose.yml",
+        "type": "service",
+        "summary": "Full-stack Compose definition that brings up MinIO, a one-shot bucket setup, HelixDB, the iii orchestration engine, the UniMind worker, and the dashboard in dependency order."
+      },
+      {
+        "id": "service:docker-compose.yml:minio",
+        "name": "minio",
+        "type": "service",
+        "summary": "MinIO object-storage service backing HelixDB's on-disk persistence, exposing an S3-compatible API with a liveness health check."
+      },
+      {
+        "id": "service:docker-compose.yml:minio-setup",
+        "name": "minio-setup",
+        "type": "service",
+        "summary": "One-shot job that waits for MinIO to be healthy, creates the helix-db bucket via the mc client, and exits."
+      },
+      {
+        "id": "service:docker-compose.yml:helix",
+        "name": "helix",
+        "type": "service",
+        "summary": "HelixDB enterprise-dev memory store providing graph, vector, and BM25 search, persisting to the MinIO S3 bucket and published on host port 6969."
+      },
+      {
+        "id": "service:docker-compose.yml:iii",
+        "name": "iii",
+        "type": "service",
+        "summary": "iii orchestration engine providing the queues, functions, and cron backbone for the write pipeline, exposing WebSocket, REST, stream, and Prometheus ports."
+      },
+      {
+        "id": "service:docker-compose.yml:worker",
+        "name": "worker",
+        "type": "service",
+        "summary": "UniMind worker built from docker/worker.Dockerfile that runs the asynchronous write pipeline and maintenance crons against HelixDB and the iii engine."
+      },
+      {
+        "id": "service:docker-compose.yml:dashboard",
+        "name": "dashboard",
+        "type": "service",
+        "summary": "Next.js HelixDB dashboard built from helix-dashboard, connecting to the Helix service for memory visualization and published on host port 48173."
+      },
+      {
+        "id": "file:docker/worker.Dockerfile",
+        "name": "worker.Dockerfile",
+        "type": "service",
+        "summary": "Single-stage Node 24 Alpine image that installs dependencies, copies the source tree, and runs the UniMind iii worker (write pipeline plus maintenance crons) via the readiness-gated entrypoint."
+      }
+    ],
+    "data": [],
+    "config": [
+      {
+        "id": "config:helix.toml",
+        "name": "helix.toml",
+        "type": "config",
+        "summary": "HelixDB project configuration declaring the db queries directory, Docker container runtime, and the local dev instance (port 6969, enterprise-dev image, disk storage)."
+      },
+      {
+        "id": "config:package.json",
+        "name": "package.json",
+        "type": "config",
+        "summary": "Node project manifest declaring ESM module type, tsx-driven scripts for the worker, MCP server, db bootstrap, and drift-gate experiments, plus HelixDB, MCP SDK, iii-sdk, and OpenAI dependencies."
+      },
+      {
+        "id": "config:tsconfig.json",
+        "name": "tsconfig.json",
+        "type": "config",
+        "summary": "TypeScript compiler configuration targeting ES2022 with strict mode, bundler module resolution, and JSON module support, scoped to src and experiments while excluding the dashboard."
+      },
+      {
+        "id": "config:examples/request.json",
+        "name": "request.json",
+        "type": "config",
+        "summary": "Sample ingest request payload illustrating the parameters/query/request_type shape expected by the UniMind memory ingestion pipeline."
+      }
+    ]
+  },
+  "clusters": [],
+  "layers": {
+    "count": 9,
+    "list": [
+      {
+        "id": "layer:hooks",
+        "name": "Claude Code Hooks",
+        "description": "Claude Code lifecycle hooks that capture tool-use turns and inject recalled memory context into prompts, plus the fire-and-forget event emit and stdout-discipline helpers that keep hooks non-blocking."
+      },
+      {
+        "id": "layer:orchestration",
+        "name": "Orchestration",
+        "description": "The iii worker engine that registers queue functions (ingestTurn, flushSession, sweepIdle) and cron triggers, plus the driver scripts that exercise the turn-event flow end to end."
+      },
+      {
+        "id": "layer:write-pipeline",
+        "name": "Write Pipeline",
+        "description": "The asynchronous write path that gates turns by salience, buffers session windows, extracts candidate memories via the LLM, resolves entities and conflicts, and persists memories with supersede/extends links."
+      },
+      {
+        "id": "layer:read-pipeline",
+        "name": "Read Pipeline",
+        "description": "The synchronous read path that plans a query, runs hybrid recall, ranks candidates within a token budget, and formats the injected context header surfaced back to the session."
+      },
+      {
+        "id": "layer:matching-maintenance",
+        "name": "Matching & Maintenance",
+        "description": "The reusable matching engine and similarity scorers used for entity resolution, plus the background maintenance sweeps that decay, forget, expire memories and repair duplicate entities."
+      },
+      {
+        "id": "layer:persistence",
+        "name": "Persistence & Foundation",
+        "description": "The HelixDB access layer (client, schema, entity and memory persistence, hybrid retrieval, bootstrap) together with the LLM completion/embedding clients and the central environment configuration the whole pipeline depends on."
+      },
+      {
+        "id": "layer:interfaces",
+        "name": "Interfaces",
+        "description": "The UniMind MCP server that exposes the recall and remember tools over stdio to Claude Code."
+      },
+      {
+        "id": "layer:infrastructure",
+        "name": "Infrastructure & Config",
+        "description": "Container and orchestration definitions (Dockerfile, docker-compose services, entrypoint), HelixDB and build configuration, and project tooling files that deploy and configure the system."
+      },
+      {
+        "id": "layer:documentation-experiments",
+        "name": "Documentation & Experiments",
+        "description": "System design and workflow documentation plus the offline drift-gate experiment that evaluates topic-shift detection heuristics against labeled sessions."
+      }
+    ]
+  },
+  "nodeSummaryIndex": {
+    "file:src/config.ts": {
+      "name": "config.ts",
+      "type": "file",
+      "summary": "Central environment configuration exposing tenant/user identifiers, the HelixDB URL, and embedding model settings used across the memory pipeline."
+    },
+    "file:src/db/bootstrap.ts": {
+      "name": "bootstrap.ts",
+      "type": "file",
+      "summary": "One-time bootstrap script that creates the required HelixDB secondary indexes via a write batch before the memory system is used."
+    },
+    "file:src/db/client.ts": {
+      "name": "client.ts",
+      "type": "file",
+      "summary": "Constructs the shared HelixDB client and provides writeWithRetry, a durable-write helper with exponential backoff on conflict errors."
+    },
+    "file:src/db/entities.ts": {
+      "name": "entities.ts",
+      "type": "file",
+      "summary": "Entity persistence layer: hybrid vector+text candidate search, canonical Entity node creation, and alias merging in the memory graph."
+    },
+    "file:src/db/memories.ts": {
+      "name": "memories.ts",
+      "type": "file",
+      "summary": "Core memory persistence layer that writes Memory nodes with type-driven decay/TTL, links mentions and relations, and handles supersede/extend/bump lifecycle operations."
+    },
+    "file:src/db/schema.ts": {
+      "name": "schema.ts",
+      "type": "file",
+      "summary": "Single source of truth for the memory graph's label and edge name constants plus the normalizeKey helper for tenant-safe canonical entity keys."
+    },
+    "file:src/db/smoke.ts": {
+      "name": "smoke.ts",
+      "type": "file",
+      "summary": "End-to-end smoke test script that seeds entities and memories, exercises the write path, and cleans up, validating the HelixDB integration."
+    },
+    "file:src/iii/drive.ts": {
+      "name": "drive.ts",
+      "type": "file",
+      "summary": "Driver script that emits turn events into the ingestion pipeline and inspects memory counts, used to exercise the hooks/event flow end to end."
+    },
+    "file:src/iii/drive_sync.ts": {
+      "name": "drive_sync.ts",
+      "type": "file",
+      "summary": "Synchronous driver script that runs the write pipeline directly against HelixDB for testing turn ingestion without the async worker."
+    },
+    "file:src/maintain/erRepair.ts": {
+      "name": "erRepair.ts",
+      "type": "file",
+      "summary": "Entity-resolution repair sweep that detects duplicate entities via similarity scoring and merges them to keep the canonical graph clean."
+    },
+    "file:src/maintain/sweeps.ts": {
+      "name": "sweeps.ts",
+      "type": "file",
+      "summary": "Periodic maintenance sweeps that decay idle memory weights, forget low-weight stale memories, and expire contextual (TTL) memories."
+    },
+    "file:src/iii/worker.ts": {
+      "name": "worker.ts",
+      "type": "file",
+      "summary": "Orchestration backbone for the write path: registers iii queue worker functions (ingestTurn, flushSession, sweepIdle) and cron triggers for idle flushing and maintenance sweeps (decay, forget, contextual expiry, ER repair)."
+    },
+    "file:src/read/e2e.ts": {
+      "name": "e2e.ts",
+      "type": "file",
+      "summary": "End-to-end test harness for the read path: wipes the tenant, ingests a session's prompts through the write pipeline, then exercises readPath and prints recall results."
+    },
+    "file:src/write/buffer.ts": {
+      "name": "buffer.ts",
+      "type": "file",
+      "summary": "Session-window buffering layer: provides flush-trigger logic plus file-backed and in-memory buffer stores that accumulate turns until a flush condition (size, boundary, topic-shift, time cap) fires."
+    },
+    "file:src/write/e2e.ts": {
+      "name": "e2e.ts",
+      "type": "file",
+      "summary": "End-to-end test harness for the write path: wipes the tenant, ingests a session through the pipeline, then dumps persisted memories and entities to verify extraction and persistence."
+    },
+    "file:src/write/extract.ts": {
+      "name": "extract.ts",
+      "type": "file",
+      "summary": "Extraction step of the write pipeline: renders a buffered session window into a prompt and calls the LLM to produce validated candidate memories and coreference mention clusters."
+    },
+    "file:src/write/ingest.ts": {
+      "name": "ingest.ts",
+      "type": "file",
+      "summary": "Ingest entry for a single turn: salience-gates the turn, appends it to the session buffer, and triggers a flush when a buffer condition is met."
+    },
+    "file:src/write/pipeline.ts": {
+      "name": "pipeline.ts",
+      "type": "file",
+      "summary": "Core write pipeline: flushes a session buffer by extracting candidates, embedding them, resolving entities and conflicts, and persisting memories with supersede/extends links."
+    },
+    "file:src/write/remember.ts": {
+      "name": "remember.ts",
+      "type": "file",
+      "summary": "Explicit-memory helper: buffers user-supplied content as a boundary turn and immediately flushes it through the write pipeline, used by the MCP remember tool."
+    },
+    "file:src/write/salience.ts": {
+      "name": "salience.ts",
+      "type": "file",
+      "summary": "Salience gate that scores a turn against regex signals (named entities, commitments, preferences, goals, assertions) to decide whether it is worth buffering for memory extraction."
+    },
+    "file:src/write/types.ts": {
+      "name": "types.ts",
+      "type": "file",
+      "summary": "Shared write-path type definitions: TurnEvent, BufferedTurn, SessionBuffer, CandidateMemory, MentionCluster, ExtractionResult, and FlushReason."
+    },
+    "file:src/write/write.test.ts": {
+      "name": "write.test.ts",
+      "type": "file",
+      "summary": "Unit tests for the write path covering the salience gate and buffer flush-reason logic with synthetic turn and buffer fixtures."
+    },
+    "file:src/db/retrieve.ts": {
+      "name": "retrieve.ts",
+      "type": "file",
+      "summary": "Read-side HelixDB access layer providing hybrid vector + BM25 recall, similarity search, relational fact traversal, and entity validation against the tenant-scoped memory graph."
+    },
+    "file:src/llm/embed.ts": {
+      "name": "embed.ts",
+      "type": "file",
+      "summary": "Embedding helper that loads env config and produces vector embeddings for one or many texts via the configured embedding model client."
+    },
+    "file:src/mcp/server.ts": {
+      "name": "server.ts",
+      "type": "file",
+      "summary": "UniMind MCP server entry point that registers the recall and remember tools over stdio, exposing long-term memory search and on-demand storage to Claude Code."
+    },
+    "file:src/read/header.ts": {
+      "name": "header.ts",
+      "type": "file",
+      "summary": "Formats ranked memory parts (goals, contextual notes, relational facts) into the injected context header string and tracks which memory ids were surfaced."
+    },
+    "file:src/read/planner.ts": {
+      "name": "planner.ts",
+      "type": "file",
+      "summary": "Query planner that uses an LLM to extract relevant memory types, entities, topics, and context scope from a prompt before retrieval runs."
+    },
+    "file:src/read/rank.ts": {
+      "name": "rank.ts",
+      "type": "file",
+      "summary": "Ranking module that merges multi-channel memory candidates, scores them by similarity and recency decay, and selects the top set within a token budget."
+    },
+    "file:src/read/readPath.ts": {
+      "name": "readPath.ts",
+      "type": "file",
+      "summary": "Orchestrates the full read path: plan the query, embed and validate entities, fetch recall and relational facts in parallel, rank results, and build the injected context header."
+    },
+    "file:src/read/recall.ts": {
+      "name": "recall.ts",
+      "type": "file",
+      "summary": "Public recall entry point that embeds a query, fetches hybrid candidates, ranks them, bumps usage counters, and returns formatted memory hits for the MCP recall tool."
+    },
+    "file:src/llm/complete.ts": {
+      "name": "complete.ts",
+      "type": "file",
+      "summary": "LLM client wrapper that loads environment config and exposes jsonComplete for JSON-mode chat completions used by the write pipeline."
+    },
+    "file:src/match/engine.test.ts": {
+      "name": "engine.test.ts",
+      "type": "file",
+      "summary": "Unit tests for the generic match engine, verifying blocking, scoring, sorting, and adjudication behavior using stub scorers."
+    },
+    "file:src/match/engine.ts": {
+      "name": "engine.ts",
+      "type": "file",
+      "summary": "Generic matching engine that blocks candidates, scores them via a pluggable config, sorts by score, and optionally adjudicates the gray-zone matches."
+    },
+    "file:src/match/scorers.ts": {
+      "name": "scorers.ts",
+      "type": "file",
+      "summary": "Collection of similarity scoring primitives — cosine similarity, vector-distance conversion, trigram fuzzy matching, alias matching, and weighted score combination."
+    },
+    "file:src/write/conflict.ts": {
+      "name": "conflict.ts",
+      "type": "file",
+      "summary": "Conflict resolution for incoming memory writes: matches against similar existing memories and applies an LLM adjudication policy to decide create/update/skip relations."
+    },
+    "file:src/write/entityResolve.ts": {
+      "name": "entityResolve.ts",
+      "type": "file",
+      "summary": "Entity resolution for write clusters: searches candidate entities, scores them by alias and vector similarity, adjudicates ambiguous matches via LLM, and creates or merges entities."
+    },
+    "file:experiments/drift-gate/src/classify.ts": {
+      "name": "classify.ts",
+      "type": "file",
+      "summary": "LLM-based baseline classifier for the drift-gate experiment: asks an OpenAI chat model whether consecutive prompts represent a topic shift, then scores precision/recall/F1 against labeled data."
+    },
+    "file:experiments/drift-gate/src/eval.ts": {
+      "name": "eval.ts",
+      "type": "file",
+      "summary": "Embedding-based drift-gate evaluation harness that sweeps cosine-distance thresholds and entity-overlap parameters to find the F1-optimal heuristic gate configuration against labeled sessions."
+    },
+    "file:experiments/drift-gate/src/label.ts": {
+      "name": "label.ts",
+      "type": "file",
+      "summary": "Ground-truth labeling tool that asks an OpenAI chat model to identify topic-shift points within each session's prompt sequence and writes the labeled dataset for downstream evaluation."
+    },
+    "file:experiments/drift-gate/src/openai.ts": {
+      "name": "openai.ts",
+      "type": "file",
+      "summary": "Shared utility module for the drift-gate experiment that loads .env credentials, exports a configured OpenAI client, and provides data/output path helpers."
+    },
+    "file:src/hooks/capture.ts": {
+      "name": "capture.ts",
+      "type": "file",
+      "summary": "Claude Code PostToolUse hook entry point that reads the tool payload from stdin, normalizes it into a TurnEvent, and fires it asynchronously to the memory ingest pipeline without blocking the user."
+    },
+    "file:src/hooks/emit.ts": {
+      "name": "emit.ts",
+      "type": "file",
+      "summary": "Fire-and-forget event emitter that connects to the iii worker engine, triggers the unimind ingestTurn function with the turn event, and shuts down without ever blocking the calling hook."
+    },
+    "file:src/hooks/inject.ts": {
+      "name": "inject.ts",
+      "type": "file",
+      "summary": "Claude Code UserPromptSubmit hook that reads the user prompt from stdin, recalls relevant memories via readPath, logs a checkpoint, and injects retrieved context back into the session via stdout."
+    },
+    "file:src/hooks/silence.ts": {
+      "name": "silence.ts",
+      "type": "file",
+      "summary": "Stdout-discipline utility that captures the real stdout writer and redirects stray logging to stderr, ensuring only intended hook protocol output reaches Claude Code on stdout."
+    },
+    "service:.dockerignore": {
+      "name": ".dockerignore",
+      "type": "service",
+      "summary": "Docker build-context exclusion list that keeps node_modules, git metadata, experiments, the dashboard, logs, and secrets out of worker image builds."
+    },
+    "document:AGENTS.md": {
+      "name": "AGENTS.md",
+      "type": "document",
+      "summary": "Agent-facing guide for working in this HelixDB project, covering the helix CLI workflow, installation fallbacks, container-runtime caveats, and query syntax conventions."
+    },
+    "document:ARCHITECTURE.mdx": {
+      "name": "ARCHITECTURE.mdx",
+      "type": "document",
+      "summary": "Authoritative system design doc for Unimind, detailing the HelixDB data model, asynchronous write path, synchronous read path, the reusable matching engine, maintenance crons, MCP server, and deployment topology."
+    },
+    "service:docker-compose.yml": {
+      "name": "docker-compose.yml",
+      "type": "service",
+      "summary": "Full-stack Compose definition that brings up MinIO, a one-shot bucket setup, HelixDB, the iii orchestration engine, the UniMind worker, and the dashboard in dependency order."
+    },
+    "service:docker-compose.yml:minio": {
+      "name": "minio",
+      "type": "service",
+      "summary": "MinIO object-storage service backing HelixDB's on-disk persistence, exposing an S3-compatible API with a liveness health check."
+    },
+    "service:docker-compose.yml:minio-setup": {
+      "name": "minio-setup",
+      "type": "service",
+      "summary": "One-shot job that waits for MinIO to be healthy, creates the helix-db bucket via the mc client, and exits."
+    },
+    "service:docker-compose.yml:helix": {
+      "name": "helix",
+      "type": "service",
+      "summary": "HelixDB enterprise-dev memory store providing graph, vector, and BM25 search, persisting to the MinIO S3 bucket and published on host port 6969."
+    },
+    "service:docker-compose.yml:iii": {
+      "name": "iii",
+      "type": "service",
+      "summary": "iii orchestration engine providing the queues, functions, and cron backbone for the write pipeline, exposing WebSocket, REST, stream, and Prometheus ports."
+    },
+    "service:docker-compose.yml:worker": {
+      "name": "worker",
+      "type": "service",
+      "summary": "UniMind worker built from docker/worker.Dockerfile that runs the asynchronous write pipeline and maintenance crons against HelixDB and the iii engine."
+    },
+    "service:docker-compose.yml:dashboard": {
+      "name": "dashboard",
+      "type": "service",
+      "summary": "Next.js HelixDB dashboard built from helix-dashboard, connecting to the Helix service for memory visualization and published on host port 48173."
+    },
+    "config:helix.toml": {
+      "name": "helix.toml",
+      "type": "config",
+      "summary": "HelixDB project configuration declaring the db queries directory, Docker container runtime, and the local dev instance (port 6969, enterprise-dev image, disk storage)."
+    },
+    "document:memory-system-handoff.md": {
+      "name": "memory-system-handoff.md",
+      "type": "document",
+      "summary": "Authoritative build-handoff spec defining the project goal, tech stack, the six memory types, frozen decisions, the HelixDB data model, write/read paths, risks, and build order for the memory system."
+    },
+    "config:package.json": {
+      "name": "package.json",
+      "type": "config",
+      "summary": "Node project manifest declaring ESM module type, tsx-driven scripts for the worker, MCP server, db bootstrap, and drift-gate experiments, plus HelixDB, MCP SDK, iii-sdk, and OpenAI dependencies."
+    },
+    "config:tsconfig.json": {
+      "name": "tsconfig.json",
+      "type": "config",
+      "summary": "TypeScript compiler configuration targeting ES2022 with strict mode, bundler module resolution, and JSON module support, scoped to src and experiments while excluding the dashboard."
+    },
+    "file:.understand-anything/.understandignore": {
+      "name": ".understandignore",
+      "type": "file",
+      "summary": "Ignore-pattern manifest for the understand-anything analysis tooling, listing files and directories excluded from knowledge-graph scanning."
+    },
+    "file:docker/worker-entrypoint.sh": {
+      "name": "worker-entrypoint.sh",
+      "type": "file",
+      "summary": "Container entrypoint that gates worker startup on HelixDB (HTTP) and the iii engine (WS) readiness, bootstraps Helix indexes idempotently, then launches the UniMind write-pipeline worker."
+    },
+    "file:docker/worker.Dockerfile": {
+      "name": "worker.Dockerfile",
+      "type": "service",
+      "summary": "Single-stage Node 24 Alpine image that installs dependencies, copies the source tree, and runs the UniMind iii worker (write pipeline plus maintenance crons) via the readiness-gated entrypoint."
+    },
+    "config:examples/request.json": {
+      "name": "request.json",
+      "type": "config",
+      "summary": "Sample ingest request payload illustrating the parameters/query/request_type shape expected by the UniMind memory ingestion pipeline."
+    },
+    "document:experiments/drift-gate/FINDINGS.md": {
+      "name": "FINDINGS.md",
+      "type": "document",
+      "summary": "Experiment write-up concluding that the embedding-based drift gate fails structurally, and recommending a cheap LLM shift-classifier instead, with method, results, and repro steps across seven sections."
+    },
+    "file:experiments/drift-gate/src/extract.ts": {
+      "name": "extract.ts",
+      "type": "file",
+      "summary": "Experiment harness that walks Claude project session transcripts, extracts non-meta user prompt text from JSONL content blocks, and writes a chronologically sorted dataset used to evaluate the drift gate."
+    }
+  },
+  "totalNodes": 64,
+  "totalEdges": 168
+}

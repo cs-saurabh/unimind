@@ -1,0 +1,452 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/llm/complete.ts",
+      "type": "file",
+      "name": "complete.ts",
+      "filePath": "src/llm/complete.ts",
+      "summary": "LLM client wrapper that loads environment config and exposes jsonComplete for JSON-mode chat completions used by the write pipeline.",
+      "tags": ["service", "llm-client", "json-completion", "config-loader"],
+      "complexity": "simple",
+      "languageNotes": "Hand-rolled .env loader reads and parses the file directly rather than via a dependency."
+    },
+    {
+      "id": "function:src/llm/complete.ts:loadEnv",
+      "type": "function",
+      "name": "loadEnv",
+      "filePath": "src/llm/complete.ts",
+      "lineRange": [5, 14],
+      "summary": "Reads and parses the project .env file, populating process environment with key/value pairs for LLM credentials.",
+      "tags": ["config-loader", "utility", "bootstrap"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/llm/complete.ts:jsonComplete",
+      "type": "function",
+      "name": "jsonComplete",
+      "filePath": "src/llm/complete.ts",
+      "lineRange": [27, 48],
+      "summary": "Calls the chat completions API in JSON mode with system and user prompts, parsing and returning the structured JSON response.",
+      "tags": ["llm-client", "json-completion", "async", "serialization"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/match/engine.test.ts",
+      "type": "file",
+      "name": "engine.test.ts",
+      "filePath": "src/match/engine.test.ts",
+      "summary": "Unit tests for the generic match engine, verifying blocking, scoring, sorting, and adjudication behavior using stub scorers.",
+      "tags": ["test", "matching", "unit-test"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/match/engine.ts",
+      "type": "file",
+      "name": "engine.ts",
+      "filePath": "src/match/engine.ts",
+      "summary": "Generic matching engine that blocks candidates, scores them via a pluggable config, sorts by score, and optionally adjudicates the gray-zone matches.",
+      "tags": ["matching", "engine", "factory", "core"],
+      "complexity": "moderate",
+      "languageNotes": "Strategy pattern via a config object supplying block/score/adjudicate callbacks."
+    },
+    {
+      "id": "function:src/match/engine.ts:match",
+      "type": "function",
+      "name": "match",
+      "filePath": "src/match/engine.ts",
+      "lineRange": [45, 79],
+      "summary": "Core matching routine: blocks candidates, scores and sorts them, slices top results, and adjudicates ambiguous matches through the provided config.",
+      "tags": ["matching", "engine", "async", "core"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/match/scorers.ts",
+      "type": "file",
+      "name": "scorers.ts",
+      "filePath": "src/match/scorers.ts",
+      "summary": "Collection of similarity scoring primitives — cosine similarity, vector-distance conversion, trigram fuzzy matching, alias matching, and weighted score combination.",
+      "tags": ["matching", "utility", "similarity", "scoring"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/match/scorers.ts:cosineSim",
+      "type": "function",
+      "name": "cosineSim",
+      "filePath": "src/match/scorers.ts",
+      "lineRange": [7, 19],
+      "summary": "Computes cosine similarity between two embedding vectors, clamping the result to the [0,1] range.",
+      "tags": ["similarity", "vector", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/match/scorers.ts:trigramSim",
+      "type": "function",
+      "name": "trigramSim",
+      "filePath": "src/match/scorers.ts",
+      "lineRange": [36, 45],
+      "summary": "Computes a normalized trigram-overlap similarity between two strings for fuzzy textual matching.",
+      "tags": ["similarity", "fuzzy-match", "string", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/match/scorers.ts:bestAliasSim",
+      "type": "function",
+      "name": "bestAliasSim",
+      "filePath": "src/match/scorers.ts",
+      "lineRange": [51, 63],
+      "summary": "Finds the best similarity between a query string and a set of surface-form aliases, combining token containment and trigram scoring.",
+      "tags": ["similarity", "alias-matching", "fuzzy-match", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/match/scorers.ts:combine",
+      "type": "function",
+      "name": "combine",
+      "filePath": "src/match/scorers.ts",
+      "lineRange": [66, 70],
+      "summary": "Combines multiple weighted score parts into a single normalized similarity score.",
+      "tags": ["scoring", "aggregation", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/write/conflict.ts",
+      "type": "file",
+      "name": "conflict.ts",
+      "filePath": "src/write/conflict.ts",
+      "summary": "Conflict resolution for incoming memory writes: matches against similar existing memories and applies an LLM adjudication policy to decide create/update/skip relations.",
+      "tags": ["write-pipeline", "conflict-resolution", "matching", "core"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/write/conflict.ts:policy",
+      "type": "function",
+      "name": "policy",
+      "filePath": "src/write/conflict.ts",
+      "lineRange": [34, 49],
+      "summary": "Maps a resolved relationship type and target onto a concrete write action (create, update, supersede, or skip).",
+      "tags": ["conflict-resolution", "policy", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/write/conflict.ts:resolveConflict",
+      "type": "function",
+      "name": "resolveConflict",
+      "filePath": "src/write/conflict.ts",
+      "lineRange": [51, 88],
+      "summary": "Runs the match engine over similar memories, sends gray-zone candidates to the LLM for adjudication, and returns the conflict-resolution decision.",
+      "tags": ["conflict-resolution", "matching", "async", "core"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/write/entityResolve.ts",
+      "type": "file",
+      "name": "entityResolve.ts",
+      "filePath": "src/write/entityResolve.ts",
+      "summary": "Entity resolution for write clusters: searches candidate entities, scores them by alias and vector similarity, adjudicates ambiguous matches via LLM, and creates or merges entities.",
+      "tags": ["write-pipeline", "entity-resolution", "matching", "core"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/write/entityResolve.ts:scoreCandidate",
+      "type": "function",
+      "name": "scoreCandidate",
+      "filePath": "src/write/entityResolve.ts",
+      "lineRange": [31, 39],
+      "summary": "Scores an entity candidate against an input cluster by combining best-alias similarity and other weighted signals.",
+      "tags": ["entity-resolution", "scoring", "similarity", "utility"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/write/entityResolve.ts:resolveEntity",
+      "type": "function",
+      "name": "resolveEntity",
+      "filePath": "src/write/entityResolve.ts",
+      "lineRange": [41, 91],
+      "summary": "Resolves a surface-form cluster to a canonical entity: matches candidates, adjudicates gray-zone cases via LLM, and either adds aliases to an existing entity or creates a new one.",
+      "tags": ["entity-resolution", "matching", "async", "core"],
+      "complexity": "complex"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/llm/complete.ts",
+      "target": "function:src/llm/complete.ts:loadEnv",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/llm/complete.ts",
+      "target": "function:src/llm/complete.ts:jsonComplete",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/llm/complete.ts",
+      "target": "function:src/llm/complete.ts:jsonComplete",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/match/engine.test.ts",
+      "target": "file:src/match/engine.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/match/engine.test.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/match/engine.ts",
+      "target": "file:src/match/engine.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/match/scorers.ts",
+      "target": "file:src/match/engine.test.ts",
+      "type": "tested_by",
+      "direction": "forward",
+      "weight": 0.5
+    },
+    {
+      "source": "file:src/match/engine.ts",
+      "target": "function:src/match/engine.ts:match",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/match/engine.ts",
+      "target": "function:src/match/engine.ts:match",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/match/scorers.ts",
+      "target": "function:src/match/scorers.ts:cosineSim",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/match/scorers.ts",
+      "target": "function:src/match/scorers.ts:trigramSim",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/match/scorers.ts",
+      "target": "function:src/match/scorers.ts:bestAliasSim",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/match/scorers.ts",
+      "target": "function:src/match/scorers.ts:combine",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/match/scorers.ts",
+      "target": "function:src/match/scorers.ts:cosineSim",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/match/scorers.ts",
+      "target": "function:src/match/scorers.ts:trigramSim",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/match/scorers.ts",
+      "target": "function:src/match/scorers.ts:bestAliasSim",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/match/scorers.ts",
+      "target": "function:src/match/scorers.ts:combine",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/db/retrieve.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/db/schema.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/llm/complete.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/match/engine.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "function:src/write/conflict.ts:policy",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "function:src/write/conflict.ts:resolveConflict",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/write/conflict.ts",
+      "target": "function:src/write/conflict.ts:resolveConflict",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/write/conflict.ts:resolveConflict",
+      "target": "function:src/match/engine.ts:match",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/write/conflict.ts:resolveConflict",
+      "target": "function:src/llm/complete.ts:jsonComplete",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/db/entities.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/llm/complete.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/match/engine.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/match/scorers.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "function:src/write/entityResolve.ts:scoreCandidate",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "function:src/write/entityResolve.ts:resolveEntity",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/write/entityResolve.ts",
+      "target": "function:src/write/entityResolve.ts:resolveEntity",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/write/entityResolve.ts:scoreCandidate",
+      "target": "function:src/match/scorers.ts:bestAliasSim",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/write/entityResolve.ts:scoreCandidate",
+      "target": "function:src/match/scorers.ts:combine",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/write/entityResolve.ts:resolveEntity",
+      "target": "function:src/match/engine.ts:match",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/write/entityResolve.ts:resolveEntity",
+      "target": "function:src/llm/complete.ts:jsonComplete",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

@@ -1,0 +1,4064 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 11,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "src/config.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 13,
+      "nonEmptyLines": 11,
+      "exports": [
+        {
+          "name": "TENANT_ID",
+          "line": 6,
+          "isDefault": false
+        },
+        {
+          "name": "USER_ID",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "HELIX_URL",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "EMBED_MODEL",
+          "line": 12,
+          "isDefault": false
+        },
+        {
+          "name": "EMBED_DIM",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/db/bootstrap.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 54,
+      "nonEmptyLines": 50,
+      "functions": [
+        {
+          "name": "bootstrapIndexes",
+          "startLine": 40,
+          "endLine": 46,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 48,
+          "endLine": 52,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "bootstrapIndexes",
+          "callee": "INDEXES.reduce",
+          "lineNumber": 41
+        },
+        {
+          "caller": "bootstrapIndexes",
+          "callee": "batch.varAs",
+          "lineNumber": 42
+        },
+        {
+          "caller": "bootstrapIndexes",
+          "callee": "g().createIndexIfNotExists",
+          "lineNumber": 42
+        },
+        {
+          "caller": "bootstrapIndexes",
+          "callee": "g",
+          "lineNumber": 42
+        },
+        {
+          "caller": "bootstrapIndexes",
+          "callee": "writeBatch",
+          "lineNumber": 43
+        },
+        {
+          "caller": "bootstrapIndexes",
+          "callee": "b.returning",
+          "lineNumber": 45
+        },
+        {
+          "caller": "bootstrapIndexes",
+          "callee": "INDEXES.map",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "bootstrapIndexes().toDynamicRequest",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "bootstrapIndexes",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().shouldAwaitDurability(true).dynamic(req).send",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().shouldAwaitDurability(true).dynamic",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().shouldAwaitDurability",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify(res).slice",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/db/client.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 25,
+      "functions": [
+        {
+          "name": "writeWithRetry",
+          "startLine": 11,
+          "endLine": 27,
+          "params": [
+            "req",
+            "{ retries = 4, baseMs = 50 }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "helix",
+          "line": 5,
+          "isDefault": false
+        },
+        {
+          "name": "writeWithRetry",
+          "line": 11,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "writeWithRetry",
+          "callee": "await helix.query<R>().shouldAwaitDurability(true).dynamic(req).send",
+          "lineNumber": 18
+        },
+        {
+          "caller": "writeWithRetry",
+          "callee": "await helix.query<R>().shouldAwaitDurability(true).dynamic",
+          "lineNumber": 18
+        },
+        {
+          "caller": "writeWithRetry",
+          "callee": "await helix.query<R>().shouldAwaitDurability",
+          "lineNumber": 18
+        },
+        {
+          "caller": "writeWithRetry",
+          "callee": "await helix.query",
+          "lineNumber": 18
+        },
+        {
+          "caller": "writeWithRetry",
+          "callee": "/conflict/i.test",
+          "lineNumber": 20
+        },
+        {
+          "caller": "writeWithRetry",
+          "callee": "setTimeout",
+          "lineNumber": 23
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/db/entities.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 86,
+      "nonEmptyLines": 80,
+      "functions": [
+        {
+          "name": "searchEntityCandidates",
+          "startLine": 21,
+          "endLine": 53,
+          "params": [
+            "queryText",
+            "queryEmbedding",
+            "k"
+          ]
+        },
+        {
+          "name": "nowIso",
+          "startLine": 55,
+          "endLine": 55,
+          "params": []
+        },
+        {
+          "name": "createEntity",
+          "startLine": 58,
+          "endLine": 73,
+          "params": [
+            "opts"
+          ]
+        },
+        {
+          "name": "addAliases",
+          "startLine": 76,
+          "endLine": 86,
+          "params": [
+            "entityKey",
+            "existing",
+            "newForms"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "searchEntityCandidates",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "createEntity",
+          "line": 58,
+          "isDefault": false
+        },
+        {
+          "name": "addAliases",
+          "line": 76,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 27
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 28
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 29
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "PropertyProjection.renamed",
+          "lineNumber": 30
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "readBatch()\n    .varAs(\"vec\", g().vectorSearchNodesWith(L.Entity, \"embedding\",\n      PropertyInput.value(queryEmbedding), Expr.val(k), PropertyInput.value(TENANT_ID)).project(proj))\n    .varAs(\"bm\", g().textSearchNodesWith(L.Entity, \"aliasText\",\n      PropertyInput.value(queryText), Expr.val(k), PropertyInput.value(TENANT_ID)).project(proj))\n    .returning",
+          "lineNumber": 32
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "readBatch()\n    .varAs(\"vec\", g().vectorSearchNodesWith(L.Entity, \"embedding\",\n      PropertyInput.value(queryEmbedding), Expr.val(k), PropertyInput.value(TENANT_ID)).project(proj))\n    .varAs",
+          "lineNumber": 32
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "readBatch()\n    .varAs",
+          "lineNumber": 32
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "readBatch",
+          "lineNumber": 32
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "g().vectorSearchNodesWith(L.Entity, \"embedding\",\n      PropertyInput.value(queryEmbedding), Expr.val(k), PropertyInput.value(TENANT_ID)).project",
+          "lineNumber": 33
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "g().vectorSearchNodesWith",
+          "lineNumber": 33
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "g",
+          "lineNumber": 33
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "PropertyInput.value",
+          "lineNumber": 34
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "Expr.val",
+          "lineNumber": 34
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "PropertyInput.value",
+          "lineNumber": 34
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "g().textSearchNodesWith(L.Entity, \"aliasText\",\n      PropertyInput.value(queryText), Expr.val(k), PropertyInput.value(TENANT_ID)).project",
+          "lineNumber": 35
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "g().textSearchNodesWith",
+          "lineNumber": 35
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "g",
+          "lineNumber": 35
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "PropertyInput.value",
+          "lineNumber": 36
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "Expr.val",
+          "lineNumber": 36
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "PropertyInput.value",
+          "lineNumber": 36
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "helix.query().dynamic(req.toDynamicRequest({ queryName: \"entity_candidates\" })).send",
+          "lineNumber": 39
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "helix.query().dynamic",
+          "lineNumber": 39
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "helix.query",
+          "lineNumber": 39
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 39
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "byKey.set",
+          "lineNumber": 42
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "Math.max",
+          "lineNumber": 44
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "byKey.has",
+          "lineNumber": 48
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "byKey.set",
+          "lineNumber": 49
+        },
+        {
+          "caller": "searchEntityCandidates",
+          "callee": "byKey.values",
+          "lineNumber": 52
+        },
+        {
+          "caller": "nowIso",
+          "callee": "new Date().toISOString",
+          "lineNumber": 55
+        },
+        {
+          "caller": "createEntity",
+          "callee": "normalizeKey",
+          "lineNumber": 61
+        },
+        {
+          "caller": "createEntity",
+          "callee": "[opts.name, ...opts.surfaceForms].map((s) => s.trim()).filter",
+          "lineNumber": 62
+        },
+        {
+          "caller": "createEntity",
+          "callee": "[opts.name, ...opts.surfaceForms].map",
+          "lineNumber": 62
+        },
+        {
+          "caller": "createEntity",
+          "callee": "s.trim",
+          "lineNumber": 62
+        },
+        {
+          "caller": "createEntity",
+          "callee": "nowIso",
+          "lineNumber": 63
+        },
+        {
+          "caller": "createEntity",
+          "callee": "writeBatch().varAs(\"e\", g().addN(L.Entity, {\n    entityKey: PropertyInput.value(entityKey), tenant_id: PropertyInput.value(TENANT_ID),\n    name: PropertyInput.value(opts.name), entityType: PropertyInput.value(opts.entityType),\n    aliases: PropertyInput.value(aliases), aliasText: PropertyInput.value(aliases.join(\" \")),\n    embedding: PropertyInput.value(opts.embedding), confidence: PropertyInput.value(opts.confidence),\n    createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n  })).returning",
+          "lineNumber": 64
+        },
+        {
+          "caller": "createEntity",
+          "callee": "writeBatch().varAs",
+          "lineNumber": 64
+        },
+        {
+          "caller": "createEntity",
+          "callee": "writeBatch",
+          "lineNumber": 64
+        },
+        {
+          "caller": "createEntity",
+          "callee": "g().addN",
+          "lineNumber": 64
+        },
+        {
+          "caller": "createEntity",
+          "callee": "g",
+          "lineNumber": 64
+        },
+        {
+          "caller": "createEntity",
+          "callee": "PropertyInput.value",
+          "lineNumber": 65
+        },
+        {
+          "caller": "createEntity",
+          "callee": "PropertyInput.value",
+          "lineNumber": 65
+        },
+        {
+          "caller": "createEntity",
+          "callee": "PropertyInput.value",
+          "lineNumber": 66
+        },
+        {
+          "caller": "createEntity",
+          "callee": "PropertyInput.value",
+          "lineNumber": 66
+        },
+        {
+          "caller": "createEntity",
+          "callee": "PropertyInput.value",
+          "lineNumber": 67
+        },
+        {
+          "caller": "createEntity",
+          "callee": "PropertyInput.value",
+          "lineNumber": 67
+        },
+        {
+          "caller": "createEntity",
+          "callee": "aliases.join",
+          "lineNumber": 67
+        },
+        {
+          "caller": "createEntity",
+          "callee": "PropertyInput.value",
+          "lineNumber": 68
+        },
+        {
+          "caller": "createEntity",
+          "callee": "PropertyInput.value",
+          "lineNumber": 68
+        },
+        {
+          "caller": "createEntity",
+          "callee": "PropertyInput.value",
+          "lineNumber": 69
+        },
+        {
+          "caller": "createEntity",
+          "callee": "PropertyInput.value",
+          "lineNumber": 69
+        },
+        {
+          "caller": "createEntity",
+          "callee": "writeWithRetry",
+          "lineNumber": 71
+        },
+        {
+          "caller": "createEntity",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 71
+        },
+        {
+          "caller": "addAliases",
+          "callee": "[...existing, ...newForms].map((s) => s.trim()).filter",
+          "lineNumber": 77
+        },
+        {
+          "caller": "addAliases",
+          "callee": "[...existing, ...newForms].map",
+          "lineNumber": 77
+        },
+        {
+          "caller": "addAliases",
+          "callee": "s.trim",
+          "lineNumber": 77
+        },
+        {
+          "caller": "addAliases",
+          "callee": "writeBatch().varAs(\"e\", g().nWithLabel(L.Entity)\n    .where(Predicate.eq(\"entityKey\", entityKey))\n    .setProperty(\"aliases\", PropertyInput.value(merged))\n    .setProperty(\"aliasText\", PropertyInput.value(merged.join(\" \")))\n    .setProperty(\"updatedAt\", PropertyInput.value(nowIso()))\n  ).returning",
+          "lineNumber": 79
+        },
+        {
+          "caller": "addAliases",
+          "callee": "writeBatch().varAs",
+          "lineNumber": 79
+        },
+        {
+          "caller": "addAliases",
+          "callee": "writeBatch",
+          "lineNumber": 79
+        },
+        {
+          "caller": "addAliases",
+          "callee": "g().nWithLabel(L.Entity)\n    .where(Predicate.eq(\"entityKey\", entityKey))\n    .setProperty(\"aliases\", PropertyInput.value(merged))\n    .setProperty(\"aliasText\", PropertyInput.value(merged.join(\" \")))\n    .setProperty",
+          "lineNumber": 79
+        },
+        {
+          "caller": "addAliases",
+          "callee": "g().nWithLabel(L.Entity)\n    .where(Predicate.eq(\"entityKey\", entityKey))\n    .setProperty(\"aliases\", PropertyInput.value(merged))\n    .setProperty",
+          "lineNumber": 79
+        },
+        {
+          "caller": "addAliases",
+          "callee": "g().nWithLabel(L.Entity)\n    .where(Predicate.eq(\"entityKey\", entityKey))\n    .setProperty",
+          "lineNumber": 79
+        },
+        {
+          "caller": "addAliases",
+          "callee": "g().nWithLabel(L.Entity)\n    .where",
+          "lineNumber": 79
+        },
+        {
+          "caller": "addAliases",
+          "callee": "g().nWithLabel",
+          "lineNumber": 79
+        },
+        {
+          "caller": "addAliases",
+          "callee": "g",
+          "lineNumber": 79
+        },
+        {
+          "caller": "addAliases",
+          "callee": "Predicate.eq",
+          "lineNumber": 80
+        },
+        {
+          "caller": "addAliases",
+          "callee": "PropertyInput.value",
+          "lineNumber": 81
+        },
+        {
+          "caller": "addAliases",
+          "callee": "PropertyInput.value",
+          "lineNumber": 82
+        },
+        {
+          "caller": "addAliases",
+          "callee": "merged.join",
+          "lineNumber": 82
+        },
+        {
+          "caller": "addAliases",
+          "callee": "PropertyInput.value",
+          "lineNumber": 83
+        },
+        {
+          "caller": "addAliases",
+          "callee": "nowIso",
+          "lineNumber": 83
+        },
+        {
+          "caller": "addAliases",
+          "callee": "writeWithRetry",
+          "lineNumber": 85
+        },
+        {
+          "caller": "addAliases",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 85
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 3,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/db/memories.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 146,
+      "nonEmptyLines": 134,
+      "functions": [
+        {
+          "name": "decayFor",
+          "startLine": 13,
+          "endLine": 20,
+          "params": [
+            "type"
+          ]
+        },
+        {
+          "name": "persistMemory",
+          "startLine": 36,
+          "endLine": 83,
+          "params": [
+            "m"
+          ]
+        },
+        {
+          "name": "supersede",
+          "startLine": 90,
+          "endLine": 105,
+          "params": [
+            "newId",
+            "oldId",
+            "reason",
+            "hardDelete"
+          ]
+        },
+        {
+          "name": "linkExtends",
+          "startLine": 108,
+          "endLine": 118,
+          "params": [
+            "newId",
+            "oldId"
+          ]
+        },
+        {
+          "name": "setGoalStatus",
+          "startLine": 121,
+          "endLine": 128,
+          "params": [
+            "memoryId",
+            "status"
+          ]
+        },
+        {
+          "name": "bumpMemories",
+          "startLine": 135,
+          "endLine": 146,
+          "params": [
+            "memoryIds",
+            "boost"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "persistMemory",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "supersede",
+          "line": 90,
+          "isDefault": false
+        },
+        {
+          "name": "linkExtends",
+          "line": 108,
+          "isDefault": false
+        },
+        {
+          "name": "setGoalStatus",
+          "line": 121,
+          "isDefault": false
+        },
+        {
+          "name": "bumpMemories",
+          "line": 135,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "persistMemory",
+          "callee": "randomUUID",
+          "lineNumber": 37
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "new Date().toISOString",
+          "lineNumber": 38
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "decayFor",
+          "lineNumber": 39
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "new Date(Date.parse(now) + ttlMs).toISOString",
+          "lineNumber": 40
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "Date.parse",
+          "lineNumber": 40
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 43
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 43
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 44
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 44
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 45
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 45
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 46
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 46
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 47
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 47
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 48
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 48
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 49
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 49
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 50
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 50
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 52
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 53
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 54
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 55
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "writeBatch().varAs",
+          "lineNumber": 57
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "writeBatch",
+          "lineNumber": 57
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g().addN",
+          "lineNumber": 57
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g",
+          "lineNumber": 57
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "m.mentionKeys.forEach",
+          "lineNumber": 60
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "b\n      .varAs(`e${i}`, g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", key)))\n      .varAs",
+          "lineNumber": 61
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "b\n      .varAs",
+          "lineNumber": 61
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 62
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g().nWithLabel",
+          "lineNumber": 62
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g",
+          "lineNumber": 62
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "Predicate.eq",
+          "lineNumber": 62
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g().n(NodeRef.var(\"m\")).addE",
+          "lineNumber": 63
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g().n",
+          "lineNumber": 63
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g",
+          "lineNumber": 63
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "NodeRef.var",
+          "lineNumber": 63
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "NodeRef.var",
+          "lineNumber": 63
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 64
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 64
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "b\n      .varAs(\"subj\", g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", m.relation.subjectKey)))\n      .varAs(\"obj\", g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", m.relation.objectKey)))\n      .varAs",
+          "lineNumber": 70
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "b\n      .varAs(\"subj\", g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", m.relation.subjectKey)))\n      .varAs",
+          "lineNumber": 70
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "b\n      .varAs",
+          "lineNumber": 70
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 71
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g().nWithLabel",
+          "lineNumber": 71
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g",
+          "lineNumber": 71
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "Predicate.eq",
+          "lineNumber": 71
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 72
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g().nWithLabel",
+          "lineNumber": 72
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g",
+          "lineNumber": 72
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "Predicate.eq",
+          "lineNumber": 72
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g().n(NodeRef.var(\"subj\")).addE",
+          "lineNumber": 73
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g().n",
+          "lineNumber": 73
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "g",
+          "lineNumber": 73
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "NodeRef.var",
+          "lineNumber": 73
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "NodeRef.var",
+          "lineNumber": 73
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 74
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 74
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 75
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 75
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 76
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 76
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "PropertyInput.value",
+          "lineNumber": 77
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "writeWithRetry",
+          "lineNumber": 81
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "b.returning([\"m\"]).toDynamicRequest",
+          "lineNumber": 81
+        },
+        {
+          "caller": "persistMemory",
+          "callee": "b.returning",
+          "lineNumber": 81
+        },
+        {
+          "caller": "supersede",
+          "callee": "new Date().toISOString",
+          "lineNumber": 91
+        },
+        {
+          "caller": "supersede",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", oldId))\n    .setProperty(\"isLatest\", PropertyInput.value(false))\n    .setProperty",
+          "lineNumber": 92
+        },
+        {
+          "caller": "supersede",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", oldId))\n    .setProperty",
+          "lineNumber": 92
+        },
+        {
+          "caller": "supersede",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 92
+        },
+        {
+          "caller": "supersede",
+          "callee": "g().nWithLabel",
+          "lineNumber": 92
+        },
+        {
+          "caller": "supersede",
+          "callee": "g",
+          "lineNumber": 92
+        },
+        {
+          "caller": "supersede",
+          "callee": "Predicate.eq",
+          "lineNumber": 92
+        },
+        {
+          "caller": "supersede",
+          "callee": "PropertyInput.value",
+          "lineNumber": 93
+        },
+        {
+          "caller": "supersede",
+          "callee": "PropertyInput.value",
+          "lineNumber": 94
+        },
+        {
+          "caller": "supersede",
+          "callee": "old.setProperty",
+          "lineNumber": 95
+        },
+        {
+          "caller": "supersede",
+          "callee": "PropertyInput.value",
+          "lineNumber": 95
+        },
+        {
+          "caller": "supersede",
+          "callee": "writeBatch()\n    .varAs(\"old\", old)\n    .varAs(\"new\", g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", newId)))\n    .varAs(\"e\", g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", newId))\n      .addE(E.UPDATES, NodeRef.var(\"old\"), {\n        tenant_id: PropertyInput.value(TENANT_ID), reason: PropertyInput.value(reason), at: PropertyInput.value(now),\n      }))\n    .returning",
+          "lineNumber": 96
+        },
+        {
+          "caller": "supersede",
+          "callee": "writeBatch()\n    .varAs(\"old\", old)\n    .varAs(\"new\", g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", newId)))\n    .varAs",
+          "lineNumber": 96
+        },
+        {
+          "caller": "supersede",
+          "callee": "writeBatch()\n    .varAs(\"old\", old)\n    .varAs",
+          "lineNumber": 96
+        },
+        {
+          "caller": "supersede",
+          "callee": "writeBatch()\n    .varAs",
+          "lineNumber": 96
+        },
+        {
+          "caller": "supersede",
+          "callee": "writeBatch",
+          "lineNumber": 96
+        },
+        {
+          "caller": "supersede",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 98
+        },
+        {
+          "caller": "supersede",
+          "callee": "g().nWithLabel",
+          "lineNumber": 98
+        },
+        {
+          "caller": "supersede",
+          "callee": "g",
+          "lineNumber": 98
+        },
+        {
+          "caller": "supersede",
+          "callee": "Predicate.eq",
+          "lineNumber": 98
+        },
+        {
+          "caller": "supersede",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", newId))\n      .addE",
+          "lineNumber": 99
+        },
+        {
+          "caller": "supersede",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 99
+        },
+        {
+          "caller": "supersede",
+          "callee": "g().nWithLabel",
+          "lineNumber": 99
+        },
+        {
+          "caller": "supersede",
+          "callee": "g",
+          "lineNumber": 99
+        },
+        {
+          "caller": "supersede",
+          "callee": "Predicate.eq",
+          "lineNumber": 99
+        },
+        {
+          "caller": "supersede",
+          "callee": "NodeRef.var",
+          "lineNumber": 100
+        },
+        {
+          "caller": "supersede",
+          "callee": "PropertyInput.value",
+          "lineNumber": 101
+        },
+        {
+          "caller": "supersede",
+          "callee": "PropertyInput.value",
+          "lineNumber": 101
+        },
+        {
+          "caller": "supersede",
+          "callee": "PropertyInput.value",
+          "lineNumber": 101
+        },
+        {
+          "caller": "supersede",
+          "callee": "writeWithRetry",
+          "lineNumber": 104
+        },
+        {
+          "caller": "supersede",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 104
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "new Date().toISOString",
+          "lineNumber": 109
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "writeBatch()\n    .varAs(\"old\", g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", oldId)))\n    .varAs(\"e\", g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", newId))\n      .addE(E.EXTENDS, NodeRef.var(\"old\"), {\n        tenant_id: PropertyInput.value(TENANT_ID), confidence: PropertyInput.value(0.8), at: PropertyInput.value(now),\n      }))\n    .returning",
+          "lineNumber": 110
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "writeBatch()\n    .varAs(\"old\", g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", oldId)))\n    .varAs",
+          "lineNumber": 110
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "writeBatch()\n    .varAs",
+          "lineNumber": 110
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "writeBatch",
+          "lineNumber": 110
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 111
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "g().nWithLabel",
+          "lineNumber": 111
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "g",
+          "lineNumber": 111
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "Predicate.eq",
+          "lineNumber": 111
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", newId))\n      .addE",
+          "lineNumber": 112
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 112
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "g().nWithLabel",
+          "lineNumber": 112
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "g",
+          "lineNumber": 112
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "Predicate.eq",
+          "lineNumber": 112
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "NodeRef.var",
+          "lineNumber": 113
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "PropertyInput.value",
+          "lineNumber": 114
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "PropertyInput.value",
+          "lineNumber": 114
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "PropertyInput.value",
+          "lineNumber": 114
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "writeWithRetry",
+          "lineNumber": 117
+        },
+        {
+          "caller": "linkExtends",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 117
+        },
+        {
+          "caller": "setGoalStatus",
+          "callee": "new Date().toISOString",
+          "lineNumber": 122
+        },
+        {
+          "caller": "setGoalStatus",
+          "callee": "writeBatch().varAs(\"g\", g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", memoryId))\n    .setProperty(\"status\", PropertyInput.value(status))\n    .setProperty(\"updatedAt\", PropertyInput.value(now))\n  ).returning",
+          "lineNumber": 123
+        },
+        {
+          "caller": "setGoalStatus",
+          "callee": "writeBatch().varAs",
+          "lineNumber": 123
+        },
+        {
+          "caller": "setGoalStatus",
+          "callee": "writeBatch",
+          "lineNumber": 123
+        },
+        {
+          "caller": "setGoalStatus",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", memoryId))\n    .setProperty(\"status\", PropertyInput.value(status))\n    .setProperty",
+          "lineNumber": 123
+        },
+        {
+          "caller": "setGoalStatus",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", memoryId))\n    .setProperty",
+          "lineNumber": 123
+        },
+        {
+          "caller": "setGoalStatus",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 123
+        },
+        {
+          "caller": "setGoalStatus",
+          "callee": "g().nWithLabel",
+          "lineNumber": 123
+        },
+        {
+          "caller": "setGoalStatus",
+          "callee": "g",
+          "lineNumber": 123
+        },
+        {
+          "caller": "setGoalStatus",
+          "callee": "Predicate.eq",
+          "lineNumber": 123
+        },
+        {
+          "caller": "setGoalStatus",
+          "callee": "PropertyInput.value",
+          "lineNumber": 124
+        },
+        {
+          "caller": "setGoalStatus",
+          "callee": "PropertyInput.value",
+          "lineNumber": 125
+        },
+        {
+          "caller": "setGoalStatus",
+          "callee": "writeWithRetry",
+          "lineNumber": 127
+        },
+        {
+          "caller": "setGoalStatus",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 127
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "new Date().toISOString",
+          "lineNumber": 137
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "writeBatch",
+          "lineNumber": 138
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "memoryIds.forEach",
+          "lineNumber": 139
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "b.varAs",
+          "lineNumber": 140
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", id))\n      .setProperty(\"weight\", Expr.prop(\"weight\").add(Expr.val(boost)))\n      .setProperty(\"accessCount\", Expr.prop(\"accessCount\").add(Expr.val(1)))\n      .setProperty",
+          "lineNumber": 140
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", id))\n      .setProperty(\"weight\", Expr.prop(\"weight\").add(Expr.val(boost)))\n      .setProperty",
+          "lineNumber": 140
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", id))\n      .setProperty",
+          "lineNumber": 140
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 140
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "g().nWithLabel",
+          "lineNumber": 140
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "g",
+          "lineNumber": 140
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "Predicate.eq",
+          "lineNumber": 140
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "Expr.prop(\"weight\").add",
+          "lineNumber": 141
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "Expr.prop",
+          "lineNumber": 141
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "Expr.val",
+          "lineNumber": 141
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "Expr.prop(\"accessCount\").add",
+          "lineNumber": 142
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "Expr.prop",
+          "lineNumber": 142
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "Expr.val",
+          "lineNumber": 142
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "PropertyInput.value",
+          "lineNumber": 143
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "writeWithRetry",
+          "lineNumber": 145
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "b.returning(memoryIds.map((_, i) => `m${i}`)).toDynamicRequest",
+          "lineNumber": 145
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "b.returning",
+          "lineNumber": 145
+        },
+        {
+          "caller": "bumpMemories",
+          "callee": "memoryIds.map",
+          "lineNumber": 145
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 5,
+        "functionCount": 6,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/db/schema.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 96,
+      "nonEmptyLines": 87,
+      "functions": [
+        {
+          "name": "normalizeKey",
+          "startLine": 95,
+          "endLine": 96,
+          "params": [
+            "tenant",
+            "name"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "L",
+          "line": 17,
+          "isDefault": false
+        },
+        {
+          "name": "E",
+          "line": 24,
+          "isDefault": false
+        },
+        {
+          "name": "normalizeKey",
+          "line": 95,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "normalizeKey",
+          "callee": "name.trim().toLowerCase().replace",
+          "lineNumber": 96
+        },
+        {
+          "caller": "normalizeKey",
+          "callee": "name.trim().toLowerCase",
+          "lineNumber": 96
+        },
+        {
+          "caller": "normalizeKey",
+          "callee": "name.trim",
+          "lineNumber": 96
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/db/smoke.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 125,
+      "nonEmptyLines": 112,
+      "functions": [
+        {
+          "name": "cleanup",
+          "startLine": 19,
+          "endLine": 27,
+          "params": [
+            "sarahKey",
+            "engKey"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 29,
+          "endLine": 123,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "cleanup",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", `${tag}-lead`)).drop())\n    .varAs(\"dm2\", g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", `${tag}-pref`)).drop())\n    .varAs(\"de\", g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", sarahKey)).drop())\n    .varAs(\"de2\", g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", engKey)).drop())\n    .returning",
+          "lineNumber": 20
+        },
+        {
+          "caller": "cleanup",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", `${tag}-lead`)).drop())\n    .varAs(\"dm2\", g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", `${tag}-pref`)).drop())\n    .varAs(\"de\", g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", sarahKey)).drop())\n    .varAs",
+          "lineNumber": 20
+        },
+        {
+          "caller": "cleanup",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", `${tag}-lead`)).drop())\n    .varAs(\"dm2\", g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", `${tag}-pref`)).drop())\n    .varAs",
+          "lineNumber": 20
+        },
+        {
+          "caller": "cleanup",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", `${tag}-lead`)).drop())\n    .varAs",
+          "lineNumber": 20
+        },
+        {
+          "caller": "cleanup",
+          "callee": "writeBatch()\n    .varAs",
+          "lineNumber": 20
+        },
+        {
+          "caller": "cleanup",
+          "callee": "writeBatch",
+          "lineNumber": 20
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", `${tag}-lead`)).drop",
+          "lineNumber": 21
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 21
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g().nWithLabel",
+          "lineNumber": 21
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g",
+          "lineNumber": 21
+        },
+        {
+          "caller": "cleanup",
+          "callee": "Predicate.eq",
+          "lineNumber": 21
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"memoryId\", `${tag}-pref`)).drop",
+          "lineNumber": 22
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 22
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g().nWithLabel",
+          "lineNumber": 22
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g",
+          "lineNumber": 22
+        },
+        {
+          "caller": "cleanup",
+          "callee": "Predicate.eq",
+          "lineNumber": 22
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", sarahKey)).drop",
+          "lineNumber": 23
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 23
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g().nWithLabel",
+          "lineNumber": 23
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g",
+          "lineNumber": 23
+        },
+        {
+          "caller": "cleanup",
+          "callee": "Predicate.eq",
+          "lineNumber": 23
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", engKey)).drop",
+          "lineNumber": 24
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 24
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g().nWithLabel",
+          "lineNumber": 24
+        },
+        {
+          "caller": "cleanup",
+          "callee": "g",
+          "lineNumber": 24
+        },
+        {
+          "caller": "cleanup",
+          "callee": "Predicate.eq",
+          "lineNumber": 24
+        },
+        {
+          "caller": "cleanup",
+          "callee": "helix.query().shouldAwaitDurability(true).dynamic(clean.toDynamicRequest({ queryName: \"smoke_clean\" })).send",
+          "lineNumber": 26
+        },
+        {
+          "caller": "cleanup",
+          "callee": "helix.query().shouldAwaitDurability(true).dynamic",
+          "lineNumber": 26
+        },
+        {
+          "caller": "cleanup",
+          "callee": "helix.query().shouldAwaitDurability",
+          "lineNumber": 26
+        },
+        {
+          "caller": "cleanup",
+          "callee": "helix.query",
+          "lineNumber": 26
+        },
+        {
+          "caller": "cleanup",
+          "callee": "clean.toDynamicRequest",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "embed",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "normalizeKey",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "normalizeKey",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "cleanup",
+          "lineNumber": 40
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs(\"sarah\", g().addN(L.Entity, {\n      entityKey: PropertyInput.value(sarahKey), tenant_id: PropertyInput.value(TENANT_ID),\n      name: PropertyInput.value(\"Sarah Chen\"), entityType: PropertyInput.value(\"person\"),\n      aliases: PropertyInput.value([\"Sarah\", \"S. Chen\", tag]), aliasText: PropertyInput.value(`Sarah S. Chen ${tag}`),\n      embedding: PropertyInput.value(eSarah), confidence: PropertyInput.value(0.95),\n      createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n    }))\n    .varAs(\"eng\", g().addN(L.Entity, {\n      entityKey: PropertyInput.value(engKey), tenant_id: PropertyInput.value(TENANT_ID),\n      name: PropertyInput.value(\"Engineering\"), entityType: PropertyInput.value(\"org\"),\n      aliases: PropertyInput.value([\"Engineering\", \"Eng\"]), aliasText: PropertyInput.value(\"Engineering Eng\"),\n      embedding: PropertyInput.value(eEng), confidence: PropertyInput.value(0.9),\n      createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n    }))\n    .varAs(\"mLead\", g().addN(L.Memory, {\n      memoryId: PropertyInput.value(`${tag}-lead`), tenant_id: PropertyInput.value(TENANT_ID),\n      userId: PropertyInput.value(USER_ID), primaryType: PropertyInput.value(\"SEMANTIC\"),\n      tags: PropertyInput.value([tag]), content: PropertyInput.value(\"Sarah leads the Engineering org\"),\n      embedding: PropertyInput.value(mLead), weight: PropertyInput.value(1.0), confidence: PropertyInput.value(0.9),\n      isLatest: PropertyInput.value(true), createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n      lastAccessedAt: PropertyInput.value(now), accessCount: PropertyInput.value(0),\n      validFrom: PropertyInput.value(now), decayPolicy: PropertyInput.value(\"slow\"),\n    }))\n    .varAs(\"mPref\", g().addN(L.Memory, {\n      memoryId: PropertyInput.value(`${tag}-pref`), tenant_id: PropertyInput.value(TENANT_ID),\n      userId: PropertyInput.value(USER_ID), primaryType: PropertyInput.value(\"SEMANTIC\"),\n      tags: PropertyInput.value([tag]), content: PropertyInput.value(\"User prefers morning standups over afternoon meetings\"),\n      embedding: PropertyInput.value(mPref), weight: PropertyInput.value(1.0), confidence: PropertyInput.value(0.8),\n      isLatest: PropertyInput.value(true), createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n      lastAccessedAt: PropertyInput.value(now), accessCount: PropertyInput.value(0),\n      validFrom: PropertyInput.value(now), decayPolicy: PropertyInput.value(\"slow\"),\n    }))\n    .varAs(\"mentions\", g().n(NodeRef.var(\"mLead\")).addE(E.MENTIONS, NodeRef.var(\"sarah\"), {\n      tenant_id: PropertyInput.value(TENANT_ID), role: PropertyInput.value(\"subject\"),\n    }))\n    .varAs(\"rel\", g().n(NodeRef.var(\"sarah\")).addE(E.REL, NodeRef.var(\"eng\"), {\n      tenant_id: PropertyInput.value(TENANT_ID), predicate: PropertyInput.value(\"leads\"),\n      weight: PropertyInput.value(0.98), validFrom: PropertyInput.value(now), createdAt: PropertyInput.value(now),\n    }))\n    .returning",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs(\"sarah\", g().addN(L.Entity, {\n      entityKey: PropertyInput.value(sarahKey), tenant_id: PropertyInput.value(TENANT_ID),\n      name: PropertyInput.value(\"Sarah Chen\"), entityType: PropertyInput.value(\"person\"),\n      aliases: PropertyInput.value([\"Sarah\", \"S. Chen\", tag]), aliasText: PropertyInput.value(`Sarah S. Chen ${tag}`),\n      embedding: PropertyInput.value(eSarah), confidence: PropertyInput.value(0.95),\n      createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n    }))\n    .varAs(\"eng\", g().addN(L.Entity, {\n      entityKey: PropertyInput.value(engKey), tenant_id: PropertyInput.value(TENANT_ID),\n      name: PropertyInput.value(\"Engineering\"), entityType: PropertyInput.value(\"org\"),\n      aliases: PropertyInput.value([\"Engineering\", \"Eng\"]), aliasText: PropertyInput.value(\"Engineering Eng\"),\n      embedding: PropertyInput.value(eEng), confidence: PropertyInput.value(0.9),\n      createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n    }))\n    .varAs(\"mLead\", g().addN(L.Memory, {\n      memoryId: PropertyInput.value(`${tag}-lead`), tenant_id: PropertyInput.value(TENANT_ID),\n      userId: PropertyInput.value(USER_ID), primaryType: PropertyInput.value(\"SEMANTIC\"),\n      tags: PropertyInput.value([tag]), content: PropertyInput.value(\"Sarah leads the Engineering org\"),\n      embedding: PropertyInput.value(mLead), weight: PropertyInput.value(1.0), confidence: PropertyInput.value(0.9),\n      isLatest: PropertyInput.value(true), createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n      lastAccessedAt: PropertyInput.value(now), accessCount: PropertyInput.value(0),\n      validFrom: PropertyInput.value(now), decayPolicy: PropertyInput.value(\"slow\"),\n    }))\n    .varAs(\"mPref\", g().addN(L.Memory, {\n      memoryId: PropertyInput.value(`${tag}-pref`), tenant_id: PropertyInput.value(TENANT_ID),\n      userId: PropertyInput.value(USER_ID), primaryType: PropertyInput.value(\"SEMANTIC\"),\n      tags: PropertyInput.value([tag]), content: PropertyInput.value(\"User prefers morning standups over afternoon meetings\"),\n      embedding: PropertyInput.value(mPref), weight: PropertyInput.value(1.0), confidence: PropertyInput.value(0.8),\n      isLatest: PropertyInput.value(true), createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n      lastAccessedAt: PropertyInput.value(now), accessCount: PropertyInput.value(0),\n      validFrom: PropertyInput.value(now), decayPolicy: PropertyInput.value(\"slow\"),\n    }))\n    .varAs(\"mentions\", g().n(NodeRef.var(\"mLead\")).addE(E.MENTIONS, NodeRef.var(\"sarah\"), {\n      tenant_id: PropertyInput.value(TENANT_ID), role: PropertyInput.value(\"subject\"),\n    }))\n    .varAs",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs(\"sarah\", g().addN(L.Entity, {\n      entityKey: PropertyInput.value(sarahKey), tenant_id: PropertyInput.value(TENANT_ID),\n      name: PropertyInput.value(\"Sarah Chen\"), entityType: PropertyInput.value(\"person\"),\n      aliases: PropertyInput.value([\"Sarah\", \"S. Chen\", tag]), aliasText: PropertyInput.value(`Sarah S. Chen ${tag}`),\n      embedding: PropertyInput.value(eSarah), confidence: PropertyInput.value(0.95),\n      createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n    }))\n    .varAs(\"eng\", g().addN(L.Entity, {\n      entityKey: PropertyInput.value(engKey), tenant_id: PropertyInput.value(TENANT_ID),\n      name: PropertyInput.value(\"Engineering\"), entityType: PropertyInput.value(\"org\"),\n      aliases: PropertyInput.value([\"Engineering\", \"Eng\"]), aliasText: PropertyInput.value(\"Engineering Eng\"),\n      embedding: PropertyInput.value(eEng), confidence: PropertyInput.value(0.9),\n      createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n    }))\n    .varAs(\"mLead\", g().addN(L.Memory, {\n      memoryId: PropertyInput.value(`${tag}-lead`), tenant_id: PropertyInput.value(TENANT_ID),\n      userId: PropertyInput.value(USER_ID), primaryType: PropertyInput.value(\"SEMANTIC\"),\n      tags: PropertyInput.value([tag]), content: PropertyInput.value(\"Sarah leads the Engineering org\"),\n      embedding: PropertyInput.value(mLead), weight: PropertyInput.value(1.0), confidence: PropertyInput.value(0.9),\n      isLatest: PropertyInput.value(true), createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n      lastAccessedAt: PropertyInput.value(now), accessCount: PropertyInput.value(0),\n      validFrom: PropertyInput.value(now), decayPolicy: PropertyInput.value(\"slow\"),\n    }))\n    .varAs(\"mPref\", g().addN(L.Memory, {\n      memoryId: PropertyInput.value(`${tag}-pref`), tenant_id: PropertyInput.value(TENANT_ID),\n      userId: PropertyInput.value(USER_ID), primaryType: PropertyInput.value(\"SEMANTIC\"),\n      tags: PropertyInput.value([tag]), content: PropertyInput.value(\"User prefers morning standups over afternoon meetings\"),\n      embedding: PropertyInput.value(mPref), weight: PropertyInput.value(1.0), confidence: PropertyInput.value(0.8),\n      isLatest: PropertyInput.value(true), createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n      lastAccessedAt: PropertyInput.value(now), accessCount: PropertyInput.value(0),\n      validFrom: PropertyInput.value(now), decayPolicy: PropertyInput.value(\"slow\"),\n    }))\n    .varAs",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs(\"sarah\", g().addN(L.Entity, {\n      entityKey: PropertyInput.value(sarahKey), tenant_id: PropertyInput.value(TENANT_ID),\n      name: PropertyInput.value(\"Sarah Chen\"), entityType: PropertyInput.value(\"person\"),\n      aliases: PropertyInput.value([\"Sarah\", \"S. Chen\", tag]), aliasText: PropertyInput.value(`Sarah S. Chen ${tag}`),\n      embedding: PropertyInput.value(eSarah), confidence: PropertyInput.value(0.95),\n      createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n    }))\n    .varAs(\"eng\", g().addN(L.Entity, {\n      entityKey: PropertyInput.value(engKey), tenant_id: PropertyInput.value(TENANT_ID),\n      name: PropertyInput.value(\"Engineering\"), entityType: PropertyInput.value(\"org\"),\n      aliases: PropertyInput.value([\"Engineering\", \"Eng\"]), aliasText: PropertyInput.value(\"Engineering Eng\"),\n      embedding: PropertyInput.value(eEng), confidence: PropertyInput.value(0.9),\n      createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n    }))\n    .varAs(\"mLead\", g().addN(L.Memory, {\n      memoryId: PropertyInput.value(`${tag}-lead`), tenant_id: PropertyInput.value(TENANT_ID),\n      userId: PropertyInput.value(USER_ID), primaryType: PropertyInput.value(\"SEMANTIC\"),\n      tags: PropertyInput.value([tag]), content: PropertyInput.value(\"Sarah leads the Engineering org\"),\n      embedding: PropertyInput.value(mLead), weight: PropertyInput.value(1.0), confidence: PropertyInput.value(0.9),\n      isLatest: PropertyInput.value(true), createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n      lastAccessedAt: PropertyInput.value(now), accessCount: PropertyInput.value(0),\n      validFrom: PropertyInput.value(now), decayPolicy: PropertyInput.value(\"slow\"),\n    }))\n    .varAs",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs(\"sarah\", g().addN(L.Entity, {\n      entityKey: PropertyInput.value(sarahKey), tenant_id: PropertyInput.value(TENANT_ID),\n      name: PropertyInput.value(\"Sarah Chen\"), entityType: PropertyInput.value(\"person\"),\n      aliases: PropertyInput.value([\"Sarah\", \"S. Chen\", tag]), aliasText: PropertyInput.value(`Sarah S. Chen ${tag}`),\n      embedding: PropertyInput.value(eSarah), confidence: PropertyInput.value(0.95),\n      createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n    }))\n    .varAs(\"eng\", g().addN(L.Entity, {\n      entityKey: PropertyInput.value(engKey), tenant_id: PropertyInput.value(TENANT_ID),\n      name: PropertyInput.value(\"Engineering\"), entityType: PropertyInput.value(\"org\"),\n      aliases: PropertyInput.value([\"Engineering\", \"Eng\"]), aliasText: PropertyInput.value(\"Engineering Eng\"),\n      embedding: PropertyInput.value(eEng), confidence: PropertyInput.value(0.9),\n      createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n    }))\n    .varAs",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs(\"sarah\", g().addN(L.Entity, {\n      entityKey: PropertyInput.value(sarahKey), tenant_id: PropertyInput.value(TENANT_ID),\n      name: PropertyInput.value(\"Sarah Chen\"), entityType: PropertyInput.value(\"person\"),\n      aliases: PropertyInput.value([\"Sarah\", \"S. Chen\", tag]), aliasText: PropertyInput.value(`Sarah S. Chen ${tag}`),\n      embedding: PropertyInput.value(eSarah), confidence: PropertyInput.value(0.95),\n      createdAt: PropertyInput.value(now), updatedAt: PropertyInput.value(now),\n    }))\n    .varAs",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "g().addN",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "g().addN",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "g().addN",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "g().addN",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 70
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 71
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 72
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 73
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 74
+        },
+        {
+          "caller": "main",
+          "callee": "g().n(NodeRef.var(\"mLead\")).addE",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "g().n",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "NodeRef.var",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "NodeRef.var",
+          "lineNumber": 76
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 77
+        },
+        {
+          "caller": "main",
+          "callee": "g().n(NodeRef.var(\"sarah\")).addE",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "g().n",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "NodeRef.var",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "NodeRef.var",
+          "lineNumber": 79
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 80
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 81
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().shouldAwaitDurability(true).dynamic(w.toDynamicRequest({ queryName: \"smoke_write\" })).send",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().shouldAwaitDurability(true).dynamic",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().shouldAwaitDurability",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "w.toDynamicRequest",
+          "lineNumber": 85
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 86
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch().varAs(\"m\", g().nWithLabel(L.Memory)\n    .where(Predicate.eq(\"memoryId\", `${tag}-lead`))\n    .project([PropertyProjection.new(\"content\"), PropertyProjection.new(\"primaryType\")])\n  ).returning",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch().varAs",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Memory)\n    .where(Predicate.eq(\"memoryId\", `${tag}-lead`))\n    .project",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Memory)\n    .where",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 89
+        },
+        {
+          "caller": "main",
+          "callee": "Predicate.eq",
+          "lineNumber": 90
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 91
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().dynamic(byId.toDynamicRequest({ queryName: \"smoke_by_id\" })).send",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().dynamic",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "byId.toDynamicRequest",
+          "lineNumber": 93
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 94
+        },
+        {
+          "caller": "main",
+          "callee": "embed",
+          "lineNumber": 97
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch().varAs(\"hits\", g()\n    .vectorSearchNodesWith(L.Memory, \"embedding\", PropertyInput.value(qVec), Expr.val(3), PropertyInput.value(TENANT_ID))\n    .project([PropertyProjection.new(\"content\"), PropertyProjection.renamed(\"$distance\", \"distance\")])\n  ).returning",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch().varAs",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "g()\n    .vectorSearchNodesWith(L.Memory, \"embedding\", PropertyInput.value(qVec), Expr.val(3), PropertyInput.value(TENANT_ID))\n    .project",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "g()\n    .vectorSearchNodesWith",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 98
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "Expr.val",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 99
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyProjection.renamed",
+          "lineNumber": 100
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().dynamic(vec.toDynamicRequest({ queryName: \"smoke_vec\" })).send",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().dynamic",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "vec.toDynamicRequest",
+          "lineNumber": 102
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 103
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch().varAs(\"hits\", g()\n    .textSearchNodesWith(L.Memory, \"content\", PropertyInput.value(\"standups morning\"), Expr.val(3), PropertyInput.value(TENANT_ID))\n    .project([PropertyProjection.new(\"content\"), PropertyProjection.renamed(\"$distance\", \"score\")])\n  ).returning",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch().varAs",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "g()\n    .textSearchNodesWith(L.Memory, \"content\", PropertyInput.value(\"standups morning\"), Expr.val(3), PropertyInput.value(TENANT_ID))\n    .project",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "g()\n    .textSearchNodesWith",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 106
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "Expr.val",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyInput.value",
+          "lineNumber": 107
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyProjection.renamed",
+          "lineNumber": 108
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().dynamic(bm.toDynamicRequest({ queryName: \"smoke_bm25\" })).send",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().dynamic",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "bm.toDynamicRequest",
+          "lineNumber": 110
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch().varAs(\"rels\", g().nWithLabel(L.Entity)\n    .where(Predicate.eq(\"entityKey\", sarahKey)).outE(E.REL).edgeProperties()\n  ).returning",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch().varAs",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Entity)\n    .where(Predicate.eq(\"entityKey\", sarahKey)).outE(E.REL).edgeProperties",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Entity)\n    .where(Predicate.eq(\"entityKey\", sarahKey)).outE",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Entity)\n    .where",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 114
+        },
+        {
+          "caller": "main",
+          "callee": "Predicate.eq",
+          "lineNumber": 115
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().dynamic(trav.toDynamicRequest({ queryName: \"smoke_trav\" })).send",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().dynamic",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "trav.toDynamicRequest",
+          "lineNumber": 117
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "cleanup",
+          "lineNumber": 121
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 122
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/iii/drive.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 69,
+      "nonEmptyLines": 62,
+      "functions": [
+        {
+          "name": "memCount",
+          "startLine": 18,
+          "endLine": 24,
+          "params": []
+        },
+        {
+          "name": "wipe",
+          "startLine": 26,
+          "endLine": 32,
+          "params": []
+        },
+        {
+          "name": "main",
+          "startLine": 34,
+          "endLine": 67,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "memCount",
+          "callee": "readBatch().varAs(\"m\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID))\n    .project([PropertyProjection.new(\"content\")])).returning",
+          "lineNumber": 19
+        },
+        {
+          "caller": "memCount",
+          "callee": "readBatch().varAs",
+          "lineNumber": 19
+        },
+        {
+          "caller": "memCount",
+          "callee": "readBatch",
+          "lineNumber": 19
+        },
+        {
+          "caller": "memCount",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID))\n    .project",
+          "lineNumber": 19
+        },
+        {
+          "caller": "memCount",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 19
+        },
+        {
+          "caller": "memCount",
+          "callee": "g().nWithLabel",
+          "lineNumber": 19
+        },
+        {
+          "caller": "memCount",
+          "callee": "g",
+          "lineNumber": 19
+        },
+        {
+          "caller": "memCount",
+          "callee": "Predicate.eq",
+          "lineNumber": 19
+        },
+        {
+          "caller": "memCount",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 20
+        },
+        {
+          "caller": "memCount",
+          "callee": "helix.query().dynamic(req.toDynamicRequest({ queryName: \"drive_count\" })).send",
+          "lineNumber": 21
+        },
+        {
+          "caller": "memCount",
+          "callee": "helix.query().dynamic",
+          "lineNumber": 21
+        },
+        {
+          "caller": "memCount",
+          "callee": "helix.query",
+          "lineNumber": 21
+        },
+        {
+          "caller": "memCount",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 21
+        },
+        {
+          "caller": "memCount",
+          "callee": "rows.slice(0, 6).map",
+          "lineNumber": 23
+        },
+        {
+          "caller": "memCount",
+          "callee": "rows.slice",
+          "lineNumber": 23
+        },
+        {
+          "caller": "wipe",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .varAs(\"de\", g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .returning",
+          "lineNumber": 27
+        },
+        {
+          "caller": "wipe",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .varAs",
+          "lineNumber": 27
+        },
+        {
+          "caller": "wipe",
+          "callee": "writeBatch()\n    .varAs",
+          "lineNumber": 27
+        },
+        {
+          "caller": "wipe",
+          "callee": "writeBatch",
+          "lineNumber": 27
+        },
+        {
+          "caller": "wipe",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop",
+          "lineNumber": 28
+        },
+        {
+          "caller": "wipe",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 28
+        },
+        {
+          "caller": "wipe",
+          "callee": "g().nWithLabel",
+          "lineNumber": 28
+        },
+        {
+          "caller": "wipe",
+          "callee": "g",
+          "lineNumber": 28
+        },
+        {
+          "caller": "wipe",
+          "callee": "Predicate.eq",
+          "lineNumber": 28
+        },
+        {
+          "caller": "wipe",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop",
+          "lineNumber": 29
+        },
+        {
+          "caller": "wipe",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 29
+        },
+        {
+          "caller": "wipe",
+          "callee": "g().nWithLabel",
+          "lineNumber": 29
+        },
+        {
+          "caller": "wipe",
+          "callee": "g",
+          "lineNumber": 29
+        },
+        {
+          "caller": "wipe",
+          "callee": "Predicate.eq",
+          "lineNumber": 29
+        },
+        {
+          "caller": "wipe",
+          "callee": "writeWithRetry",
+          "lineNumber": 31
+        },
+        {
+          "caller": "wipe",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 31
+        },
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "process.exit",
+          "lineNumber": 35
+        },
+        {
+          "caller": "main",
+          "callee": "Number",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "Number",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.parse",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "readFileSync",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "join",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "sessions[idx].prompts.slice",
+          "lineNumber": 39
+        },
+        {
+          "caller": "main",
+          "callee": "wipe",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "Date.now",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "new Date(base + i * 1000).toISOString",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "emitTurnEvent",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "process.stdout.write",
+          "lineNumber": 51
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "setTimeout",
+          "lineNumber": 57
+        },
+        {
+          "caller": "main",
+          "callee": "memCount",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "process.stdout.write",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "wipe",
+          "lineNumber": 65
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 66
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/iii/drive_sync.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 59,
+      "nonEmptyLines": 53,
+      "functions": [
+        {
+          "name": "main",
+          "startLine": 15,
+          "endLine": 57,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "main",
+          "callee": "console.error",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "process.exit",
+          "lineNumber": 16
+        },
+        {
+          "caller": "main",
+          "callee": "Number",
+          "lineNumber": 17
+        },
+        {
+          "caller": "main",
+          "callee": "Number",
+          "lineNumber": 18
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.parse",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "readFileSync",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "join",
+          "lineNumber": 19
+        },
+        {
+          "caller": "main",
+          "callee": "sessions[idx].prompts.slice",
+          "lineNumber": 20
+        },
+        {
+          "caller": "main",
+          "callee": "writeWithRetry",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .varAs(\"de\", g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .returning([\"dm\", \"de\"]).toDynamicRequest",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .varAs(\"de\", g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .returning",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .varAs",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch",
+          "lineNumber": 24
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "Predicate.eq",
+          "lineNumber": 25
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "Predicate.eq",
+          "lineNumber": 26
+        },
+        {
+          "caller": "main",
+          "callee": "registerWorker",
+          "lineNumber": 29
+        },
+        {
+          "caller": "main",
+          "callee": "Date.now",
+          "lineNumber": 30
+        },
+        {
+          "caller": "main",
+          "callee": "new Date(base + i * 1000).toISOString",
+          "lineNumber": 34
+        },
+        {
+          "caller": "main",
+          "callee": "await iii.trigger",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "(res?.signals ?? []).join",
+          "lineNumber": 38
+        },
+        {
+          "caller": "main",
+          "callee": "iii.shutdown().catch",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "iii.shutdown",
+          "lineNumber": 42
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().dynamic(readBatch().varAs(\"m\", g().nWithLabel(L.Memory)\n    .where(Predicate.eq(\"tenant_id\", TENANT_ID)).project([PropertyProjection.new(\"content\")])).returning([\"m\"])\n    .toDynamicRequest({ queryName: \"ds_count\" })).send",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query().dynamic",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "helix.query",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch().varAs(\"m\", g().nWithLabel(L.Memory)\n    .where(Predicate.eq(\"tenant_id\", TENANT_ID)).project([PropertyProjection.new(\"content\")])).returning([\"m\"])\n    .toDynamicRequest",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch().varAs(\"m\", g().nWithLabel(L.Memory)\n    .where(Predicate.eq(\"tenant_id\", TENANT_ID)).project([PropertyProjection.new(\"content\")])).returning",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch().varAs",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "readBatch",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Memory)\n    .where(Predicate.eq(\"tenant_id\", TENANT_ID)).project",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Memory)\n    .where",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "Predicate.eq",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 46
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "rows.slice",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "writeWithRetry",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .varAs(\"de\", g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .returning([\"dm\", \"de\"]).toDynamicRequest",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .varAs(\"de\", g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .returning",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs(\"dm\", g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop())\n    .varAs",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch()\n    .varAs",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "writeBatch",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Memory).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "Predicate.eq",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID)).drop",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "g().nWithLabel",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "g",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "Predicate.eq",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 56
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/maintain/erRepair.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 84,
+      "nonEmptyLines": 77,
+      "functions": [
+        {
+          "name": "allEntities",
+          "startLine": 20,
+          "endLine": 25,
+          "params": []
+        },
+        {
+          "name": "detectDuplicates",
+          "startLine": 37,
+          "endLine": 62,
+          "params": [
+            "highSim"
+          ]
+        },
+        {
+          "name": "mergeEntities",
+          "startLine": 64,
+          "endLine": 78,
+          "params": [
+            "p"
+          ]
+        },
+        {
+          "name": "erRepairSweep",
+          "startLine": 80,
+          "endLine": 84,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "detectDuplicates",
+          "line": 37,
+          "isDefault": false
+        },
+        {
+          "name": "erRepairSweep",
+          "line": 80,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "allEntities",
+          "callee": "readBatch().varAs(\"e\", g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID))\n    .project([PropertyProjection.new(\"entityKey\"), PropertyProjection.new(\"name\"), PropertyProjection.new(\"entityType\"), PropertyProjection.new(\"aliases\")])).returning",
+          "lineNumber": 21
+        },
+        {
+          "caller": "allEntities",
+          "callee": "readBatch().varAs",
+          "lineNumber": 21
+        },
+        {
+          "caller": "allEntities",
+          "callee": "readBatch",
+          "lineNumber": 21
+        },
+        {
+          "caller": "allEntities",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"tenant_id\", TENANT_ID))\n    .project",
+          "lineNumber": 21
+        },
+        {
+          "caller": "allEntities",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 21
+        },
+        {
+          "caller": "allEntities",
+          "callee": "g().nWithLabel",
+          "lineNumber": 21
+        },
+        {
+          "caller": "allEntities",
+          "callee": "g",
+          "lineNumber": 21
+        },
+        {
+          "caller": "allEntities",
+          "callee": "Predicate.eq",
+          "lineNumber": 21
+        },
+        {
+          "caller": "allEntities",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 22
+        },
+        {
+          "caller": "allEntities",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 22
+        },
+        {
+          "caller": "allEntities",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 22
+        },
+        {
+          "caller": "allEntities",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 22
+        },
+        {
+          "caller": "allEntities",
+          "callee": "helix.query().dynamic(req.toDynamicRequest({ queryName: \"er_all\" })).send",
+          "lineNumber": 23
+        },
+        {
+          "caller": "allEntities",
+          "callee": "helix.query().dynamic",
+          "lineNumber": 23
+        },
+        {
+          "caller": "allEntities",
+          "callee": "helix.query",
+          "lineNumber": 23
+        },
+        {
+          "caller": "allEntities",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 23
+        },
+        {
+          "caller": "allEntities",
+          "callee": "(res.e?.properties ?? []).map",
+          "lineNumber": 24
+        },
+        {
+          "caller": "detectDuplicates",
+          "callee": "allEntities",
+          "lineNumber": 38
+        },
+        {
+          "caller": "detectDuplicates",
+          "callee": "embed",
+          "lineNumber": 40
+        },
+        {
+          "caller": "detectDuplicates",
+          "callee": "ents.map",
+          "lineNumber": 40
+        },
+        {
+          "caller": "detectDuplicates",
+          "callee": "merged.has",
+          "lineNumber": 46
+        },
+        {
+          "caller": "detectDuplicates",
+          "callee": "merged.has",
+          "lineNumber": 46
+        },
+        {
+          "caller": "detectDuplicates",
+          "callee": "cosineSim",
+          "lineNumber": 48
+        },
+        {
+          "caller": "detectDuplicates",
+          "callee": "Math.max",
+          "lineNumber": 51
+        },
+        {
+          "caller": "detectDuplicates",
+          "callee": "surfacesI.map",
+          "lineNumber": 51
+        },
+        {
+          "caller": "detectDuplicates",
+          "callee": "bestAliasSim",
+          "lineNumber": 51
+        },
+        {
+          "caller": "detectDuplicates",
+          "callee": "pairs.push",
+          "lineNumber": 56
+        },
+        {
+          "caller": "detectDuplicates",
+          "callee": "merged.add",
+          "lineNumber": 57
+        },
+        {
+          "caller": "detectDuplicates",
+          "callee": "merged.add",
+          "lineNumber": 58
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "[p.survivor.name, ...p.survivor.aliases, p.loser.name, ...p.loser.aliases].map((s) => s.trim()).filter",
+          "lineNumber": 65
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "[p.survivor.name, ...p.survivor.aliases, p.loser.name, ...p.loser.aliases].map",
+          "lineNumber": 65
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "s.trim",
+          "lineNumber": 65
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "writeBatch()\n    .varAs(\"surv\", g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", p.survivor.entityKey))\n      .setProperty(\"aliases\", PropertyInput.value(aliases))\n      .setProperty(\"aliasText\", PropertyInput.value(aliases.join(\" \")))\n      .setProperty(\"updatedAt\", PropertyInput.value(new Date().toISOString())))\n    // re-point MENTIONS: every memory that mentioned the loser now mentions the survivor\n    .varAs(\"repoint\", g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", p.loser.entityKey)).in(E.MENTIONS)\n      .addE(E.MENTIONS, NodeRef.var(\"surv\"), { tenant_id: PropertyInput.value(TENANT_ID), role: PropertyInput.value(\"mention\") }))\n    // drop the loser (removes its now-stale edges)\n    .varAs(\"drop\", g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", p.loser.entityKey)).drop())\n    .returning",
+          "lineNumber": 66
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "writeBatch()\n    .varAs(\"surv\", g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", p.survivor.entityKey))\n      .setProperty(\"aliases\", PropertyInput.value(aliases))\n      .setProperty(\"aliasText\", PropertyInput.value(aliases.join(\" \")))\n      .setProperty(\"updatedAt\", PropertyInput.value(new Date().toISOString())))\n    // re-point MENTIONS: every memory that mentioned the loser now mentions the survivor\n    .varAs(\"repoint\", g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", p.loser.entityKey)).in(E.MENTIONS)\n      .addE(E.MENTIONS, NodeRef.var(\"surv\"), { tenant_id: PropertyInput.value(TENANT_ID), role: PropertyInput.value(\"mention\") }))\n    // drop the loser (removes its now-stale edges)\n    .varAs",
+          "lineNumber": 66
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "writeBatch()\n    .varAs(\"surv\", g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", p.survivor.entityKey))\n      .setProperty(\"aliases\", PropertyInput.value(aliases))\n      .setProperty(\"aliasText\", PropertyInput.value(aliases.join(\" \")))\n      .setProperty(\"updatedAt\", PropertyInput.value(new Date().toISOString())))\n    // re-point MENTIONS: every memory that mentioned the loser now mentions the survivor\n    .varAs",
+          "lineNumber": 66
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "writeBatch()\n    .varAs",
+          "lineNumber": 66
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "writeBatch",
+          "lineNumber": 66
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", p.survivor.entityKey))\n      .setProperty(\"aliases\", PropertyInput.value(aliases))\n      .setProperty(\"aliasText\", PropertyInput.value(aliases.join(\" \")))\n      .setProperty",
+          "lineNumber": 67
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", p.survivor.entityKey))\n      .setProperty(\"aliases\", PropertyInput.value(aliases))\n      .setProperty",
+          "lineNumber": 67
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", p.survivor.entityKey))\n      .setProperty",
+          "lineNumber": 67
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 67
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g().nWithLabel",
+          "lineNumber": 67
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g",
+          "lineNumber": 67
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "Predicate.eq",
+          "lineNumber": 67
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "PropertyInput.value",
+          "lineNumber": 68
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "PropertyInput.value",
+          "lineNumber": 69
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "aliases.join",
+          "lineNumber": 69
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "PropertyInput.value",
+          "lineNumber": 70
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "new Date().toISOString",
+          "lineNumber": 70
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", p.loser.entityKey)).in(E.MENTIONS)\n      .addE",
+          "lineNumber": 72
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", p.loser.entityKey)).in",
+          "lineNumber": 72
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 72
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g().nWithLabel",
+          "lineNumber": 72
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g",
+          "lineNumber": 72
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "Predicate.eq",
+          "lineNumber": 72
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "NodeRef.var",
+          "lineNumber": 73
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "PropertyInput.value",
+          "lineNumber": 73
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "PropertyInput.value",
+          "lineNumber": 73
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", p.loser.entityKey)).drop",
+          "lineNumber": 75
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 75
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g().nWithLabel",
+          "lineNumber": 75
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "g",
+          "lineNumber": 75
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "Predicate.eq",
+          "lineNumber": 75
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "writeWithRetry",
+          "lineNumber": 77
+        },
+        {
+          "caller": "mergeEntities",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 77
+        },
+        {
+          "caller": "erRepairSweep",
+          "callee": "detectDuplicates",
+          "lineNumber": 81
+        },
+        {
+          "caller": "erRepairSweep",
+          "callee": "mergeEntities",
+          "lineNumber": 82
+        },
+        {
+          "caller": "erRepairSweep",
+          "callee": "pairs.map",
+          "lineNumber": 83
+        },
+        {
+          "caller": "erRepairSweep",
+          "callee": "p.sim.toFixed",
+          "lineNumber": 83
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 2,
+        "functionCount": 4,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/maintain/sweeps.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 68,
+      "nonEmptyLines": 63,
+      "functions": [
+        {
+          "name": "daysAgoIso",
+          "startLine": 11,
+          "endLine": 11,
+          "params": [
+            "d"
+          ]
+        },
+        {
+          "name": "countWhere",
+          "startLine": 13,
+          "endLine": 17,
+          "params": [
+            "pred"
+          ]
+        },
+        {
+          "name": "decaySweep",
+          "startLine": 20,
+          "endLine": 33,
+          "params": [
+            "idleDays",
+            "factor"
+          ]
+        },
+        {
+          "name": "forgetSweep",
+          "startLine": 39,
+          "endLine": 53,
+          "params": [
+            "minWeight",
+            "idleDays"
+          ]
+        },
+        {
+          "name": "expireContextual",
+          "startLine": 56,
+          "endLine": 68,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "decaySweep",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "forgetSweep",
+          "line": 39,
+          "isDefault": false
+        },
+        {
+          "name": "expireContextual",
+          "line": 56,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "daysAgoIso",
+          "callee": "new Date(Date.now() - d * 86_400_000).toISOString",
+          "lineNumber": 11
+        },
+        {
+          "caller": "daysAgoIso",
+          "callee": "Date.now",
+          "lineNumber": 11
+        },
+        {
+          "caller": "countWhere",
+          "callee": "readBatch().varAs(\"m\", g().nWithLabel(L.Memory).where(pred).project([PropertyProjection.new(\"memoryId\")])).returning",
+          "lineNumber": 14
+        },
+        {
+          "caller": "countWhere",
+          "callee": "readBatch().varAs",
+          "lineNumber": 14
+        },
+        {
+          "caller": "countWhere",
+          "callee": "readBatch",
+          "lineNumber": 14
+        },
+        {
+          "caller": "countWhere",
+          "callee": "g().nWithLabel(L.Memory).where(pred).project",
+          "lineNumber": 14
+        },
+        {
+          "caller": "countWhere",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 14
+        },
+        {
+          "caller": "countWhere",
+          "callee": "g().nWithLabel",
+          "lineNumber": 14
+        },
+        {
+          "caller": "countWhere",
+          "callee": "g",
+          "lineNumber": 14
+        },
+        {
+          "caller": "countWhere",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 14
+        },
+        {
+          "caller": "countWhere",
+          "callee": "helix.query().dynamic(req.toDynamicRequest({ queryName: \"sweep_count\" })).send",
+          "lineNumber": 15
+        },
+        {
+          "caller": "countWhere",
+          "callee": "helix.query().dynamic",
+          "lineNumber": 15
+        },
+        {
+          "caller": "countWhere",
+          "callee": "helix.query",
+          "lineNumber": 15
+        },
+        {
+          "caller": "countWhere",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 15
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "daysAgoIso",
+          "lineNumber": 21
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "Predicate.and",
+          "lineNumber": 22
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "Predicate.eq",
+          "lineNumber": 23
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "Predicate.eq",
+          "lineNumber": 23
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "Predicate.isNull",
+          "lineNumber": 23
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "Predicate.lt",
+          "lineNumber": 24
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "countWhere",
+          "lineNumber": 26
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "writeBatch().varAs(\"m\", g().nWithLabel(L.Memory).where(pred)\n      .setProperty(\"weight\", Expr.prop(\"weight\").mul(Expr.val(factor)))).returning",
+          "lineNumber": 28
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "writeBatch().varAs",
+          "lineNumber": 28
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "writeBatch",
+          "lineNumber": 28
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "g().nWithLabel(L.Memory).where(pred)\n      .setProperty",
+          "lineNumber": 28
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 28
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "g().nWithLabel",
+          "lineNumber": 28
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "g",
+          "lineNumber": 28
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "Expr.prop(\"weight\").mul",
+          "lineNumber": 29
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "Expr.prop",
+          "lineNumber": 29
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "Expr.val",
+          "lineNumber": 29
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "writeWithRetry",
+          "lineNumber": 30
+        },
+        {
+          "caller": "decaySweep",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 30
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "daysAgoIso",
+          "lineNumber": 40
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "Predicate.and",
+          "lineNumber": 41
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "Predicate.eq",
+          "lineNumber": 42
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "Predicate.eq",
+          "lineNumber": 42
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "Predicate.isNull",
+          "lineNumber": 42
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "Predicate.lt",
+          "lineNumber": 43
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "Predicate.lt",
+          "lineNumber": 43
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "Predicate.neq",
+          "lineNumber": 44
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "Predicate.neq",
+          "lineNumber": 44
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "countWhere",
+          "lineNumber": 46
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "writeBatch().varAs(\"m\", g().nWithLabel(L.Memory).where(pred)\n      .setProperty(\"deletedAt\", PropertyInput.value(new Date().toISOString()))).returning",
+          "lineNumber": 48
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "writeBatch().varAs",
+          "lineNumber": 48
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "writeBatch",
+          "lineNumber": 48
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "g().nWithLabel(L.Memory).where(pred)\n      .setProperty",
+          "lineNumber": 48
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 48
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "g().nWithLabel",
+          "lineNumber": 48
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "g",
+          "lineNumber": 48
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "PropertyInput.value",
+          "lineNumber": 49
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "new Date().toISOString",
+          "lineNumber": 49
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "writeWithRetry",
+          "lineNumber": 50
+        },
+        {
+          "caller": "forgetSweep",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 50
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "new Date().toISOString",
+          "lineNumber": 57
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "Predicate.and",
+          "lineNumber": 58
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "Predicate.eq",
+          "lineNumber": 59
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "Predicate.eq",
+          "lineNumber": 59
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "Predicate.lt",
+          "lineNumber": 60
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "countWhere",
+          "lineNumber": 62
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "writeBatch().varAs(\"m\", g().nWithLabel(L.Memory).where(pred).drop()).returning",
+          "lineNumber": 64
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "writeBatch().varAs",
+          "lineNumber": 64
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "writeBatch",
+          "lineNumber": 64
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "g().nWithLabel(L.Memory).where(pred).drop",
+          "lineNumber": 64
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "g().nWithLabel(L.Memory).where",
+          "lineNumber": 64
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "g().nWithLabel",
+          "lineNumber": 64
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "g",
+          "lineNumber": 64
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "writeWithRetry",
+          "lineNumber": 65
+        },
+        {
+          "caller": "expireContextual",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 65
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 3,
+        "functionCount": 5,
+        "classCount": 0
+      }
+    }
+  ]
+}

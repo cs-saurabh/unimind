@@ -1,0 +1,2749 @@
+{
+  "version": "1.0.0",
+  "gitCommitHash": "uncommitted",
+  "generatedAt": "2026-06-24T05:11:39.400Z",
+  "files": {
+    ".understand-anything/.understandignore": {
+      "filePath": ".understand-anything/.understandignore",
+      "contentHash": "b8e1b9786d89e3e6cec963eef73cd58adce0e247239ba7c96ca53ce2c37dd652",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 45,
+      "hasStructuralAnalysis": false
+    },
+    "docker/worker.Dockerfile": {
+      "filePath": "docker/worker.Dockerfile",
+      "contentHash": "99b36a003db9d803d5842f4c5398961024cb0f2db9504ff79c1fafaf4e631ba9",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [],
+      "totalLines": 19,
+      "hasStructuralAnalysis": false
+    },
+    "experiments/drift-gate/src/classify.ts": {
+      "filePath": "experiments/drift-gate/src/classify.ts",
+      "contentHash": "494f31a2b78a4abd6280f78e5b7611d1537457e709f5eb248a7b27f8c1e62ffd",
+      "functions": [
+        {
+          "name": "classify",
+          "params": [
+            "segment",
+            "curr"
+          ],
+          "returnType": "Promise<boolean>",
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "score",
+          "params": [
+            "preds"
+          ],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 24
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "readFileSync",
+            "writeFileSync"
+          ]
+        },
+        {
+          "source": "./openai.js",
+          "specifiers": [
+            "openai",
+            "dataPath",
+            "outPath"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 74,
+      "hasStructuralAnalysis": true
+    },
+    "experiments/drift-gate/src/eval.ts": {
+      "filePath": "experiments/drift-gate/src/eval.ts",
+      "contentHash": "674e6e0818437b411f422c58194834bbda47f5ff62a9257990a74e255204662e",
+      "functions": [
+        {
+          "name": "embedAll",
+          "params": [
+            "texts"
+          ],
+          "returnType": "Promise<number[][]>",
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "cos",
+          "params": [
+            "a",
+            "b"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "dist",
+          "params": [
+            "a",
+            "b"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "entities",
+          "params": [
+            "text"
+          ],
+          "returnType": "Set<string>",
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "score",
+          "params": [
+            "preds"
+          ],
+          "exported": false,
+          "lineCount": 13
+        },
+        {
+          "name": "runGate",
+          "params": [
+            "emb",
+            "prompts",
+            "variant",
+            "thr",
+            "entK"
+          ],
+          "returnType": "boolean[]",
+          "exported": false,
+          "lineCount": 45
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 65
+        },
+        {
+          "name": "round",
+          "params": [
+            "o"
+          ],
+          "returnType": "T",
+          "exported": false,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "readFileSync",
+            "writeFileSync"
+          ]
+        },
+        {
+          "source": "./openai.js",
+          "specifiers": [
+            "openai",
+            "dataPath",
+            "outPath"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 190,
+      "hasStructuralAnalysis": true
+    },
+    "experiments/drift-gate/src/extract.ts": {
+      "filePath": "experiments/drift-gate/src/extract.ts",
+      "contentHash": "323506f25f74a73cbb7c5d71e48cbc130a97e1fc9e80b12ec6d0670a6e49cb37",
+      "functions": [
+        {
+          "name": "textFromContent",
+          "params": [
+            "content"
+          ],
+          "returnType": "string | null",
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "isMeta",
+          "params": [
+            "text"
+          ],
+          "returnType": "boolean",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "extractFile",
+          "params": [
+            "file",
+            "project"
+          ],
+          "returnType": "Session | null",
+          "exported": false,
+          "lineCount": 19
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 24
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "readFileSync",
+            "readdirSync",
+            "writeFileSync",
+            "statSync"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "homedir"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 84,
+      "hasStructuralAnalysis": true
+    },
+    "experiments/drift-gate/src/label.ts": {
+      "filePath": "experiments/drift-gate/src/label.ts",
+      "contentHash": "1741ef8d26c1daab668b44cfaa99f0f8c5f8a712862a06dabcbc695fcfbc20cf",
+      "functions": [
+        {
+          "name": "labelSession",
+          "params": [
+            "s"
+          ],
+          "returnType": "Promise<Label[]>",
+          "exported": false,
+          "lineCount": 23
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 15
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "readFileSync",
+            "writeFileSync"
+          ]
+        },
+        {
+          "source": "./openai.js",
+          "specifiers": [
+            "openai",
+            "dataPath"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 74,
+      "hasStructuralAnalysis": true
+    },
+    "experiments/drift-gate/src/openai.ts": {
+      "filePath": "experiments/drift-gate/src/openai.ts",
+      "contentHash": "204f130cff7d1a73f2de18b70b4b85f893249716e7b663f00d9c5c1dc3a7d0bc",
+      "functions": [
+        {
+          "name": "loadEnv",
+          "params": [],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "dataPath",
+          "params": [
+            "f"
+          ],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "outPath",
+          "params": [
+            "f"
+          ],
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "readFileSync"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "openai",
+          "specifiers": [
+            "OpenAI"
+          ]
+        }
+      ],
+      "exports": [
+        "openai",
+        "dataPath",
+        "outPath"
+      ],
+      "totalLines": 22,
+      "hasStructuralAnalysis": true
+    },
+    "src/config.ts": {
+      "filePath": "src/config.ts",
+      "contentHash": "1cf78bdd6bf4c3aa15ec881154bc7c66d5f302669cb1b3a4996f237f1be918a7",
+      "functions": [],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "TENANT_ID",
+        "USER_ID",
+        "HELIX_URL",
+        "EMBED_MODEL",
+        "EMBED_DIM"
+      ],
+      "totalLines": 14,
+      "hasStructuralAnalysis": true
+    },
+    "src/db/bootstrap.ts": {
+      "filePath": "src/db/bootstrap.ts",
+      "contentHash": "ba0efb361d4bc7fec3c2362c28f6cb1518fc953e6c367ccb3497bd220bb2a741",
+      "functions": [
+        {
+          "name": "bootstrapIndexes",
+          "params": [],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@helix-db/helix-db",
+          "specifiers": [
+            "writeBatch",
+            "g",
+            "IndexSpec"
+          ]
+        },
+        {
+          "source": "./client.js",
+          "specifiers": [
+            "helix"
+          ]
+        },
+        {
+          "source": "./schema.js",
+          "specifiers": [
+            "L"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 55,
+      "hasStructuralAnalysis": true
+    },
+    "src/db/client.ts": {
+      "filePath": "src/db/client.ts",
+      "contentHash": "2955a8062d4b407c5d89c2a763efc8e2f6f5edcb9b70c040533c724f0d46d342",
+      "functions": [
+        {
+          "name": "writeWithRetry",
+          "params": [
+            "req",
+            "{ retries = 4, baseMs = 50 }"
+          ],
+          "returnType": "Promise<R>",
+          "exported": true,
+          "lineCount": 17
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@helix-db/helix-db",
+          "specifiers": [
+            "Client"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "HELIX_URL"
+          ]
+        }
+      ],
+      "exports": [
+        "helix",
+        "writeWithRetry"
+      ],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    "src/db/entities.ts": {
+      "filePath": "src/db/entities.ts",
+      "contentHash": "6e6b0f79abe96130b263d502783f422bf17a50450629a82fe8b458963300a871",
+      "functions": [
+        {
+          "name": "searchEntityCandidates",
+          "params": [
+            "queryText",
+            "queryEmbedding",
+            "k"
+          ],
+          "returnType": "Promise<EntityCandidate[]>",
+          "exported": true,
+          "lineCount": 33
+        },
+        {
+          "name": "nowIso",
+          "params": [],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "createEntity",
+          "params": [
+            "opts"
+          ],
+          "returnType": "Promise<string>",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "addAliases",
+          "params": [
+            "entityKey",
+            "existing",
+            "newForms"
+          ],
+          "returnType": "Promise<void>",
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@helix-db/helix-db",
+          "specifiers": [
+            "writeBatch",
+            "readBatch",
+            "g",
+            "NodeRef",
+            "Predicate",
+            "PropertyInput",
+            "Expr",
+            "PropertyProjection"
+          ]
+        },
+        {
+          "source": "./client.js",
+          "specifiers": [
+            "helix",
+            "writeWithRetry"
+          ]
+        },
+        {
+          "source": "./schema.js",
+          "specifiers": [
+            "L",
+            "normalizeKey",
+            "EntityType"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "TENANT_ID"
+          ]
+        }
+      ],
+      "exports": [
+        "searchEntityCandidates",
+        "createEntity",
+        "addAliases"
+      ],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    "src/db/memories.ts": {
+      "filePath": "src/db/memories.ts",
+      "contentHash": "80834f93d80714ccb0a289e23808f44ffb7d547b990a018d6330d801bc93ab6e",
+      "functions": [
+        {
+          "name": "decayFor",
+          "params": [
+            "type"
+          ],
+          "returnType": "{ decayPolicy: string; ttlMs: number | null }",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "persistMemory",
+          "params": [
+            "m"
+          ],
+          "returnType": "Promise<string>",
+          "exported": true,
+          "lineCount": 48
+        },
+        {
+          "name": "supersede",
+          "params": [
+            "newId",
+            "oldId",
+            "reason",
+            "hardDelete"
+          ],
+          "returnType": "Promise<void>",
+          "exported": true,
+          "lineCount": 16
+        },
+        {
+          "name": "linkExtends",
+          "params": [
+            "newId",
+            "oldId"
+          ],
+          "returnType": "Promise<void>",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "setGoalStatus",
+          "params": [
+            "memoryId",
+            "status"
+          ],
+          "returnType": "Promise<void>",
+          "exported": true,
+          "lineCount": 8
+        },
+        {
+          "name": "bumpMemories",
+          "params": [
+            "memoryIds",
+            "boost"
+          ],
+          "returnType": "Promise<void>",
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:crypto",
+          "specifiers": [
+            "randomUUID"
+          ]
+        },
+        {
+          "source": "@helix-db/helix-db",
+          "specifiers": [
+            "writeBatch",
+            "g",
+            "NodeRef",
+            "Predicate",
+            "PropertyInput",
+            "Expr"
+          ]
+        },
+        {
+          "source": "./client.js",
+          "specifiers": [
+            "writeWithRetry"
+          ]
+        },
+        {
+          "source": "./schema.js",
+          "specifiers": [
+            "L",
+            "E",
+            "PrimaryType"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "TENANT_ID",
+            "USER_ID"
+          ]
+        }
+      ],
+      "exports": [
+        "persistMemory",
+        "supersede",
+        "linkExtends",
+        "setGoalStatus",
+        "bumpMemories"
+      ],
+      "totalLines": 147,
+      "hasStructuralAnalysis": true
+    },
+    "src/db/retrieve.ts": {
+      "filePath": "src/db/retrieve.ts",
+      "contentHash": "3380a4aee4cdb60dfc9f2f61df719e9230a47c8a621bddec95efa57c9dfe6538",
+      "functions": [
+        {
+          "name": "current",
+          "params": [],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "liveCurrent",
+          "params": [
+            "rows"
+          ],
+          "returnType": "RecallRow[]",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "notExpired",
+          "params": [
+            "rows"
+          ],
+          "returnType": "RecallRow[]",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "recall",
+          "params": [
+            "opts"
+          ],
+          "returnType": "Promise<{ vector: RecallRow[]; bm25: RecallRow[]; goals: RecallRow[]; contextual: RecallRow[] }>",
+          "exported": true,
+          "lineCount": 31
+        },
+        {
+          "name": "similarMemories",
+          "params": [
+            "embedding",
+            "primaryType",
+            "k"
+          ],
+          "returnType": "Promise<RecallRow[]>",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "relationalFacts",
+          "params": [
+            "entityKeys"
+          ],
+          "returnType": "Promise<RelFact[]>",
+          "exported": true,
+          "lineCount": 24
+        },
+        {
+          "name": "validateEntities",
+          "params": [
+            "names"
+          ],
+          "returnType": "Promise<{ entityKey: string; name: string }[]>",
+          "exported": true,
+          "lineCount": 27
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@helix-db/helix-db",
+          "specifiers": [
+            "readBatch",
+            "g",
+            "Predicate",
+            "PropertyInput",
+            "Expr",
+            "PropertyProjection"
+          ]
+        },
+        {
+          "source": "./client.js",
+          "specifiers": [
+            "helix"
+          ]
+        },
+        {
+          "source": "./schema.js",
+          "specifiers": [
+            "L",
+            "E",
+            "normalizeKey"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "TENANT_ID",
+            "USER_ID"
+          ]
+        }
+      ],
+      "exports": [
+        "recall",
+        "similarMemories",
+        "relationalFacts",
+        "validateEntities"
+      ],
+      "totalLines": 174,
+      "hasStructuralAnalysis": true
+    },
+    "src/db/schema.ts": {
+      "filePath": "src/db/schema.ts",
+      "contentHash": "44e12c5834ca9c87344b5850486c7fa4d3fe40e607d0e6980ff0fc6c3622a041",
+      "functions": [
+        {
+          "name": "normalizeKey",
+          "params": [
+            "tenant",
+            "name"
+          ],
+          "exported": true,
+          "lineCount": 2
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "L",
+        "E",
+        "normalizeKey"
+      ],
+      "totalLines": 97,
+      "hasStructuralAnalysis": true
+    },
+    "src/db/smoke.ts": {
+      "filePath": "src/db/smoke.ts",
+      "contentHash": "19850a2d54ba80b32b118749c2aa96e8d910c83fc86977e8ea850b22061f6bb0",
+      "functions": [
+        {
+          "name": "cleanup",
+          "params": [
+            "sarahKey",
+            "engKey"
+          ],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 95
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@helix-db/helix-db",
+          "specifiers": [
+            "writeBatch",
+            "readBatch",
+            "g",
+            "NodeRef",
+            "Predicate",
+            "PropertyInput",
+            "Expr",
+            "PropertyProjection",
+            "IndexSpec"
+          ]
+        },
+        {
+          "source": "./client.js",
+          "specifiers": [
+            "helix"
+          ]
+        },
+        {
+          "source": "./schema.js",
+          "specifiers": [
+            "L",
+            "E",
+            "normalizeKey"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "TENANT_ID",
+            "USER_ID"
+          ]
+        },
+        {
+          "source": "../llm/embed.js",
+          "specifiers": [
+            "embed"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 126,
+      "hasStructuralAnalysis": true
+    },
+    "src/hooks/capture.ts": {
+      "filePath": "src/hooks/capture.ts",
+      "contentHash": "d5197f638a6724ae153d85ee24657e2104b6db9f353e6bc07dc8fcb8f730b6d4",
+      "functions": [
+        {
+          "name": "readStdin",
+          "params": [],
+          "returnType": "Promise<string>",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "toEvent",
+          "params": [
+            "p"
+          ],
+          "returnType": "TurnEvent | null",
+          "exported": false,
+          "lineCount": 24
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 17
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./silence.js",
+          "specifiers": []
+        },
+        {
+          "source": "./emit.js",
+          "specifiers": [
+            "emitTurnEvent"
+          ]
+        },
+        {
+          "source": "../write/types.js",
+          "specifiers": [
+            "TurnEvent"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 69,
+      "hasStructuralAnalysis": true
+    },
+    "src/hooks/emit.ts": {
+      "filePath": "src/hooks/emit.ts",
+      "contentHash": "42af47c37f6ee5263447aed0d48d2cb42f66bc7394d77909cb654dd79e7053f2",
+      "functions": [
+        {
+          "name": "emitTurnEvent",
+          "params": [
+            "event",
+            "opts"
+          ],
+          "returnType": "Promise<void>",
+          "exported": true,
+          "lineCount": 23
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "iii-sdk",
+          "specifiers": [
+            "registerWorker",
+            "TriggerAction"
+          ]
+        },
+        {
+          "source": "../write/types.js",
+          "specifiers": [
+            "TurnEvent"
+          ]
+        }
+      ],
+      "exports": [
+        "emitTurnEvent"
+      ],
+      "totalLines": 32,
+      "hasStructuralAnalysis": true
+    },
+    "src/hooks/inject.ts": {
+      "filePath": "src/hooks/inject.ts",
+      "contentHash": "00739de53dbaf2472e6d781425cb6df38c80d79365664ebbd05290ef7d9df4ec",
+      "functions": [
+        {
+          "name": "readStdin",
+          "params": [],
+          "returnType": "Promise<string>",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "logCheckpoint",
+          "params": [
+            "entry"
+          ],
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 35
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./silence.js",
+          "specifiers": [
+            "writeStdout"
+          ]
+        },
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "appendFileSync",
+            "mkdirSync"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "homedir"
+          ]
+        },
+        {
+          "source": "../read/readPath.js",
+          "specifiers": [
+            "readPath"
+          ]
+        },
+        {
+          "source": "./emit.js",
+          "specifiers": [
+            "emitTurnEvent"
+          ]
+        },
+        {
+          "source": "../write/types.js",
+          "specifiers": [
+            "TurnEvent"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 77,
+      "hasStructuralAnalysis": true
+    },
+    "src/hooks/silence.ts": {
+      "filePath": "src/hooks/silence.ts",
+      "contentHash": "b96e774fe9a9ebcc96d2f567a4b212bdedd9c94c3feeb653e8c46d5e2f7dcf2b",
+      "functions": [
+        {
+          "name": "writeStdout",
+          "params": [
+            "text"
+          ],
+          "returnType": "void",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "toStderr",
+          "params": [
+            "...args"
+          ],
+          "exported": false,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "writeStdout"
+      ],
+      "totalLines": 29,
+      "hasStructuralAnalysis": true
+    },
+    "src/iii/drive_sync.ts": {
+      "filePath": "src/iii/drive_sync.ts",
+      "contentHash": "7dfc2b12918d837fda0f8513297de8802889a3c19a199a37d82326ce543f09a3",
+      "functions": [
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 43
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "readFileSync"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "iii-sdk",
+          "specifiers": [
+            "registerWorker"
+          ]
+        },
+        {
+          "source": "@helix-db/helix-db",
+          "specifiers": [
+            "readBatch",
+            "writeBatch",
+            "g",
+            "Predicate",
+            "PropertyProjection"
+          ]
+        },
+        {
+          "source": "../db/client.js",
+          "specifiers": [
+            "helix",
+            "writeWithRetry"
+          ]
+        },
+        {
+          "source": "../db/schema.js",
+          "specifiers": [
+            "L"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "TENANT_ID"
+          ]
+        },
+        {
+          "source": "../write/types.js",
+          "specifiers": [
+            "TurnEvent"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 60,
+      "hasStructuralAnalysis": true
+    },
+    "src/iii/drive.ts": {
+      "filePath": "src/iii/drive.ts",
+      "contentHash": "ec02ad378f78f53f8df127d7b080d481e5cd5b653432c89a77bd431388baadb7",
+      "functions": [
+        {
+          "name": "memCount",
+          "params": [],
+          "returnType": "Promise<{ count: number; sample: string[] }>",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "wipe",
+          "params": [],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 34
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "readFileSync"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "@helix-db/helix-db",
+          "specifiers": [
+            "readBatch",
+            "writeBatch",
+            "g",
+            "Predicate",
+            "PropertyProjection"
+          ]
+        },
+        {
+          "source": "../db/client.js",
+          "specifiers": [
+            "helix",
+            "writeWithRetry"
+          ]
+        },
+        {
+          "source": "../db/schema.js",
+          "specifiers": [
+            "L"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "TENANT_ID"
+          ]
+        },
+        {
+          "source": "../hooks/emit.js",
+          "specifiers": [
+            "emitTurnEvent"
+          ]
+        },
+        {
+          "source": "../write/types.js",
+          "specifiers": [
+            "TurnEvent"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 70,
+      "hasStructuralAnalysis": true
+    },
+    "src/iii/worker.ts": {
+      "filePath": "src/iii/worker.ts",
+      "contentHash": "7e623a86f26095ee802f8e8e5fa4c10dfe8af76f00ca856b0de914881844eb1e",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "iii-sdk",
+          "specifiers": [
+            "registerWorker"
+          ]
+        },
+        {
+          "source": "../write/buffer.js",
+          "specifiers": [
+            "FileBufferStore",
+            "flushReason"
+          ]
+        },
+        {
+          "source": "../write/ingest.js",
+          "specifiers": [
+            "ingestTurn"
+          ]
+        },
+        {
+          "source": "../write/pipeline.js",
+          "specifiers": [
+            "flushSession"
+          ]
+        },
+        {
+          "source": "../maintain/sweeps.js",
+          "specifiers": [
+            "decaySweep",
+            "forgetSweep",
+            "expireContextual"
+          ]
+        },
+        {
+          "source": "../maintain/erRepair.js",
+          "specifiers": [
+            "erRepairSweep"
+          ]
+        },
+        {
+          "source": "../write/types.js",
+          "specifiers": [
+            "TurnEvent"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 81,
+      "hasStructuralAnalysis": true
+    },
+    "src/llm/complete.ts": {
+      "filePath": "src/llm/complete.ts",
+      "contentHash": "cedf50776ce651e7e4e53655cbebc3639d78c47ebb8a3db99405152c646a36d8",
+      "functions": [
+        {
+          "name": "loadEnv",
+          "params": [],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "jsonComplete",
+          "params": [
+            "opts"
+          ],
+          "returnType": "Promise<T>",
+          "exported": true,
+          "lineCount": 22
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "readFileSync"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "openai",
+          "specifiers": [
+            "OpenAI"
+          ]
+        }
+      ],
+      "exports": [
+        "HOT_MODEL",
+        "jsonComplete"
+      ],
+      "totalLines": 49,
+      "hasStructuralAnalysis": true
+    },
+    "src/llm/embed.ts": {
+      "filePath": "src/llm/embed.ts",
+      "contentHash": "14dad3a6812d3336a181d7660f31bcc5e62bdb551b9d828eb8d9f00b2dd37668",
+      "functions": [
+        {
+          "name": "loadEnv",
+          "params": [],
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "embed",
+          "params": [
+            "texts"
+          ],
+          "returnType": "Promise<number[][]>",
+          "exported": true,
+          "lineCount": 9
+        },
+        {
+          "name": "embedOne",
+          "params": [
+            "t"
+          ],
+          "exported": true,
+          "lineCount": 1
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "readFileSync"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "openai",
+          "specifiers": [
+            "OpenAI"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "EMBED_MODEL",
+            "EMBED_DIM"
+          ]
+        }
+      ],
+      "exports": [
+        "embed",
+        "embedOne"
+      ],
+      "totalLines": 32,
+      "hasStructuralAnalysis": true
+    },
+    "src/maintain/erRepair.ts": {
+      "filePath": "src/maintain/erRepair.ts",
+      "contentHash": "102716d889bf95584c53fc3b1d9687fd2c40b04d11ecc0027b6db6bf9ff0837a",
+      "functions": [
+        {
+          "name": "allEntities",
+          "params": [],
+          "returnType": "Promise<Ent[]>",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "detectDuplicates",
+          "params": [
+            "highSim"
+          ],
+          "returnType": "Promise<DuplicatePair[]>",
+          "exported": true,
+          "lineCount": 26
+        },
+        {
+          "name": "mergeEntities",
+          "params": [
+            "p"
+          ],
+          "returnType": "Promise<void>",
+          "exported": false,
+          "lineCount": 15
+        },
+        {
+          "name": "erRepairSweep",
+          "params": [],
+          "returnType": "Promise<{ merged: number; pairs: { survivor: string; loser: string; sim: number }[] }>",
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@helix-db/helix-db",
+          "specifiers": [
+            "writeBatch",
+            "readBatch",
+            "g",
+            "NodeRef",
+            "Predicate",
+            "PropertyInput",
+            "PropertyProjection"
+          ]
+        },
+        {
+          "source": "../db/client.js",
+          "specifiers": [
+            "helix",
+            "writeWithRetry"
+          ]
+        },
+        {
+          "source": "../db/schema.js",
+          "specifiers": [
+            "L",
+            "E"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "TENANT_ID"
+          ]
+        },
+        {
+          "source": "../match/scorers.js",
+          "specifiers": [
+            "cosineSim",
+            "bestAliasSim"
+          ]
+        },
+        {
+          "source": "../llm/embed.js",
+          "specifiers": [
+            "embed"
+          ]
+        }
+      ],
+      "exports": [
+        "detectDuplicates",
+        "erRepairSweep"
+      ],
+      "totalLines": 85,
+      "hasStructuralAnalysis": true
+    },
+    "src/maintain/sweeps.ts": {
+      "filePath": "src/maintain/sweeps.ts",
+      "contentHash": "35b6cc9cd53eec056c8c6e6912287e26c2e77a430b5e94753d901fae88cc8585",
+      "functions": [
+        {
+          "name": "daysAgoIso",
+          "params": [
+            "d"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "countWhere",
+          "params": [
+            "pred"
+          ],
+          "returnType": "Promise<number>",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "decaySweep",
+          "params": [
+            "idleDays",
+            "factor"
+          ],
+          "returnType": "Promise<{ decayed: number }>",
+          "exported": true,
+          "lineCount": 14
+        },
+        {
+          "name": "forgetSweep",
+          "params": [
+            "minWeight",
+            "idleDays"
+          ],
+          "returnType": "Promise<{ forgotten: number }>",
+          "exported": true,
+          "lineCount": 15
+        },
+        {
+          "name": "expireContextual",
+          "params": [],
+          "returnType": "Promise<{ expired: number }>",
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@helix-db/helix-db",
+          "specifiers": [
+            "writeBatch",
+            "readBatch",
+            "g",
+            "Predicate",
+            "PropertyInput",
+            "Expr",
+            "PropertyProjection"
+          ]
+        },
+        {
+          "source": "../db/client.js",
+          "specifiers": [
+            "helix",
+            "writeWithRetry"
+          ]
+        },
+        {
+          "source": "../db/schema.js",
+          "specifiers": [
+            "L"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "TENANT_ID"
+          ]
+        }
+      ],
+      "exports": [
+        "decaySweep",
+        "forgetSweep",
+        "expireContextual"
+      ],
+      "totalLines": 69,
+      "hasStructuralAnalysis": true
+    },
+    "src/match/engine.test.ts": {
+      "filePath": "src/match/engine.test.ts",
+      "contentHash": "25ccddf16da158db297c79eee6dda4fea46ce99969b572698f2fecd91b5821e5",
+      "functions": [
+        {
+          "name": "blockOf",
+          "params": [
+            "scores"
+          ],
+          "exported": false,
+          "lineCount": 1
+        },
+        {
+          "name": "scoreOf",
+          "params": [
+            "_i",
+            "c"
+          ],
+          "exported": false,
+          "lineCount": 1
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:test",
+          "specifiers": [
+            "test"
+          ]
+        },
+        {
+          "source": "node:assert/strict",
+          "specifiers": [
+            "assert"
+          ]
+        },
+        {
+          "source": "./engine.js",
+          "specifiers": [
+            "match",
+            "Scored"
+          ]
+        },
+        {
+          "source": "./scorers.js",
+          "specifiers": [
+            "cosineSim",
+            "trigramSim",
+            "bestAliasSim",
+            "distanceToSim",
+            "combine"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 107,
+      "hasStructuralAnalysis": true
+    },
+    "src/match/engine.ts": {
+      "filePath": "src/match/engine.ts",
+      "contentHash": "b4279d4e3cf40621c4f29cf7e9255b65d25e748c4818348ae5c2504ae7e17e26",
+      "functions": [
+        {
+          "name": "match",
+          "params": [
+            "input",
+            "cfg"
+          ],
+          "returnType": "Promise<MatchOutcome<C, A>>",
+          "exported": true,
+          "lineCount": 35
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "match"
+      ],
+      "totalLines": 80,
+      "hasStructuralAnalysis": true
+    },
+    "src/match/scorers.ts": {
+      "filePath": "src/match/scorers.ts",
+      "contentHash": "2bf370472f7e2a3963d5febfe8156d938e021ee646fa0494f3d98609dbcf9559",
+      "functions": [
+        {
+          "name": "cosineSim",
+          "params": [
+            "a",
+            "b"
+          ],
+          "returnType": "number",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "distanceToSim",
+          "params": [
+            "distance"
+          ],
+          "exported": true,
+          "lineCount": 1
+        },
+        {
+          "name": "normalize",
+          "params": [
+            "s"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "trigrams",
+          "params": [
+            "s"
+          ],
+          "returnType": "Set<string>",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "trigramSim",
+          "params": [
+            "a",
+            "b"
+          ],
+          "returnType": "number",
+          "exported": true,
+          "lineCount": 10
+        },
+        {
+          "name": "bestAliasSim",
+          "params": [
+            "query",
+            "surfaceForms"
+          ],
+          "returnType": "number",
+          "exported": true,
+          "lineCount": 13
+        },
+        {
+          "name": "combine",
+          "params": [
+            "parts"
+          ],
+          "returnType": "number",
+          "exported": true,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [],
+      "exports": [
+        "cosineSim",
+        "distanceToSim",
+        "trigramSim",
+        "bestAliasSim",
+        "combine"
+      ],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "src/mcp/server.ts": {
+      "filePath": "src/mcp/server.ts",
+      "contentHash": "2dfa68f3e088757176042a1b5bfb37d9e57b36207558ba22255de046618bea5f",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "@modelcontextprotocol/sdk/server/mcp.js",
+          "specifiers": [
+            "McpServer"
+          ]
+        },
+        {
+          "source": "@modelcontextprotocol/sdk/server/stdio.js",
+          "specifiers": [
+            "StdioServerTransport"
+          ]
+        },
+        {
+          "source": "zod",
+          "specifiers": [
+            "z"
+          ]
+        },
+        {
+          "source": "../read/recall.js",
+          "specifiers": [
+            "recall"
+          ]
+        },
+        {
+          "source": "../write/remember.js",
+          "specifiers": [
+            "remember"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "src/read/e2e.ts": {
+      "filePath": "src/read/e2e.ts",
+      "contentHash": "abb3c9d2e963b8fddd232d341a46f30b7a886cf39b245b38fee898615732f0ce",
+      "functions": [
+        {
+          "name": "wipe",
+          "params": [],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 39
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "readFileSync",
+            "mkdtempSync"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "tmpdir"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "@helix-db/helix-db",
+          "specifiers": [
+            "writeBatch",
+            "g",
+            "Predicate"
+          ]
+        },
+        {
+          "source": "../db/client.js",
+          "specifiers": [
+            "writeWithRetry"
+          ]
+        },
+        {
+          "source": "../db/schema.js",
+          "specifiers": [
+            "L"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "TENANT_ID"
+          ]
+        },
+        {
+          "source": "../write/buffer.js",
+          "specifiers": [
+            "FileBufferStore"
+          ]
+        },
+        {
+          "source": "../write/pipeline.js",
+          "specifiers": [
+            "flushSession"
+          ]
+        },
+        {
+          "source": "../write/ingest.js",
+          "specifiers": [
+            "ingestTurn"
+          ]
+        },
+        {
+          "source": "./readPath.js",
+          "specifiers": [
+            "readPath"
+          ]
+        },
+        {
+          "source": "../write/types.js",
+          "specifiers": [
+            "TurnEvent"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 71,
+      "hasStructuralAnalysis": true
+    },
+    "src/read/header.ts": {
+      "filePath": "src/read/header.ts",
+      "contentHash": "9cf205b3f2e00bc94e912bc15a2892c25aca7e0f47c5f6812edc0a27fc24cd6b",
+      "functions": [
+        {
+          "name": "buildHeader",
+          "params": [
+            "parts"
+          ],
+          "returnType": "{ text: string; usedIds: string[] }",
+          "exported": true,
+          "lineCount": 25
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./rank.js",
+          "specifiers": [
+            "RankedMemory"
+          ]
+        },
+        {
+          "source": "../db/retrieve.js",
+          "specifiers": [
+            "RecallRow",
+            "RelFact"
+          ]
+        }
+      ],
+      "exports": [
+        "buildHeader"
+      ],
+      "totalLines": 42,
+      "hasStructuralAnalysis": true
+    },
+    "src/read/planner.ts": {
+      "filePath": "src/read/planner.ts",
+      "contentHash": "b75f0598fbfb531a80814f7d60a7131b5e656db506ad918db5c1a96d257e70ec",
+      "functions": [
+        {
+          "name": "planQuery",
+          "params": [
+            "prompt",
+            "recentContext",
+            "model"
+          ],
+          "returnType": "Promise<QueryPlan>",
+          "exported": true,
+          "lineCount": 19
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../db/schema.js",
+          "specifiers": [
+            "PrimaryType"
+          ]
+        },
+        {
+          "source": "../llm/complete.js",
+          "specifiers": [
+            "jsonComplete",
+            "HOT_MODEL"
+          ]
+        }
+      ],
+      "exports": [
+        "planQuery"
+      ],
+      "totalLines": 56,
+      "hasStructuralAnalysis": true
+    },
+    "src/read/rank.ts": {
+      "filePath": "src/read/rank.ts",
+      "contentHash": "55c67c92d2693c37a146f3334c3cc4a2c0d6d216af17af4be5baf664f5f00aa0",
+      "functions": [
+        {
+          "name": "recencyDecay",
+          "params": [
+            "iso"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "scoreRow",
+          "params": [
+            "r"
+          ],
+          "returnType": "number",
+          "exported": true,
+          "lineCount": 7
+        },
+        {
+          "name": "rankMemories",
+          "params": [
+            "lists",
+            "tokenBudget"
+          ],
+          "returnType": "RankedMemory[]",
+          "exported": true,
+          "lineCount": 21
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../db/retrieve.js",
+          "specifiers": [
+            "RecallRow"
+          ]
+        },
+        {
+          "source": "../match/scorers.js",
+          "specifiers": [
+            "distanceToSim"
+          ]
+        },
+        {
+          "source": "../db/schema.js",
+          "specifiers": [
+            "PrimaryType"
+          ]
+        }
+      ],
+      "exports": [
+        "scoreRow",
+        "rankMemories"
+      ],
+      "totalLines": 53,
+      "hasStructuralAnalysis": true
+    },
+    "src/read/readPath.ts": {
+      "filePath": "src/read/readPath.ts",
+      "contentHash": "eb52cdd3d18a741160e850d53dee53fac90d4d8459fb318efb53e3d712bb99e5",
+      "functions": [
+        {
+          "name": "readPath",
+          "params": [
+            "prompt",
+            "recentContext"
+          ],
+          "returnType": "Promise<ReadResult>",
+          "exported": true,
+          "lineCount": 38
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./planner.js",
+          "specifiers": [
+            "planQuery"
+          ]
+        },
+        {
+          "source": "./rank.js",
+          "specifiers": [
+            "rankMemories"
+          ]
+        },
+        {
+          "source": "./header.js",
+          "specifiers": [
+            "buildHeader"
+          ]
+        },
+        {
+          "source": "../db/retrieve.js",
+          "specifiers": [
+            "recall",
+            "relationalFacts",
+            "validateEntities"
+          ]
+        },
+        {
+          "source": "../db/memories.js",
+          "specifiers": [
+            "bumpMemories"
+          ]
+        },
+        {
+          "source": "../llm/embed.js",
+          "specifiers": [
+            "embedOne"
+          ]
+        }
+      ],
+      "exports": [
+        "readPath"
+      ],
+      "totalLines": 59,
+      "hasStructuralAnalysis": true
+    },
+    "src/read/recall.ts": {
+      "filePath": "src/read/recall.ts",
+      "contentHash": "0bfdf574a0fddd2bdfb7274190003d4d1d8e139cc4a9c8af2d0dbcbd14da789b",
+      "functions": [
+        {
+          "name": "recall",
+          "params": [
+            "query",
+            "limit"
+          ],
+          "returnType": "Promise<RecalledMemory[]>",
+          "exported": true,
+          "lineCount": 11
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../db/retrieve.js",
+          "specifiers": [
+            "recallDb"
+          ]
+        },
+        {
+          "source": "./rank.js",
+          "specifiers": [
+            "rankMemories"
+          ]
+        },
+        {
+          "source": "../db/memories.js",
+          "specifiers": [
+            "bumpMemories"
+          ]
+        },
+        {
+          "source": "../llm/embed.js",
+          "specifiers": [
+            "embedOne"
+          ]
+        }
+      ],
+      "exports": [
+        "recall"
+      ],
+      "totalLines": 28,
+      "hasStructuralAnalysis": true
+    },
+    "src/write/buffer.ts": {
+      "filePath": "src/write/buffer.ts",
+      "contentHash": "64c416d98a4b27c29f1be90aee1b94af9c72c0a02180bd2cf91b1abb11ad2f67",
+      "functions": [
+        {
+          "name": "flushReason",
+          "params": [
+            "buf",
+            "event",
+            "cfg"
+          ],
+          "returnType": "FlushReason | null",
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "classes": [
+        {
+          "name": "FileBufferStore",
+          "methods": [
+            "constructor",
+            "path",
+            "get",
+            "append",
+            "clear",
+            "list"
+          ],
+          "properties": [],
+          "exported": true,
+          "lineCount": 30
+        },
+        {
+          "name": "MemoryBufferStore",
+          "methods": [
+            "get",
+            "append",
+            "clear",
+            "list"
+          ],
+          "properties": [
+            "m"
+          ],
+          "exported": true,
+          "lineCount": 13
+        }
+      ],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "readFileSync",
+            "writeFileSync",
+            "mkdirSync",
+            "existsSync",
+            "rmSync",
+            "readdirSync"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "./types.js",
+          "specifiers": [
+            "SessionBuffer",
+            "BufferedTurn",
+            "TurnEvent",
+            "FlushReason"
+          ]
+        }
+      ],
+      "exports": [
+        "DEFAULT_FLUSH",
+        "flushReason",
+        "FileBufferStore",
+        "MemoryBufferStore"
+      ],
+      "totalLines": 87,
+      "hasStructuralAnalysis": true
+    },
+    "src/write/conflict.ts": {
+      "filePath": "src/write/conflict.ts",
+      "contentHash": "dabb37ab1aaf0e12d70cea3e767e4adcff9b185d978e148462f7213172c0e96f",
+      "functions": [
+        {
+          "name": "policy",
+          "params": [
+            "rel",
+            "type",
+            "targetId"
+          ],
+          "returnType": "WriteAction",
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "resolveConflict",
+          "params": [
+            "candidate",
+            "embedding"
+          ],
+          "returnType": "Promise<WriteAction>",
+          "exported": true,
+          "lineCount": 38
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../match/engine.js",
+          "specifiers": [
+            "match"
+          ]
+        },
+        {
+          "source": "../match/scorers.js",
+          "specifiers": [
+            "distanceToSim"
+          ]
+        },
+        {
+          "source": "../llm/complete.js",
+          "specifiers": [
+            "jsonComplete"
+          ]
+        },
+        {
+          "source": "../db/retrieve.js",
+          "specifiers": [
+            "similarMemories"
+          ]
+        },
+        {
+          "source": "../db/retrieve.js",
+          "specifiers": [
+            "RecallRow"
+          ]
+        },
+        {
+          "source": "./types.js",
+          "specifiers": [
+            "CandidateMemory"
+          ]
+        },
+        {
+          "source": "../db/schema.js",
+          "specifiers": [
+            "PrimaryType"
+          ]
+        }
+      ],
+      "exports": [
+        "resolveConflict"
+      ],
+      "totalLines": 89,
+      "hasStructuralAnalysis": true
+    },
+    "src/write/e2e.ts": {
+      "filePath": "src/write/e2e.ts",
+      "contentHash": "3bf89b061237d6a3de898ecfefcae5417ff5ac7968523f0264f0aea0e8a31a2a",
+      "functions": [
+        {
+          "name": "dumpTenant",
+          "params": [],
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "wipeTenant",
+          "params": [],
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "main",
+          "params": [],
+          "exported": false,
+          "lineCount": 47
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:fs",
+          "specifiers": [
+            "readFileSync",
+            "mkdtempSync"
+          ]
+        },
+        {
+          "source": "node:os",
+          "specifiers": [
+            "tmpdir"
+          ]
+        },
+        {
+          "source": "node:path",
+          "specifiers": [
+            "join"
+          ]
+        },
+        {
+          "source": "@helix-db/helix-db",
+          "specifiers": [
+            "readBatch",
+            "writeBatch",
+            "g",
+            "Predicate",
+            "PropertyProjection"
+          ]
+        },
+        {
+          "source": "../db/client.js",
+          "specifiers": [
+            "helix",
+            "writeWithRetry"
+          ]
+        },
+        {
+          "source": "../db/schema.js",
+          "specifiers": [
+            "L"
+          ]
+        },
+        {
+          "source": "../config.js",
+          "specifiers": [
+            "TENANT_ID"
+          ]
+        },
+        {
+          "source": "./buffer.js",
+          "specifiers": [
+            "FileBufferStore"
+          ]
+        },
+        {
+          "source": "./ingest.js",
+          "specifiers": [
+            "ingestTurn"
+          ]
+        },
+        {
+          "source": "./types.js",
+          "specifiers": [
+            "TurnEvent"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 88,
+      "hasStructuralAnalysis": true
+    },
+    "src/write/entityResolve.ts": {
+      "filePath": "src/write/entityResolve.ts",
+      "contentHash": "a2b39eb7cabca625b71ad2313300a4356a9f64bcdda980d0f4c103c5e6cb1a08",
+      "functions": [
+        {
+          "name": "scoreCandidate",
+          "params": [
+            "input",
+            "c"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "resolveEntity",
+          "params": [
+            "cluster",
+            "embedding"
+          ],
+          "returnType": "Promise<ResolveResult>",
+          "exported": true,
+          "lineCount": 51
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../match/engine.js",
+          "specifiers": [
+            "match"
+          ]
+        },
+        {
+          "source": "../match/scorers.js",
+          "specifiers": [
+            "bestAliasSim",
+            "combine"
+          ]
+        },
+        {
+          "source": "../llm/complete.js",
+          "specifiers": [
+            "jsonComplete"
+          ]
+        },
+        {
+          "source": "../db/entities.js",
+          "specifiers": [
+            "searchEntityCandidates",
+            "createEntity",
+            "addAliases",
+            "EntityCandidate"
+          ]
+        },
+        {
+          "source": "./types.js",
+          "specifiers": [
+            "MentionCluster"
+          ]
+        }
+      ],
+      "exports": [
+        "resolveEntity"
+      ],
+      "totalLines": 92,
+      "hasStructuralAnalysis": true
+    },
+    "src/write/extract.ts": {
+      "filePath": "src/write/extract.ts",
+      "contentHash": "387220558e2ab39c5d36d4b184088b883d1841a3a064aba0642e615f0eca8389",
+      "functions": [
+        {
+          "name": "renderWindow",
+          "params": [
+            "buf"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "extractWindow",
+          "params": [
+            "buf",
+            "model"
+          ],
+          "returnType": "Promise<ExtractionResult>",
+          "exported": true,
+          "lineCount": 44
+        },
+        {
+          "name": "clamp01",
+          "params": [
+            "v",
+            "fallback"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 5
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./types.js",
+          "specifiers": [
+            "SessionBuffer",
+            "ExtractionResult",
+            "CandidateMemory",
+            "MentionCluster"
+          ]
+        },
+        {
+          "source": "../llm/complete.js",
+          "specifiers": [
+            "jsonComplete",
+            "HOT_MODEL"
+          ]
+        }
+      ],
+      "exports": [
+        "extractWindow"
+      ],
+      "totalLines": 106,
+      "hasStructuralAnalysis": true
+    },
+    "src/write/ingest.ts": {
+      "filePath": "src/write/ingest.ts",
+      "contentHash": "e12d00f55144a328015786a1cf6e0aecbb13838f37685d4c73220f053f781887",
+      "functions": [
+        {
+          "name": "ingestTurn",
+          "params": [
+            "store",
+            "event",
+            "cfg"
+          ],
+          "returnType": "Promise<IngestResult>",
+          "exported": true,
+          "lineCount": 23
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./buffer.js",
+          "specifiers": [
+            "BufferStore",
+            "FlushConfig"
+          ]
+        },
+        {
+          "source": "./buffer.js",
+          "specifiers": [
+            "flushReason",
+            "DEFAULT_FLUSH"
+          ]
+        },
+        {
+          "source": "./pipeline.js",
+          "specifiers": [
+            "flushSession",
+            "FlushSummary"
+          ]
+        },
+        {
+          "source": "./salience.js",
+          "specifiers": [
+            "salienceGate"
+          ]
+        },
+        {
+          "source": "./types.js",
+          "specifiers": [
+            "TurnEvent"
+          ]
+        }
+      ],
+      "exports": [
+        "ingestTurn"
+      ],
+      "totalLines": 41,
+      "hasStructuralAnalysis": true
+    },
+    "src/write/pipeline.ts": {
+      "filePath": "src/write/pipeline.ts",
+      "contentHash": "251e7f9aff2c7ab6ffe812e2ac5ffe48677b108f284f81aff18b8f65d174e039",
+      "functions": [
+        {
+          "name": "flushSession",
+          "params": [
+            "store",
+            "sessionId",
+            "reason"
+          ],
+          "returnType": "Promise<FlushSummary>",
+          "exported": true,
+          "lineCount": 69
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./buffer.js",
+          "specifiers": [
+            "BufferStore"
+          ]
+        },
+        {
+          "source": "./types.js",
+          "specifiers": [
+            "FlushReason"
+          ]
+        },
+        {
+          "source": "./extract.js",
+          "specifiers": [
+            "extractWindow"
+          ]
+        },
+        {
+          "source": "./entityResolve.js",
+          "specifiers": [
+            "resolveEntity"
+          ]
+        },
+        {
+          "source": "./conflict.js",
+          "specifiers": [
+            "resolveConflict"
+          ]
+        },
+        {
+          "source": "../db/memories.js",
+          "specifiers": [
+            "persistMemory",
+            "bumpMemories",
+            "supersede",
+            "linkExtends"
+          ]
+        },
+        {
+          "source": "../llm/embed.js",
+          "specifiers": [
+            "embed"
+          ]
+        }
+      ],
+      "exports": [
+        "flushSession"
+      ],
+      "totalLines": 92,
+      "hasStructuralAnalysis": true
+    },
+    "src/write/remember.ts": {
+      "filePath": "src/write/remember.ts",
+      "contentHash": "8555d967c99932b8f6effe602e0360c2df30ec459cf27acdbb3ed6a31cbdeb61",
+      "functions": [
+        {
+          "name": "remember",
+          "params": [
+            "content"
+          ],
+          "returnType": "Promise<FlushSummary>",
+          "exported": true,
+          "lineCount": 12
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./buffer.js",
+          "specifiers": [
+            "MemoryBufferStore"
+          ]
+        },
+        {
+          "source": "./pipeline.js",
+          "specifiers": [
+            "flushSession",
+            "FlushSummary"
+          ]
+        }
+      ],
+      "exports": [
+        "remember"
+      ],
+      "totalLines": 35,
+      "hasStructuralAnalysis": true
+    },
+    "src/write/salience.ts": {
+      "filePath": "src/write/salience.ts",
+      "contentHash": "6c415b36cd4bae50cfd031146a7f8e7e5d67811a53f00148db626b645091717f",
+      "functions": [
+        {
+          "name": "salienceGate",
+          "params": [
+            "turn"
+          ],
+          "returnType": "SalienceVerdict",
+          "exported": true,
+          "lineCount": 29
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./types.js",
+          "specifiers": [
+            "TurnEvent"
+          ]
+        }
+      ],
+      "exports": [
+        "salienceGate"
+      ],
+      "totalLines": 53,
+      "hasStructuralAnalysis": true
+    },
+    "src/write/types.ts": {
+      "filePath": "src/write/types.ts",
+      "contentHash": "aa40f6db314b8cc1ddcb4860e5fb0872aaaf04b96fd822fdb8f17a1bb03cde69",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../db/schema.js",
+          "specifiers": [
+            "PrimaryType",
+            "EntityType"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 61,
+      "hasStructuralAnalysis": true
+    },
+    "src/write/write.test.ts": {
+      "filePath": "src/write/write.test.ts",
+      "contentHash": "2e2ac0c5320ee69aa65aacabeb51a1a5ea5f126a9e50e5990a2ec866cdff949d",
+      "functions": [
+        {
+          "name": "turn",
+          "params": [
+            "text",
+            "extra"
+          ],
+          "returnType": "TurnEvent",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "buf",
+          "params": [
+            "n",
+            "openedAt"
+          ],
+          "returnType": "SessionBuffer",
+          "exported": false,
+          "lineCount": 4
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:test",
+          "specifiers": [
+            "test"
+          ]
+        },
+        {
+          "source": "node:assert/strict",
+          "specifiers": [
+            "assert"
+          ]
+        },
+        {
+          "source": "./salience.js",
+          "specifiers": [
+            "salienceGate"
+          ]
+        },
+        {
+          "source": "./buffer.js",
+          "specifiers": [
+            "flushReason",
+            "DEFAULT_FLUSH"
+          ]
+        },
+        {
+          "source": "./types.js",
+          "specifiers": [
+            "TurnEvent",
+            "SessionBuffer"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 65,
+      "hasStructuralAnalysis": true
+    }
+  }
+}

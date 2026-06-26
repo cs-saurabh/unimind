@@ -1,0 +1,136 @@
+{
+  "projectRoot": "/Users/saurabh.pawar/Work/pet-projects/unimind",
+  "batchFiles": [
+    {
+      "path": "src/iii/worker.ts",
+      "language": "typescript",
+      "sizeLines": 80,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/read/e2e.ts",
+      "language": "typescript",
+      "sizeLines": 70,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/buffer.ts",
+      "language": "typescript",
+      "sizeLines": 86,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/e2e.ts",
+      "language": "typescript",
+      "sizeLines": 87,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/extract.ts",
+      "language": "typescript",
+      "sizeLines": 105,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/ingest.ts",
+      "language": "typescript",
+      "sizeLines": 40,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/pipeline.ts",
+      "language": "typescript",
+      "sizeLines": 91,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/remember.ts",
+      "language": "typescript",
+      "sizeLines": 34,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/salience.ts",
+      "language": "typescript",
+      "sizeLines": 52,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/types.ts",
+      "language": "typescript",
+      "sizeLines": 60,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/write/write.test.ts",
+      "language": "typescript",
+      "sizeLines": 64,
+      "fileCategory": "code"
+    }
+  ],
+  "batchImportData": {
+    "src/iii/worker.ts": [
+      "src/maintain/erRepair.ts",
+      "src/maintain/sweeps.ts",
+      "src/write/buffer.ts",
+      "src/write/ingest.ts",
+      "src/write/pipeline.ts",
+      "src/write/types.ts"
+    ],
+    "src/read/e2e.ts": [
+      "src/config.ts",
+      "src/db/client.ts",
+      "src/db/schema.ts",
+      "src/read/readPath.ts",
+      "src/write/buffer.ts",
+      "src/write/ingest.ts",
+      "src/write/pipeline.ts",
+      "src/write/types.ts"
+    ],
+    "src/write/buffer.ts": [
+      "src/write/types.ts"
+    ],
+    "src/write/e2e.ts": [
+      "src/config.ts",
+      "src/db/client.ts",
+      "src/db/schema.ts",
+      "src/write/buffer.ts",
+      "src/write/ingest.ts",
+      "src/write/types.ts"
+    ],
+    "src/write/extract.ts": [
+      "src/llm/complete.ts",
+      "src/write/types.ts"
+    ],
+    "src/write/ingest.ts": [
+      "src/write/buffer.ts",
+      "src/write/pipeline.ts",
+      "src/write/salience.ts",
+      "src/write/types.ts"
+    ],
+    "src/write/pipeline.ts": [
+      "src/db/memories.ts",
+      "src/llm/embed.ts",
+      "src/write/buffer.ts",
+      "src/write/conflict.ts",
+      "src/write/entityResolve.ts",
+      "src/write/extract.ts",
+      "src/write/types.ts"
+    ],
+    "src/write/remember.ts": [
+      "src/write/buffer.ts",
+      "src/write/pipeline.ts"
+    ],
+    "src/write/salience.ts": [
+      "src/write/types.ts"
+    ],
+    "src/write/types.ts": [
+      "src/db/schema.ts"
+    ],
+    "src/write/write.test.ts": [
+      "src/write/buffer.ts",
+      "src/write/salience.ts",
+      "src/write/types.ts"
+    ]
+  }
+}

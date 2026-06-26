@@ -1,0 +1,228 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/hooks/capture.ts",
+      "type": "file",
+      "name": "capture.ts",
+      "filePath": "src/hooks/capture.ts",
+      "summary": "Claude Code PostToolUse hook entry point that reads the tool payload from stdin, normalizes it into a TurnEvent, and fires it asynchronously to the memory ingest pipeline without blocking the user.",
+      "tags": ["entry-point", "event-handler", "hook", "serialization"],
+      "complexity": "moderate",
+      "languageNotes": "CLI hook script that reads stdin and uses Promise.race with a timeout to guarantee it never blocks the editor."
+    },
+    {
+      "id": "file:src/hooks/emit.ts",
+      "type": "file",
+      "name": "emit.ts",
+      "filePath": "src/hooks/emit.ts",
+      "summary": "Fire-and-forget event emitter that connects to the iii worker engine, triggers the unimind ingestTurn function with the turn event, and shuts down without ever blocking the calling hook.",
+      "tags": ["service", "event-handler", "hook", "messaging"],
+      "complexity": "simple",
+      "languageNotes": "Uses TriggerAction.Void() for fire-and-forget dispatch with a short flush delay to avoid racing WebSocket shutdown."
+    },
+    {
+      "id": "file:src/hooks/inject.ts",
+      "type": "file",
+      "name": "inject.ts",
+      "filePath": "src/hooks/inject.ts",
+      "summary": "Claude Code UserPromptSubmit hook that reads the user prompt from stdin, recalls relevant memories via readPath, logs a checkpoint, and injects retrieved context back into the session via stdout.",
+      "tags": ["entry-point", "event-handler", "hook", "middleware"],
+      "complexity": "moderate",
+      "languageNotes": "Combines memory retrieval (readPath) with a fire-and-forget emit, both bounded by Promise.race timeouts."
+    },
+    {
+      "id": "file:src/hooks/silence.ts",
+      "type": "file",
+      "name": "silence.ts",
+      "filePath": "src/hooks/silence.ts",
+      "summary": "Stdout-discipline utility that captures the real stdout writer and redirects stray logging to stderr, ensuring only intended hook protocol output reaches Claude Code on stdout.",
+      "tags": ["utility", "hook", "logging"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/hooks/capture.ts:toEvent",
+      "type": "function",
+      "name": "toEvent",
+      "filePath": "src/hooks/capture.ts",
+      "lineRange": [25, 48],
+      "summary": "Normalizes a raw Claude Code tool-use payload into a structured TurnEvent, extracting tool name, truncated input, and an ISO timestamp.",
+      "tags": ["serialization", "utility", "data-model"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/hooks/capture.ts:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "src/hooks/capture.ts",
+      "lineRange": [50, 66],
+      "summary": "Hook entry routine that reads stdin, parses the payload, converts it to a TurnEvent, and emits it with a timeout guard before exiting.",
+      "tags": ["entry-point", "event-handler", "async"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/hooks/emit.ts:emitTurnEvent",
+      "type": "function",
+      "name": "emitTurnEvent",
+      "filePath": "src/hooks/emit.ts",
+      "lineRange": [9, 31],
+      "summary": "Connects to the iii worker engine, triggers the unimind::ingestTurn function with the turn event payload as fire-and-forget, then flushes and shuts down the connection.",
+      "tags": ["service", "messaging", "async", "event-handler"],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/hooks/inject.ts:main",
+      "type": "function",
+      "name": "main",
+      "filePath": "src/hooks/inject.ts",
+      "lineRange": [40, 74],
+      "summary": "Hook entry routine that reads the prompt, retrieves memory context via readPath under a timeout, logs a checkpoint, emits the event, and writes the injected context to stdout.",
+      "tags": ["entry-point", "event-handler", "middleware", "async"],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/hooks/silence.ts:writeStdout",
+      "type": "function",
+      "name": "writeStdout",
+      "filePath": "src/hooks/silence.ts",
+      "lineRange": [13, 15],
+      "summary": "Writes text to the captured real stdout stream, bypassing any redirection so intended hook protocol output is delivered.",
+      "tags": ["utility", "logging"],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "file:src/hooks/emit.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "file:src/hooks/silence.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/emit.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/hooks/emit.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/hooks/silence.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/read/readPath.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "file:src/write/types.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "function:src/hooks/capture.ts:toEvent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/hooks/capture.ts",
+      "target": "function:src/hooks/capture.ts:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/hooks/emit.ts",
+      "target": "function:src/hooks/emit.ts:emitTurnEvent",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/hooks/emit.ts",
+      "target": "function:src/hooks/emit.ts:emitTurnEvent",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "file:src/hooks/inject.ts",
+      "target": "function:src/hooks/inject.ts:main",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/hooks/silence.ts",
+      "target": "function:src/hooks/silence.ts:writeStdout",
+      "type": "contains",
+      "direction": "forward",
+      "weight": 1.0
+    },
+    {
+      "source": "file:src/hooks/silence.ts",
+      "target": "function:src/hooks/silence.ts:writeStdout",
+      "type": "exports",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/hooks/capture.ts:main",
+      "target": "function:src/hooks/emit.ts:emitTurnEvent",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/hooks/inject.ts:main",
+      "target": "function:src/hooks/emit.ts:emitTurnEvent",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/hooks/inject.ts:main",
+      "target": "function:src/hooks/silence.ts:writeStdout",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    },
+    {
+      "source": "function:src/hooks/inject.ts:main",
+      "target": "function:src/read/readPath.ts:readPath",
+      "type": "calls",
+      "direction": "forward",
+      "weight": 0.8
+    }
+  ]
+}

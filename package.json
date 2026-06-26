@@ -1,0 +1,25 @@
+{
+  "name": "unimind",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bootstrap": "tsx src/db/bootstrap.ts",
+    "smoke": "tsx src/db/smoke.ts",
+    "test": "node --import tsx --test 'src/**/*.test.ts'",
+    "worker": "tsx watch src/iii/worker.ts",
+    "engine": "iii",
+    "drive": "tsx src/iii/drive.ts",
+    "mcp": "tsx src/mcp/server.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.0.0",
+    "tsx": "^4.22.4",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@helix-db/helix-db": "^2.0.5",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "iii-sdk": "^0.19.4",
+    "openai": "^6.44.0"
+  }
+}

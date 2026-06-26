@@ -1,0 +1,439 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "src/hooks/capture.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 68,
+      "nonEmptyLines": 63,
+      "functions": [
+        {
+          "name": "readStdin",
+          "startLine": 14,
+          "endLine": 22,
+          "params": []
+        },
+        {
+          "name": "toEvent",
+          "startLine": 25,
+          "endLine": 48,
+          "params": [
+            "p"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 50,
+          "endLine": 66,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "readStdin",
+          "callee": "process.stdin.setEncoding",
+          "lineNumber": 17
+        },
+        {
+          "caller": "readStdin",
+          "callee": "process.stdin.on",
+          "lineNumber": 18
+        },
+        {
+          "caller": "readStdin",
+          "callee": "process.stdin.on",
+          "lineNumber": 19
+        },
+        {
+          "caller": "readStdin",
+          "callee": "resolve",
+          "lineNumber": 19
+        },
+        {
+          "caller": "readStdin",
+          "callee": "setTimeout",
+          "lineNumber": 20
+        },
+        {
+          "caller": "readStdin",
+          "callee": "resolve",
+          "lineNumber": 20
+        },
+        {
+          "caller": "toEvent",
+          "callee": "new Date().toISOString",
+          "lineNumber": 27
+        },
+        {
+          "caller": "toEvent",
+          "callee": "String",
+          "lineNumber": 33
+        },
+        {
+          "caller": "toEvent",
+          "callee": "JSON.stringify(p.tool_input).slice",
+          "lineNumber": 36
+        },
+        {
+          "caller": "toEvent",
+          "callee": "JSON.stringify",
+          "lineNumber": 36
+        },
+        {
+          "caller": "toEvent",
+          "callee": "`${name} ${input}`.trim",
+          "lineNumber": 37
+        },
+        {
+          "caller": "main",
+          "callee": "readStdin",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.parse",
+          "lineNumber": 53
+        },
+        {
+          "caller": "main",
+          "callee": "toEvent",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "Promise.race",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "emitTurnEvent",
+          "lineNumber": 57
+        },
+        {
+          "caller": "main",
+          "callee": "setTimeout",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "process.exit",
+          "lineNumber": 64
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/hooks/emit.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 30,
+      "functions": [
+        {
+          "name": "emitTurnEvent",
+          "startLine": 9,
+          "endLine": 31,
+          "params": [
+            "event",
+            "opts"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "emitTurnEvent",
+          "line": 9,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "emitTurnEvent",
+          "callee": "registerWorker",
+          "lineNumber": 14
+        },
+        {
+          "caller": "emitTurnEvent",
+          "callee": "iii.trigger",
+          "lineNumber": 19
+        },
+        {
+          "caller": "emitTurnEvent",
+          "callee": "TriggerAction.Void",
+          "lineNumber": 22
+        },
+        {
+          "caller": "emitTurnEvent",
+          "callee": "setTimeout",
+          "lineNumber": 27
+        },
+        {
+          "caller": "emitTurnEvent",
+          "callee": "iii.shutdown().catch",
+          "lineNumber": 29
+        },
+        {
+          "caller": "emitTurnEvent",
+          "callee": "iii.shutdown",
+          "lineNumber": 29
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/hooks/inject.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 76,
+      "nonEmptyLines": 69,
+      "functions": [
+        {
+          "name": "readStdin",
+          "startLine": 23,
+          "endLine": 31,
+          "params": []
+        },
+        {
+          "name": "logCheckpoint",
+          "startLine": 33,
+          "endLine": 38,
+          "params": [
+            "entry"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 40,
+          "endLine": 74,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "readStdin",
+          "callee": "process.stdin.setEncoding",
+          "lineNumber": 26
+        },
+        {
+          "caller": "readStdin",
+          "callee": "process.stdin.on",
+          "lineNumber": 27
+        },
+        {
+          "caller": "readStdin",
+          "callee": "process.stdin.on",
+          "lineNumber": 28
+        },
+        {
+          "caller": "readStdin",
+          "callee": "resolve",
+          "lineNumber": 28
+        },
+        {
+          "caller": "readStdin",
+          "callee": "setTimeout",
+          "lineNumber": 29
+        },
+        {
+          "caller": "readStdin",
+          "callee": "resolve",
+          "lineNumber": 29
+        },
+        {
+          "caller": "logCheckpoint",
+          "callee": "mkdirSync",
+          "lineNumber": 35
+        },
+        {
+          "caller": "logCheckpoint",
+          "callee": "join",
+          "lineNumber": 35
+        },
+        {
+          "caller": "logCheckpoint",
+          "callee": "appendFileSync",
+          "lineNumber": 36
+        },
+        {
+          "caller": "logCheckpoint",
+          "callee": "JSON.stringify",
+          "lineNumber": 36
+        },
+        {
+          "caller": "logCheckpoint",
+          "callee": "new Date().toISOString",
+          "lineNumber": 36
+        },
+        {
+          "caller": "main",
+          "callee": "readStdin",
+          "lineNumber": 43
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.parse",
+          "lineNumber": 44
+        },
+        {
+          "caller": "main",
+          "callee": "prompt.trim",
+          "lineNumber": 47
+        },
+        {
+          "caller": "main",
+          "callee": "Promise.race",
+          "lineNumber": 48
+        },
+        {
+          "caller": "main",
+          "callee": "readPath",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "setTimeout",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "r",
+          "lineNumber": 50
+        },
+        {
+          "caller": "main",
+          "callee": "logCheckpoint",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "prompt.slice",
+          "lineNumber": 54
+        },
+        {
+          "caller": "main",
+          "callee": "new Date().toISOString",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "Promise.race([emitTurnEvent(event), new Promise((r) => setTimeout(r, 2000))]).catch",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "Promise.race",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "emitTurnEvent",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "setTimeout",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "writeStdout",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "process.exit",
+          "lineNumber": 73
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/hooks/silence.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 28,
+      "nonEmptyLines": 26,
+      "functions": [
+        {
+          "name": "writeStdout",
+          "startLine": 13,
+          "endLine": 15,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "toStderr",
+          "startLine": 18,
+          "endLine": 20,
+          "params": [
+            "...args"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "writeStdout",
+          "line": 13,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "writeStdout",
+          "callee": "realStdoutWrite",
+          "lineNumber": 14
+        },
+        {
+          "caller": "toStderr",
+          "callee": "process.stderr.write",
+          "lineNumber": 19
+        },
+        {
+          "caller": "toStderr",
+          "callee": "args.map((a) => (typeof a === \"string\" ? a : JSON.stringify(a))).join",
+          "lineNumber": 19
+        },
+        {
+          "caller": "toStderr",
+          "callee": "args.map",
+          "lineNumber": 19
+        },
+        {
+          "caller": "toStderr",
+          "callee": "JSON.stringify",
+          "lineNumber": 19
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    }
+  ]
+}

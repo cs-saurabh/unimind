@@ -1,0 +1,1447 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 8,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "src/db/retrieve.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 173,
+      "nonEmptyLines": 159,
+      "functions": [
+        {
+          "name": "current",
+          "startLine": 44,
+          "endLine": 49,
+          "params": []
+        },
+        {
+          "name": "liveCurrent",
+          "startLine": 52,
+          "endLine": 57,
+          "params": [
+            "rows"
+          ]
+        },
+        {
+          "name": "notExpired",
+          "startLine": 60,
+          "endLine": 63,
+          "params": [
+            "rows"
+          ]
+        },
+        {
+          "name": "recall",
+          "startLine": 66,
+          "endLine": 96,
+          "params": [
+            "opts"
+          ]
+        },
+        {
+          "name": "similarMemories",
+          "startLine": 99,
+          "endLine": 108,
+          "params": [
+            "embedding",
+            "primaryType",
+            "k"
+          ]
+        },
+        {
+          "name": "relationalFacts",
+          "startLine": 117,
+          "endLine": 140,
+          "params": [
+            "entityKeys"
+          ]
+        },
+        {
+          "name": "validateEntities",
+          "startLine": 147,
+          "endLine": 173,
+          "params": [
+            "names"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "recall",
+          "line": 66,
+          "isDefault": false
+        },
+        {
+          "name": "similarMemories",
+          "line": 99,
+          "isDefault": false
+        },
+        {
+          "name": "relationalFacts",
+          "line": 117,
+          "isDefault": false
+        },
+        {
+          "name": "validateEntities",
+          "line": 147,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "current",
+          "callee": "Predicate.and",
+          "lineNumber": 44
+        },
+        {
+          "caller": "current",
+          "callee": "Predicate.eq",
+          "lineNumber": 45
+        },
+        {
+          "caller": "current",
+          "callee": "Predicate.isNull",
+          "lineNumber": 46
+        },
+        {
+          "caller": "current",
+          "callee": "Predicate.isNull",
+          "lineNumber": 47
+        },
+        {
+          "caller": "current",
+          "callee": "Predicate.eq",
+          "lineNumber": 48
+        },
+        {
+          "caller": "liveCurrent",
+          "callee": "Date.now",
+          "lineNumber": 53
+        },
+        {
+          "caller": "liveCurrent",
+          "callee": "rows.filter",
+          "lineNumber": 54
+        },
+        {
+          "caller": "liveCurrent",
+          "callee": "Date.parse",
+          "lineNumber": 56
+        },
+        {
+          "caller": "notExpired",
+          "callee": "Date.now",
+          "lineNumber": 61
+        },
+        {
+          "caller": "notExpired",
+          "callee": "rows.filter",
+          "lineNumber": 62
+        },
+        {
+          "caller": "notExpired",
+          "callee": "Date.parse",
+          "lineNumber": 62
+        },
+        {
+          "caller": "recall",
+          "callee": "readBatch()\n    .varAs(\"vector\", g().vectorSearchNodesWith(L.Memory, \"embedding\",\n      PropertyInput.value(opts.queryEmbedding), Expr.val(fetchK), PropertyInput.value(TENANT_ID))\n      .project(MEM_PROJ_DIST))\n    .varAs(\"bm25\", g().textSearchNodesWith(L.Memory, \"content\",\n      PropertyInput.value(opts.queryText), Expr.val(fetchK), PropertyInput.value(TENANT_ID))\n      .project(MEM_PROJ_DIST))\n    .varAs(\"goals\", g().nWithLabel(L.Memory)\n      .where(Predicate.and([Predicate.eq(\"tenant_id\", TENANT_ID), Predicate.eq(\"primaryType\", \"GOAL\"),\n        Predicate.eq(\"status\", \"active\"), current()])).project(MEM_PROJ))\n    .varAs(\"contextual\", g().nWithLabel(L.Memory)\n      .where(Predicate.and([Predicate.eq(\"tenant_id\", TENANT_ID), Predicate.eq(\"primaryType\", \"CONTEXTUAL\"), current()]))\n      .project(MEM_PROJ))\n    .returning",
+          "lineNumber": 73
+        },
+        {
+          "caller": "recall",
+          "callee": "readBatch()\n    .varAs(\"vector\", g().vectorSearchNodesWith(L.Memory, \"embedding\",\n      PropertyInput.value(opts.queryEmbedding), Expr.val(fetchK), PropertyInput.value(TENANT_ID))\n      .project(MEM_PROJ_DIST))\n    .varAs(\"bm25\", g().textSearchNodesWith(L.Memory, \"content\",\n      PropertyInput.value(opts.queryText), Expr.val(fetchK), PropertyInput.value(TENANT_ID))\n      .project(MEM_PROJ_DIST))\n    .varAs(\"goals\", g().nWithLabel(L.Memory)\n      .where(Predicate.and([Predicate.eq(\"tenant_id\", TENANT_ID), Predicate.eq(\"primaryType\", \"GOAL\"),\n        Predicate.eq(\"status\", \"active\"), current()])).project(MEM_PROJ))\n    .varAs",
+          "lineNumber": 73
+        },
+        {
+          "caller": "recall",
+          "callee": "readBatch()\n    .varAs(\"vector\", g().vectorSearchNodesWith(L.Memory, \"embedding\",\n      PropertyInput.value(opts.queryEmbedding), Expr.val(fetchK), PropertyInput.value(TENANT_ID))\n      .project(MEM_PROJ_DIST))\n    .varAs(\"bm25\", g().textSearchNodesWith(L.Memory, \"content\",\n      PropertyInput.value(opts.queryText), Expr.val(fetchK), PropertyInput.value(TENANT_ID))\n      .project(MEM_PROJ_DIST))\n    .varAs",
+          "lineNumber": 73
+        },
+        {
+          "caller": "recall",
+          "callee": "readBatch()\n    .varAs(\"vector\", g().vectorSearchNodesWith(L.Memory, \"embedding\",\n      PropertyInput.value(opts.queryEmbedding), Expr.val(fetchK), PropertyInput.value(TENANT_ID))\n      .project(MEM_PROJ_DIST))\n    .varAs",
+          "lineNumber": 73
+        },
+        {
+          "caller": "recall",
+          "callee": "readBatch()\n    .varAs",
+          "lineNumber": 73
+        },
+        {
+          "caller": "recall",
+          "callee": "readBatch",
+          "lineNumber": 73
+        },
+        {
+          "caller": "recall",
+          "callee": "g().vectorSearchNodesWith(L.Memory, \"embedding\",\n      PropertyInput.value(opts.queryEmbedding), Expr.val(fetchK), PropertyInput.value(TENANT_ID))\n      .project",
+          "lineNumber": 74
+        },
+        {
+          "caller": "recall",
+          "callee": "g().vectorSearchNodesWith",
+          "lineNumber": 74
+        },
+        {
+          "caller": "recall",
+          "callee": "g",
+          "lineNumber": 74
+        },
+        {
+          "caller": "recall",
+          "callee": "PropertyInput.value",
+          "lineNumber": 75
+        },
+        {
+          "caller": "recall",
+          "callee": "Expr.val",
+          "lineNumber": 75
+        },
+        {
+          "caller": "recall",
+          "callee": "PropertyInput.value",
+          "lineNumber": 75
+        },
+        {
+          "caller": "recall",
+          "callee": "g().textSearchNodesWith(L.Memory, \"content\",\n      PropertyInput.value(opts.queryText), Expr.val(fetchK), PropertyInput.value(TENANT_ID))\n      .project",
+          "lineNumber": 77
+        },
+        {
+          "caller": "recall",
+          "callee": "g().textSearchNodesWith",
+          "lineNumber": 77
+        },
+        {
+          "caller": "recall",
+          "callee": "g",
+          "lineNumber": 77
+        },
+        {
+          "caller": "recall",
+          "callee": "PropertyInput.value",
+          "lineNumber": 78
+        },
+        {
+          "caller": "recall",
+          "callee": "Expr.val",
+          "lineNumber": 78
+        },
+        {
+          "caller": "recall",
+          "callee": "PropertyInput.value",
+          "lineNumber": 78
+        },
+        {
+          "caller": "recall",
+          "callee": "g().nWithLabel(L.Memory)\n      .where(Predicate.and([Predicate.eq(\"tenant_id\", TENANT_ID), Predicate.eq(\"primaryType\", \"GOAL\"),\n        Predicate.eq(\"status\", \"active\"), current()])).project",
+          "lineNumber": 80
+        },
+        {
+          "caller": "recall",
+          "callee": "g().nWithLabel(L.Memory)\n      .where",
+          "lineNumber": 80
+        },
+        {
+          "caller": "recall",
+          "callee": "g().nWithLabel",
+          "lineNumber": 80
+        },
+        {
+          "caller": "recall",
+          "callee": "g",
+          "lineNumber": 80
+        },
+        {
+          "caller": "recall",
+          "callee": "Predicate.and",
+          "lineNumber": 81
+        },
+        {
+          "caller": "recall",
+          "callee": "Predicate.eq",
+          "lineNumber": 81
+        },
+        {
+          "caller": "recall",
+          "callee": "Predicate.eq",
+          "lineNumber": 81
+        },
+        {
+          "caller": "recall",
+          "callee": "Predicate.eq",
+          "lineNumber": 82
+        },
+        {
+          "caller": "recall",
+          "callee": "current",
+          "lineNumber": 82
+        },
+        {
+          "caller": "recall",
+          "callee": "g().nWithLabel(L.Memory)\n      .where(Predicate.and([Predicate.eq(\"tenant_id\", TENANT_ID), Predicate.eq(\"primaryType\", \"CONTEXTUAL\"), current()]))\n      .project",
+          "lineNumber": 83
+        },
+        {
+          "caller": "recall",
+          "callee": "g().nWithLabel(L.Memory)\n      .where",
+          "lineNumber": 83
+        },
+        {
+          "caller": "recall",
+          "callee": "g().nWithLabel",
+          "lineNumber": 83
+        },
+        {
+          "caller": "recall",
+          "callee": "g",
+          "lineNumber": 83
+        },
+        {
+          "caller": "recall",
+          "callee": "Predicate.and",
+          "lineNumber": 84
+        },
+        {
+          "caller": "recall",
+          "callee": "Predicate.eq",
+          "lineNumber": 84
+        },
+        {
+          "caller": "recall",
+          "callee": "Predicate.eq",
+          "lineNumber": 84
+        },
+        {
+          "caller": "recall",
+          "callee": "current",
+          "lineNumber": 84
+        },
+        {
+          "caller": "recall",
+          "callee": "helix.query().dynamic(req.toDynamicRequest({ queryName: \"recall\" })).send",
+          "lineNumber": 88
+        },
+        {
+          "caller": "recall",
+          "callee": "helix.query().dynamic",
+          "lineNumber": 88
+        },
+        {
+          "caller": "recall",
+          "callee": "helix.query",
+          "lineNumber": 88
+        },
+        {
+          "caller": "recall",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 88
+        },
+        {
+          "caller": "recall",
+          "callee": "liveCurrent(rows(\"vector\")).slice",
+          "lineNumber": 91
+        },
+        {
+          "caller": "recall",
+          "callee": "liveCurrent",
+          "lineNumber": 91
+        },
+        {
+          "caller": "recall",
+          "callee": "rows",
+          "lineNumber": 91
+        },
+        {
+          "caller": "recall",
+          "callee": "liveCurrent(rows(\"bm25\")).slice",
+          "lineNumber": 92
+        },
+        {
+          "caller": "recall",
+          "callee": "liveCurrent",
+          "lineNumber": 92
+        },
+        {
+          "caller": "recall",
+          "callee": "rows",
+          "lineNumber": 92
+        },
+        {
+          "caller": "recall",
+          "callee": "notExpired",
+          "lineNumber": 93
+        },
+        {
+          "caller": "recall",
+          "callee": "rows",
+          "lineNumber": 93
+        },
+        {
+          "caller": "recall",
+          "callee": "notExpired",
+          "lineNumber": 94
+        },
+        {
+          "caller": "recall",
+          "callee": "rows",
+          "lineNumber": 94
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "readBatch().varAs(\"hits\", g()\n    .vectorSearchNodesWith(L.Memory, \"embedding\", PropertyInput.value(embedding), Expr.val(k * 4), PropertyInput.value(TENANT_ID))\n    .project(MEM_PROJ_DIST)).returning",
+          "lineNumber": 103
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "readBatch().varAs",
+          "lineNumber": 103
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "readBatch",
+          "lineNumber": 103
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "g()\n    .vectorSearchNodesWith(L.Memory, \"embedding\", PropertyInput.value(embedding), Expr.val(k * 4), PropertyInput.value(TENANT_ID))\n    .project",
+          "lineNumber": 103
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "g()\n    .vectorSearchNodesWith",
+          "lineNumber": 103
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "g",
+          "lineNumber": 103
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "PropertyInput.value",
+          "lineNumber": 104
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "Expr.val",
+          "lineNumber": 104
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "PropertyInput.value",
+          "lineNumber": 104
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "helix.query().dynamic(req.toDynamicRequest({ queryName: \"similar_memories\" })).send",
+          "lineNumber": 106
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "helix.query().dynamic",
+          "lineNumber": 106
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "helix.query",
+          "lineNumber": 106
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "req.toDynamicRequest",
+          "lineNumber": 106
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "liveCurrent(res.hits?.properties ?? []).filter((r) => r.primaryType === primaryType).slice",
+          "lineNumber": 107
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "liveCurrent(res.hits?.properties ?? []).filter",
+          "lineNumber": 107
+        },
+        {
+          "caller": "similarMemories",
+          "callee": "liveCurrent",
+          "lineNumber": 107
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "readBatch",
+          "lineNumber": 119
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "entityKeys.forEach",
+          "lineNumber": 120
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "b\n      .varAs(`out${i}`, g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", key)).outE(E.REL).edgeProperties())\n      .varAs",
+          "lineNumber": 121
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "b\n      .varAs",
+          "lineNumber": 121
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", key)).outE(E.REL).edgeProperties",
+          "lineNumber": 122
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", key)).outE",
+          "lineNumber": 122
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 122
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "g().nWithLabel",
+          "lineNumber": 122
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "g",
+          "lineNumber": 122
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "Predicate.eq",
+          "lineNumber": 122
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", key)).inE(E.REL).edgeProperties",
+          "lineNumber": 123
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", key)).inE",
+          "lineNumber": 123
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 123
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "g().nWithLabel",
+          "lineNumber": 123
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "g",
+          "lineNumber": 123
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "Predicate.eq",
+          "lineNumber": 123
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "entityKeys.flatMap",
+          "lineNumber": 125
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "helix.query().dynamic(b.returning(names).toDynamicRequest({ queryName: \"rel_facts\" })).send",
+          "lineNumber": 126
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "helix.query().dynamic",
+          "lineNumber": 126
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "helix.query",
+          "lineNumber": 126
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "b.returning(names).toDynamicRequest",
+          "lineNumber": 126
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "b.returning",
+          "lineNumber": 126
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "seen.has",
+          "lineNumber": 133
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "seen.add",
+          "lineNumber": 134
+        },
+        {
+          "caller": "relationalFacts",
+          "callee": "facts.push",
+          "lineNumber": 135
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "names.map((n) => n.trim()).filter",
+          "lineNumber": 149
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "names.map",
+          "lineNumber": 149
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "n.trim",
+          "lineNumber": 149
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 150
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 150
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "PropertyProjection.renamed",
+          "lineNumber": 150
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "readBatch",
+          "lineNumber": 152
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "uniq.forEach",
+          "lineNumber": 153
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "b\n      .varAs(`x${i}`, g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", normalizeKey(TENANT_ID, name)))\n        .project([PropertyProjection.new(\"entityKey\"), PropertyProjection.new(\"name\")]))\n      .varAs",
+          "lineNumber": 154
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "b\n      .varAs",
+          "lineNumber": 154
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "g().nWithLabel(L.Entity).where(Predicate.eq(\"entityKey\", normalizeKey(TENANT_ID, name)))\n        .project",
+          "lineNumber": 155
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "g().nWithLabel(L.Entity).where",
+          "lineNumber": 155
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "g().nWithLabel",
+          "lineNumber": 155
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "g",
+          "lineNumber": 155
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "Predicate.eq",
+          "lineNumber": 155
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "normalizeKey",
+          "lineNumber": 155
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 156
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "PropertyProjection.new",
+          "lineNumber": 156
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "g().textSearchNodesWith(L.Entity, \"aliasText\",\n        PropertyInput.value(name), Expr.val(2), PropertyInput.value(TENANT_ID)).project",
+          "lineNumber": 157
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "g().textSearchNodesWith",
+          "lineNumber": 157
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "g",
+          "lineNumber": 157
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "PropertyInput.value",
+          "lineNumber": 158
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "Expr.val",
+          "lineNumber": 158
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "PropertyInput.value",
+          "lineNumber": 158
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "uniq.flatMap",
+          "lineNumber": 160
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "helix.query().dynamic(b.returning(vars).toDynamicRequest({ queryName: \"validate_entities\" })).send",
+          "lineNumber": 161
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "helix.query().dynamic",
+          "lineNumber": 161
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "helix.query",
+          "lineNumber": 161
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "b.returning(vars).toDynamicRequest",
+          "lineNumber": 161
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "b.returning",
+          "lineNumber": 161
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "uniq.forEach",
+          "lineNumber": 164
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "byKey.set",
+          "lineNumber": 166
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "byKey.set",
+          "lineNumber": 169
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "[...byKey.entries()].map",
+          "lineNumber": 172
+        },
+        {
+          "caller": "validateEntities",
+          "callee": "byKey.entries",
+          "lineNumber": 172
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 4,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/llm/embed.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 31,
+      "nonEmptyLines": 27,
+      "functions": [
+        {
+          "name": "loadEnv",
+          "startLine": 6,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "embed",
+          "startLine": 21,
+          "endLine": 29,
+          "params": [
+            "texts"
+          ]
+        },
+        {
+          "name": "embedOne",
+          "startLine": 31,
+          "endLine": 31,
+          "params": [
+            "t"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "embed",
+          "line": 21,
+          "isDefault": false
+        },
+        {
+          "name": "embedOne",
+          "line": 31,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "loadEnv",
+          "callee": "join",
+          "lineNumber": 9
+        },
+        {
+          "caller": "loadEnv",
+          "callee": "readFileSync(join(root, \".env\"), \"utf8\").split",
+          "lineNumber": 10
+        },
+        {
+          "caller": "loadEnv",
+          "callee": "readFileSync",
+          "lineNumber": 10
+        },
+        {
+          "caller": "loadEnv",
+          "callee": "join",
+          "lineNumber": 10
+        },
+        {
+          "caller": "loadEnv",
+          "callee": "line.match",
+          "lineNumber": 11
+        },
+        {
+          "caller": "embed",
+          "callee": "client.embeddings.create",
+          "lineNumber": 23
+        },
+        {
+          "caller": "embed",
+          "callee": "res.data.map",
+          "lineNumber": 24
+        },
+        {
+          "caller": "embedOne",
+          "callee": "embed",
+          "lineNumber": 31
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 2,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/mcp/server.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 70,
+      "nonEmptyLines": 66,
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/read/header.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 41,
+      "nonEmptyLines": 37,
+      "functions": [
+        {
+          "name": "buildHeader",
+          "startLine": 17,
+          "endLine": 41,
+          "params": [
+            "parts"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "buildHeader",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "buildHeader",
+          "callee": "lines.push",
+          "lineNumber": 22
+        },
+        {
+          "caller": "buildHeader",
+          "callee": "parts.goals.slice",
+          "lineNumber": 23
+        },
+        {
+          "caller": "buildHeader",
+          "callee": "lines.push",
+          "lineNumber": 23
+        },
+        {
+          "caller": "buildHeader",
+          "callee": "usedIds.push",
+          "lineNumber": 23
+        },
+        {
+          "caller": "buildHeader",
+          "callee": "lines.push",
+          "lineNumber": 26
+        },
+        {
+          "caller": "buildHeader",
+          "callee": "parts.contextual.slice",
+          "lineNumber": 27
+        },
+        {
+          "caller": "buildHeader",
+          "callee": "lines.push",
+          "lineNumber": 27
+        },
+        {
+          "caller": "buildHeader",
+          "callee": "usedIds.push",
+          "lineNumber": 27
+        },
+        {
+          "caller": "buildHeader",
+          "callee": "lines.push",
+          "lineNumber": 30
+        },
+        {
+          "caller": "buildHeader",
+          "callee": "parts.relFacts.slice",
+          "lineNumber": 31
+        },
+        {
+          "caller": "buildHeader",
+          "callee": "lines.push",
+          "lineNumber": 31
+        },
+        {
+          "caller": "buildHeader",
+          "callee": "lines.push",
+          "lineNumber": 34
+        },
+        {
+          "caller": "buildHeader",
+          "callee": "lines.push",
+          "lineNumber": 35
+        },
+        {
+          "caller": "buildHeader",
+          "callee": "usedIds.push",
+          "lineNumber": 35
+        },
+        {
+          "caller": "buildHeader",
+          "callee": "lines.join",
+          "lineNumber": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/read/planner.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 55,
+      "nonEmptyLines": 48,
+      "functions": [
+        {
+          "name": "planQuery",
+          "startLine": 37,
+          "endLine": 55,
+          "params": [
+            "prompt",
+            "recentContext",
+            "model"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "planQuery",
+          "line": 37,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "planQuery",
+          "callee": "recentContext.slice(-6).map((t) => `- ${t.replace(/\\s+/g, \" \").slice(0, 200)}`).join",
+          "lineNumber": 38
+        },
+        {
+          "caller": "planQuery",
+          "callee": "recentContext.slice(-6).map",
+          "lineNumber": 38
+        },
+        {
+          "caller": "planQuery",
+          "callee": "recentContext.slice",
+          "lineNumber": 38
+        },
+        {
+          "caller": "planQuery",
+          "callee": "t.replace(/\\s+/g, \" \").slice",
+          "lineNumber": 38
+        },
+        {
+          "caller": "planQuery",
+          "callee": "t.replace",
+          "lineNumber": 38
+        },
+        {
+          "caller": "planQuery",
+          "callee": "await jsonComplete",
+          "lineNumber": 39
+        },
+        {
+          "caller": "planQuery",
+          "callee": "prompt.slice",
+          "lineNumber": 41
+        },
+        {
+          "caller": "arr",
+          "callee": "Array.isArray",
+          "lineNumber": 46
+        },
+        {
+          "caller": "arr",
+          "callee": "v.map((x) => String(x).trim()).filter",
+          "lineNumber": 46
+        },
+        {
+          "caller": "arr",
+          "callee": "v.map",
+          "lineNumber": 46
+        },
+        {
+          "caller": "arr",
+          "callee": "String(x).trim",
+          "lineNumber": 46
+        },
+        {
+          "caller": "arr",
+          "callee": "String",
+          "lineNumber": 46
+        },
+        {
+          "caller": "planQuery",
+          "callee": "arr(raw.typesRelevant).filter",
+          "lineNumber": 47
+        },
+        {
+          "caller": "planQuery",
+          "callee": "arr",
+          "lineNumber": 47
+        },
+        {
+          "caller": "planQuery",
+          "callee": "(ALL_TYPES as string[]).includes",
+          "lineNumber": 47
+        },
+        {
+          "caller": "planQuery",
+          "callee": "[...new Set(arr(raw.entities))].slice",
+          "lineNumber": 49
+        },
+        {
+          "caller": "planQuery",
+          "callee": "arr",
+          "lineNumber": 49
+        },
+        {
+          "caller": "planQuery",
+          "callee": "arr(raw.topics).slice",
+          "lineNumber": 50
+        },
+        {
+          "caller": "planQuery",
+          "callee": "arr",
+          "lineNumber": 50
+        },
+        {
+          "caller": "planQuery",
+          "callee": "[\"recent\", \"all\", \"none\"].includes",
+          "lineNumber": 52
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/read/rank.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 52,
+      "nonEmptyLines": 46,
+      "functions": [
+        {
+          "name": "recencyDecay",
+          "startLine": 18,
+          "endLine": 21,
+          "params": [
+            "iso"
+          ]
+        },
+        {
+          "name": "scoreRow",
+          "startLine": 23,
+          "endLine": 29,
+          "params": [
+            "r"
+          ]
+        },
+        {
+          "name": "rankMemories",
+          "startLine": 32,
+          "endLine": 52,
+          "params": [
+            "lists",
+            "tokenBudget"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "scoreRow",
+          "line": 23,
+          "isDefault": false
+        },
+        {
+          "name": "rankMemories",
+          "line": 32,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "recencyDecay",
+          "callee": "Math.max",
+          "lineNumber": 19
+        },
+        {
+          "caller": "recencyDecay",
+          "callee": "Date.now",
+          "lineNumber": 19
+        },
+        {
+          "caller": "recencyDecay",
+          "callee": "Date.parse",
+          "lineNumber": 19
+        },
+        {
+          "caller": "recencyDecay",
+          "callee": "Math.pow",
+          "lineNumber": 20
+        },
+        {
+          "caller": "scoreRow",
+          "callee": "distanceToSim",
+          "lineNumber": 24
+        },
+        {
+          "caller": "scoreRow",
+          "callee": "recencyDecay",
+          "lineNumber": 25
+        },
+        {
+          "caller": "scoreRow",
+          "callee": "Number.isFinite",
+          "lineNumber": 26
+        },
+        {
+          "caller": "rankMemories",
+          "callee": "byId.get",
+          "lineNumber": 36
+        },
+        {
+          "caller": "rankMemories",
+          "callee": "byId.set",
+          "lineNumber": 37
+        },
+        {
+          "caller": "rankMemories",
+          "callee": "[...byId.values()]\n    .map((r) => ({ ...r, score: scoreRow(r) }))\n    .sort",
+          "lineNumber": 39
+        },
+        {
+          "caller": "rankMemories",
+          "callee": "[...byId.values()]\n    .map",
+          "lineNumber": 39
+        },
+        {
+          "caller": "rankMemories",
+          "callee": "byId.values",
+          "lineNumber": 39
+        },
+        {
+          "caller": "rankMemories",
+          "callee": "scoreRow",
+          "lineNumber": 40
+        },
+        {
+          "caller": "rankMemories",
+          "callee": "Math.ceil",
+          "lineNumber": 46
+        },
+        {
+          "caller": "rankMemories",
+          "callee": "out.push",
+          "lineNumber": 48
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 2,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/read/readPath.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 58,
+      "nonEmptyLines": 51,
+      "functions": [
+        {
+          "name": "readPath",
+          "startLine": 21,
+          "endLine": 58,
+          "params": [
+            "prompt",
+            "recentContext"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "readPath",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "readPath",
+          "callee": "planQuery",
+          "lineNumber": 22
+        },
+        {
+          "caller": "readPath",
+          "callee": "[prompt, ...plan.topics].join(\" \\n \").slice",
+          "lineNumber": 25
+        },
+        {
+          "caller": "readPath",
+          "callee": "[prompt, ...plan.topics].join",
+          "lineNumber": 25
+        },
+        {
+          "caller": "readPath",
+          "callee": "Promise.all",
+          "lineNumber": 26
+        },
+        {
+          "caller": "readPath",
+          "callee": "embedOne",
+          "lineNumber": 27
+        },
+        {
+          "caller": "readPath",
+          "callee": "validateEntities",
+          "lineNumber": 28
+        },
+        {
+          "caller": "readPath",
+          "callee": "Promise.all",
+          "lineNumber": 32
+        },
+        {
+          "caller": "readPath",
+          "callee": "recall",
+          "lineNumber": 33
+        },
+        {
+          "caller": "readPath",
+          "callee": "relationalFacts",
+          "lineNumber": 34
+        },
+        {
+          "caller": "readPath",
+          "callee": "validated.map",
+          "lineNumber": 34
+        },
+        {
+          "caller": "readPath",
+          "callee": "rankMemories",
+          "lineNumber": 38
+        },
+        {
+          "caller": "readPath",
+          "callee": "buildHeader",
+          "lineNumber": 39
+        },
+        {
+          "caller": "readPath",
+          "callee": "bumpMemories(usedIds).catch",
+          "lineNumber": 44
+        },
+        {
+          "caller": "readPath",
+          "callee": "bumpMemories",
+          "lineNumber": 44
+        },
+        {
+          "caller": "readPath",
+          "callee": "validated.map",
+          "lineNumber": 51
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/read/recall.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 27,
+      "nonEmptyLines": 23,
+      "functions": [
+        {
+          "name": "recall",
+          "startLine": 17,
+          "endLine": 27,
+          "params": [
+            "query",
+            "limit"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "recall",
+          "line": 17,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "recall",
+          "callee": "embedOne",
+          "lineNumber": 18
+        },
+        {
+          "caller": "recall",
+          "callee": "recallDb",
+          "lineNumber": 19
+        },
+        {
+          "caller": "recall",
+          "callee": "Math.max",
+          "lineNumber": 19
+        },
+        {
+          "caller": "recall",
+          "callee": "rankMemories([rec.vector, rec.bm25, rec.goals, rec.contextual], limit * 120).slice",
+          "lineNumber": 23
+        },
+        {
+          "caller": "recall",
+          "callee": "rankMemories",
+          "lineNumber": 23
+        },
+        {
+          "caller": "recall",
+          "callee": "bumpMemories(ranked.map((m) => m.memoryId)).catch",
+          "lineNumber": 25
+        },
+        {
+          "caller": "recall",
+          "callee": "bumpMemories",
+          "lineNumber": 25
+        },
+        {
+          "caller": "recall",
+          "callee": "ranked.map",
+          "lineNumber": 25
+        },
+        {
+          "caller": "recall",
+          "callee": "ranked.map",
+          "lineNumber": 26
+        },
+        {
+          "caller": "recall",
+          "callee": "m.score.toFixed",
+          "lineNumber": 26
+        }
+      ],
+      "metrics": {
+        "importCount": 4,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

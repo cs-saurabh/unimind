@@ -1,0 +1,477 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 8,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": ".dockerignore",
+      "language": "unknown",
+      "fileCategory": "infra",
+      "totalLines": 9,
+      "nonEmptyLines": 9,
+      "metrics": {}
+    },
+    {
+      "path": "AGENTS.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 42,
+      "nonEmptyLines": 31,
+      "sections": [
+        {
+          "heading": "Working with this HelixDB project",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "Workflow",
+          "level": 2,
+          "line": 7
+        },
+        {
+          "heading": "If `helix` is not installed",
+          "level": 2,
+          "line": 21
+        },
+        {
+          "heading": "If the container runtime is unavailable",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "Query syntax",
+          "level": 2,
+          "line": 39
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 5
+      }
+    },
+    {
+      "path": "ARCHITECTURE.mdx",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 687,
+      "nonEmptyLines": 566,
+      "sections": [
+        {
+          "heading": "Unimind Architecture",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "1. The 10,000-foot view",
+          "level": 2,
+          "line": 16
+        },
+        {
+          "heading": "The spine",
+          "level": 3,
+          "line": 67
+        },
+        {
+          "heading": "2. Repository map",
+          "level": 2,
+          "line": 84
+        },
+        {
+          "heading": "3. The data model (HelixDB)",
+          "level": 2,
+          "line": 144
+        },
+        {
+          "heading": "The six memory types",
+          "level": 3,
+          "line": 185
+        },
+        {
+          "heading": "The \"current scoped\" filter",
+          "level": 3,
+          "line": 200
+        },
+        {
+          "heading": "Indexes",
+          "level": 3,
+          "line": 210
+        },
+        {
+          "heading": "4. The write path (asynchronous)",
+          "level": 2,
+          "line": 219
+        },
+        {
+          "heading": "4.1 Capture → emit",
+          "level": 3,
+          "line": 263
+        },
+        {
+          "heading": "4.2 Ingest: salience gate → buffer → flush decision",
+          "level": 3,
+          "line": 276
+        },
+        {
+          "heading": "4.3 Flush: the heavy lifting",
+          "level": 3,
+          "line": 295
+        },
+        {
+          "heading": "5. The read path (synchronous)",
+          "level": 2,
+          "line": 324
+        },
+        {
+          "heading": "5.1 The hook",
+          "level": 3,
+          "line": 359
+        },
+        {
+          "heading": "5.2 The orchestrator",
+          "level": 3,
+          "line": 374
+        },
+        {
+          "heading": "5.3 Planner (the one LLM call)",
+          "level": 3,
+          "line": 391
+        },
+        {
+          "heading": "5.4 Parallel recall",
+          "level": 3,
+          "line": 405
+        },
+        {
+          "heading": "5.5 Deterministic ranking",
+          "level": 3,
+          "line": 422
+        },
+        {
+          "heading": "5.6 Header",
+          "level": 3,
+          "line": 441
+        },
+        {
+          "heading": "6. The reusable matching engine",
+          "level": 2,
+          "line": 450
+        },
+        {
+          "heading": "6.1 Entity resolution (write side)",
+          "level": 3,
+          "line": 477
+        },
+        {
+          "heading": "6.2 Conflict resolution (write side)",
+          "level": 3,
+          "line": 490
+        },
+        {
+          "heading": "7. Reinforce-on-retrieval",
+          "level": 2,
+          "line": 517
+        },
+        {
+          "heading": "8. The drift-gate experiment (historical)",
+          "level": 2,
+          "line": 527
+        },
+        {
+          "heading": "9. Orchestration & maintenance (iii)",
+          "level": 2,
+          "line": 549
+        },
+        {
+          "heading": "10. The MCP server (explicit pull + push)",
+          "level": 2,
+          "line": 583
+        },
+        {
+          "heading": "11. Deployment topology",
+          "level": 2,
+          "line": 603
+        },
+        {
+          "heading": "12. The helix-dashboard (visualization UI)",
+          "level": 2,
+          "line": 640
+        },
+        {
+          "heading": "13. End-to-end recap",
+          "level": 2,
+          "line": 672
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 29
+      }
+    },
+    {
+      "path": "docker-compose.yml",
+      "language": "yaml",
+      "fileCategory": "infra",
+      "totalLines": 121,
+      "nonEmptyLines": 114,
+      "sections": [
+        {
+          "heading": "services",
+          "level": 1,
+          "line": 10
+        },
+        {
+          "heading": "volumes",
+          "level": 1,
+          "line": 119
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 2
+      }
+    },
+    {
+      "path": "helix.toml",
+      "language": "toml",
+      "fileCategory": "config",
+      "totalLines": 12,
+      "nonEmptyLines": 10,
+      "sections": [
+        {
+          "heading": "project",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "local.dev",
+          "level": 2,
+          "line": 6
+        },
+        {
+          "heading": "enterprise",
+          "level": 1,
+          "line": 12
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    },
+    {
+      "path": "memory-system-handoff.md",
+      "language": "markdown",
+      "fileCategory": "docs",
+      "totalLines": 409,
+      "nonEmptyLines": 331,
+      "sections": [
+        {
+          "heading": "Claude Memory System — Build Handoff",
+          "level": 1,
+          "line": 1
+        },
+        {
+          "heading": "0. How to use this document (for the build session)",
+          "level": 2,
+          "line": 12
+        },
+        {
+          "heading": "1. Project Goal",
+          "level": 2,
+          "line": 27
+        },
+        {
+          "heading": "2. Technology Stack & Roles",
+          "level": 2,
+          "line": 40
+        },
+        {
+          "heading": "3. Scope",
+          "level": 2,
+          "line": 53
+        },
+        {
+          "heading": "4. The Six Memory Types",
+          "level": 2,
+          "line": 66
+        },
+        {
+          "heading": "5. Frozen Decisions (do not redesign)",
+          "level": 2,
+          "line": 84
+        },
+        {
+          "heading": "6. Data Model (HelixDB)",
+          "level": 2,
+          "line": 171
+        },
+        {
+          "heading": "Entity node (canonical — one per real-world thing)",
+          "level": 3,
+          "line": 175
+        },
+        {
+          "heading": "Memory node (episodic, semantic, procedural, contextual, goal-driven)",
+          "level": 3,
+          "line": 187
+        },
+        {
+          "heading": "Relational memory (edge, not node)",
+          "level": 3,
+          "line": 206
+        },
+        {
+          "heading": "7. Write & Read Paths",
+          "level": 2,
+          "line": 216
+        },
+        {
+          "heading": "Verified hook mapping (Claude Code)",
+          "level": 3,
+          "line": 218
+        },
+        {
+          "heading": "Write path (asynchronous)",
+          "level": 3,
+          "line": 236
+        },
+        {
+          "heading": "Read path (synchronous — must stay fast)",
+          "level": 3,
+          "line": 254
+        },
+        {
+          "heading": "8. The Spine",
+          "level": 2,
+          "line": 282
+        },
+        {
+          "heading": "9. Risks & Validation",
+          "level": 2,
+          "line": 297
+        },
+        {
+          "heading": "10. Build Order",
+          "level": 2,
+          "line": 320
+        },
+        {
+          "heading": "11. Pending Decisions (make these during the build; record your choice)",
+          "level": 2,
+          "line": 342
+        },
+        {
+          "heading": "12. Deferred to v2 (do NOT build now)",
+          "level": 2,
+          "line": 369
+        },
+        {
+          "heading": "13. Pending Features (planned for v1, design as you reach §10 step 7)",
+          "level": 2,
+          "line": 381
+        },
+        {
+          "heading": "14. One-paragraph summary (the TL;DR for the build session)",
+          "level": 2,
+          "line": 393
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 22
+      }
+    },
+    {
+      "path": "package.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 28,
+      "nonEmptyLines": 28,
+      "sections": [
+        {
+          "heading": "name",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "private",
+          "level": 1,
+          "line": 3
+        },
+        {
+          "heading": "type",
+          "level": 1,
+          "line": 4
+        },
+        {
+          "heading": "scripts",
+          "level": 1,
+          "line": 5
+        },
+        {
+          "heading": "devDependencies",
+          "level": 1,
+          "line": 17
+        },
+        {
+          "heading": "dependencies",
+          "level": 1,
+          "line": 22
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 6
+      }
+    },
+    {
+      "path": "tsconfig.json",
+      "language": "json",
+      "fileCategory": "config",
+      "totalLines": 15,
+      "nonEmptyLines": 15,
+      "sections": [
+        {
+          "heading": "compilerOptions",
+          "level": 1,
+          "line": 2
+        },
+        {
+          "heading": "include",
+          "level": 1,
+          "line": 13
+        },
+        {
+          "heading": "exclude",
+          "level": 1,
+          "line": 14
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0,
+        "sectionCount": 3
+      }
+    }
+  ]
+}

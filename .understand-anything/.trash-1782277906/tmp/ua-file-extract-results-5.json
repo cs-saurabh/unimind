@@ -1,0 +1,909 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "experiments/drift-gate/src/classify.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 66,
+      "functions": [
+        {
+          "name": "classify",
+          "startLine": 23,
+          "endLine": 35,
+          "params": [
+            "segment",
+            "curr"
+          ]
+        },
+        {
+          "name": "score",
+          "startLine": 37,
+          "endLine": 46,
+          "params": [
+            "preds"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 48,
+          "endLine": 71,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "classify",
+          "callee": "segment.slice(-6).map((p) => `- ${p.replace(/\\s+/g, \" \").slice(0, 200)}`).join",
+          "lineNumber": 24
+        },
+        {
+          "caller": "classify",
+          "callee": "segment.slice(-6).map",
+          "lineNumber": 24
+        },
+        {
+          "caller": "classify",
+          "callee": "segment.slice",
+          "lineNumber": 24
+        },
+        {
+          "caller": "classify",
+          "callee": "p.replace(/\\s+/g, \" \").slice",
+          "lineNumber": 24
+        },
+        {
+          "caller": "classify",
+          "callee": "p.replace",
+          "lineNumber": 24
+        },
+        {
+          "caller": "classify",
+          "callee": "openai.chat.completions.create",
+          "lineNumber": 25
+        },
+        {
+          "caller": "classify",
+          "callee": "curr.slice",
+          "lineNumber": 31
+        },
+        {
+          "caller": "classify",
+          "callee": "/yes/i.test",
+          "lineNumber": 34
+        },
+        {
+          "caller": "score",
+          "callee": "precision.toFixed",
+          "lineNumber": 45
+        },
+        {
+          "caller": "score",
+          "callee": "recall.toFixed",
+          "lineNumber": 45
+        },
+        {
+          "caller": "score",
+          "callee": "f1.toFixed",
+          "lineNumber": 45
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.parse",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "readFileSync",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "dataPath",
+          "lineNumber": 49
+        },
+        {
+          "caller": "main",
+          "callee": "s.prompts.slice",
+          "lineNumber": 55
+        },
+        {
+          "caller": "main",
+          "callee": "classify",
+          "lineNumber": 56
+        },
+        {
+          "caller": "main",
+          "callee": "preds.push",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "detail.push",
+          "lineNumber": 59
+        },
+        {
+          "caller": "main",
+          "callee": "s.project.slice",
+          "lineNumber": 60
+        },
+        {
+          "caller": "main",
+          "callee": "s.prompts[i - 1].slice",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "s.prompts[i].slice",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "score",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "writeFileSync",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "outPath",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "experiments/drift-gate/src/eval.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 189,
+      "nonEmptyLines": 174,
+      "functions": [
+        {
+          "name": "embedAll",
+          "startLine": 20,
+          "endLine": 32,
+          "params": [
+            "texts"
+          ]
+        },
+        {
+          "name": "cos",
+          "startLine": 34,
+          "endLine": 38,
+          "params": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "name": "dist",
+          "startLine": 39,
+          "endLine": 39,
+          "params": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "name": "entities",
+          "startLine": 42,
+          "endLine": 51,
+          "params": [
+            "text"
+          ]
+        },
+        {
+          "name": "score",
+          "startLine": 55,
+          "endLine": 67,
+          "params": [
+            "preds"
+          ]
+        },
+        {
+          "name": "runGate",
+          "startLine": 71,
+          "endLine": 115,
+          "params": [
+            "emb",
+            "prompts",
+            "variant",
+            "thr",
+            "entK"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 117,
+          "endLine": 181,
+          "params": []
+        },
+        {
+          "name": "round",
+          "startLine": 183,
+          "endLine": 187,
+          "params": [
+            "o"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "embedAll",
+          "callee": "dataPath",
+          "lineNumber": 21
+        },
+        {
+          "caller": "embedAll",
+          "callee": "JSON.parse",
+          "lineNumber": 23
+        },
+        {
+          "caller": "embedAll",
+          "callee": "readFileSync",
+          "lineNumber": 23
+        },
+        {
+          "caller": "embedAll",
+          "callee": "texts.filter",
+          "lineNumber": 24
+        },
+        {
+          "caller": "embedAll",
+          "callee": "missing.slice",
+          "lineNumber": 26
+        },
+        {
+          "caller": "embedAll",
+          "callee": "openai.embeddings.create",
+          "lineNumber": 27
+        },
+        {
+          "caller": "embedAll",
+          "callee": "res.data.forEach",
+          "lineNumber": 28
+        },
+        {
+          "caller": "embedAll",
+          "callee": "writeFileSync",
+          "lineNumber": 30
+        },
+        {
+          "caller": "embedAll",
+          "callee": "JSON.stringify",
+          "lineNumber": 30
+        },
+        {
+          "caller": "embedAll",
+          "callee": "texts.map",
+          "lineNumber": 31
+        },
+        {
+          "caller": "cos",
+          "callee": "Math.sqrt",
+          "lineNumber": 37
+        },
+        {
+          "caller": "cos",
+          "callee": "Math.sqrt",
+          "lineNumber": 37
+        },
+        {
+          "caller": "dist",
+          "callee": "cos",
+          "lineNumber": 39
+        },
+        {
+          "caller": "entities",
+          "callee": "text.match",
+          "lineNumber": 44
+        },
+        {
+          "caller": "entities",
+          "callee": "/[/._]/.test",
+          "lineNumber": 46
+        },
+        {
+          "caller": "entities",
+          "callee": "/[a-z][A-Z]/.test",
+          "lineNumber": 46
+        },
+        {
+          "caller": "entities",
+          "callee": "/^[A-Z]/.test",
+          "lineNumber": 46
+        },
+        {
+          "caller": "entities",
+          "callee": "out.add",
+          "lineNumber": 47
+        },
+        {
+          "caller": "entities",
+          "callee": "t.toLowerCase",
+          "lineNumber": 47
+        },
+        {
+          "caller": "runGate",
+          "callee": "emb[0].slice",
+          "lineNumber": 75
+        },
+        {
+          "caller": "runGate",
+          "callee": "entities",
+          "lineNumber": 77
+        },
+        {
+          "caller": "runGate",
+          "callee": "dist",
+          "lineNumber": 80
+        },
+        {
+          "caller": "runGate",
+          "callee": "dist",
+          "lineNumber": 80
+        },
+        {
+          "caller": "runGate",
+          "callee": "segDists.reduce",
+          "lineNumber": 87
+        },
+        {
+          "caller": "runGate",
+          "callee": "Math.sqrt",
+          "lineNumber": 88
+        },
+        {
+          "caller": "runGate",
+          "callee": "segDists.reduce",
+          "lineNumber": 88
+        },
+        {
+          "caller": "runGate",
+          "callee": "Math.max",
+          "lineNumber": 89
+        },
+        {
+          "caller": "runGate",
+          "callee": "entities",
+          "lineNumber": 94
+        },
+        {
+          "caller": "runGate",
+          "callee": "segEntities.has",
+          "lineNumber": 96
+        },
+        {
+          "caller": "runGate",
+          "callee": "preds.push",
+          "lineNumber": 100
+        },
+        {
+          "caller": "runGate",
+          "callee": "emb[i].slice",
+          "lineNumber": 102
+        },
+        {
+          "caller": "runGate",
+          "callee": "entities",
+          "lineNumber": 104
+        },
+        {
+          "caller": "runGate",
+          "callee": "entities",
+          "lineNumber": 110
+        },
+        {
+          "caller": "runGate",
+          "callee": "segEntities.add",
+          "lineNumber": 110
+        },
+        {
+          "caller": "runGate",
+          "callee": "segDists.push",
+          "lineNumber": 111
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.parse",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "readFileSync",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "dataPath",
+          "lineNumber": 118
+        },
+        {
+          "caller": "main",
+          "callee": "sessions.flatMap",
+          "lineNumber": 119
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 120
+        },
+        {
+          "caller": "main",
+          "callee": "embedAll",
+          "lineNumber": 122
+        },
+        {
+          "caller": "main",
+          "callee": "allTexts.forEach",
+          "lineNumber": 123
+        },
+        {
+          "caller": "main",
+          "callee": "embByText.set",
+          "lineNumber": 123
+        },
+        {
+          "caller": "main",
+          "callee": "Array.from",
+          "lineNumber": 126
+        },
+        {
+          "caller": "main",
+          "callee": "Array.from",
+          "lineNumber": 127
+        },
+        {
+          "caller": "main",
+          "callee": "s.prompts.map",
+          "lineNumber": 140
+        },
+        {
+          "caller": "main",
+          "callee": "embByText.get",
+          "lineNumber": 140
+        },
+        {
+          "caller": "main",
+          "callee": "runGate",
+          "lineNumber": 141
+        },
+        {
+          "caller": "main",
+          "callee": "s.labels.forEach",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "preds.push",
+          "lineNumber": 142
+        },
+        {
+          "caller": "main",
+          "callee": "score",
+          "lineNumber": 144
+        },
+        {
+          "caller": "main",
+          "callee": "curve.push",
+          "lineNumber": 145
+        },
+        {
+          "caller": "main",
+          "callee": "thr.toFixed",
+          "lineNumber": 145
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 145
+        },
+        {
+          "caller": "main",
+          "callee": "thr.toFixed",
+          "lineNumber": 146
+        },
+        {
+          "caller": "main",
+          "callee": "round",
+          "lineNumber": 148
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 151
+        },
+        {
+          "caller": "main",
+          "callee": "best.f1.toFixed",
+          "lineNumber": 152
+        },
+        {
+          "caller": "main",
+          "callee": "best.precision.toFixed",
+          "lineNumber": 153
+        },
+        {
+          "caller": "main",
+          "callee": "best.recall.toFixed",
+          "lineNumber": 153
+        },
+        {
+          "caller": "main",
+          "callee": "s.prompts.map",
+          "lineNumber": 162
+        },
+        {
+          "caller": "main",
+          "callee": "embByText.get",
+          "lineNumber": 162
+        },
+        {
+          "caller": "main",
+          "callee": "runGate",
+          "lineNumber": 163
+        },
+        {
+          "caller": "main",
+          "callee": "s.labels.forEach",
+          "lineNumber": 164
+        },
+        {
+          "caller": "main",
+          "callee": "disagreements.push",
+          "lineNumber": 167
+        },
+        {
+          "caller": "main",
+          "callee": "s.project.slice",
+          "lineNumber": 169
+        },
+        {
+          "caller": "main",
+          "callee": "s.prompts[idx - 1].slice",
+          "lineNumber": 170
+        },
+        {
+          "caller": "main",
+          "callee": "s.prompts[idx].slice",
+          "lineNumber": 171
+        },
+        {
+          "caller": "main",
+          "callee": "writeFileSync",
+          "lineNumber": 177
+        },
+        {
+          "caller": "main",
+          "callee": "outPath",
+          "lineNumber": 177
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 177
+        },
+        {
+          "caller": "main",
+          "callee": "writeFileSync",
+          "lineNumber": 178
+        },
+        {
+          "caller": "main",
+          "callee": "outPath",
+          "lineNumber": 178
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 178
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 179
+        },
+        {
+          "caller": "main",
+          "callee": "overallBest.f1.toFixed",
+          "lineNumber": 179
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 180
+        },
+        {
+          "caller": "round",
+          "callee": "o[k].toFixed",
+          "lineNumber": 185
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 8,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "experiments/drift-gate/src/label.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 73,
+      "nonEmptyLines": 64,
+      "functions": [
+        {
+          "name": "labelSession",
+          "startLine": 33,
+          "endLine": 55,
+          "params": [
+            "s"
+          ]
+        },
+        {
+          "name": "main",
+          "startLine": 57,
+          "endLine": 71,
+          "params": []
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "labelSession",
+          "callee": "s.prompts\n    .map((p, i) => `[${i}] ${p.replace(/\\s+/g, \" \").slice(0, 400)}`)\n    .join",
+          "lineNumber": 34
+        },
+        {
+          "caller": "labelSession",
+          "callee": "s.prompts\n    .map",
+          "lineNumber": 34
+        },
+        {
+          "caller": "labelSession",
+          "callee": "p.replace(/\\s+/g, \" \").slice",
+          "lineNumber": 35
+        },
+        {
+          "caller": "labelSession",
+          "callee": "p.replace",
+          "lineNumber": 35
+        },
+        {
+          "caller": "labelSession",
+          "callee": "openai.chat.completions.create",
+          "lineNumber": 37
+        },
+        {
+          "caller": "labelSession",
+          "callee": "JSON.parse",
+          "lineNumber": 46
+        },
+        {
+          "caller": "labelSession",
+          "callee": "labels.map",
+          "lineNumber": 49
+        },
+        {
+          "caller": "labelSession",
+          "callee": "full.push",
+          "lineNumber": 52
+        },
+        {
+          "caller": "labelSession",
+          "callee": "byIdx.get",
+          "lineNumber": 52
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.parse",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "readFileSync",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "dataPath",
+          "lineNumber": 58
+        },
+        {
+          "caller": "main",
+          "callee": "labelSession",
+          "lineNumber": 61
+        },
+        {
+          "caller": "main",
+          "callee": "labels.filter",
+          "lineNumber": 62
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "s.project.slice",
+          "lineNumber": 63
+        },
+        {
+          "caller": "main",
+          "callee": "out.push",
+          "lineNumber": 64
+        },
+        {
+          "caller": "main",
+          "callee": "writeFileSync",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "dataPath",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "JSON.stringify",
+          "lineNumber": 66
+        },
+        {
+          "caller": "main",
+          "callee": "out.reduce",
+          "lineNumber": 67
+        },
+        {
+          "caller": "main",
+          "callee": "out.reduce",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "s.labels.filter",
+          "lineNumber": 68
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "(100 * shifts / total).toFixed",
+          "lineNumber": 69
+        },
+        {
+          "caller": "main",
+          "callee": "console.log",
+          "lineNumber": 70
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "experiments/drift-gate/src/openai.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 21,
+      "nonEmptyLines": 18,
+      "functions": [
+        {
+          "name": "loadEnv",
+          "startLine": 6,
+          "endLine": 15,
+          "params": []
+        },
+        {
+          "name": "dataPath",
+          "startLine": 20,
+          "endLine": 20,
+          "params": [
+            "f"
+          ]
+        },
+        {
+          "name": "outPath",
+          "startLine": 21,
+          "endLine": 21,
+          "params": [
+            "f"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "openai",
+          "line": 18,
+          "isDefault": false
+        },
+        {
+          "name": "dataPath",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "outPath",
+          "line": 21,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "loadEnv",
+          "callee": "join",
+          "lineNumber": 9
+        },
+        {
+          "caller": "loadEnv",
+          "callee": "readFileSync(join(root, \".env\"), \"utf8\").split",
+          "lineNumber": 10
+        },
+        {
+          "caller": "loadEnv",
+          "callee": "readFileSync",
+          "lineNumber": 10
+        },
+        {
+          "caller": "loadEnv",
+          "callee": "join",
+          "lineNumber": 10
+        },
+        {
+          "caller": "loadEnv",
+          "callee": "line.match",
+          "lineNumber": 11
+        },
+        {
+          "caller": "dataPath",
+          "callee": "join",
+          "lineNumber": 20
+        },
+        {
+          "caller": "outPath",
+          "callee": "join",
+          "lineNumber": 21
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    }
+  ]
+}

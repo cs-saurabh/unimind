@@ -1,0 +1,640 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 6,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "src/llm/complete.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 48,
+      "nonEmptyLines": 44,
+      "functions": [
+        {
+          "name": "loadEnv",
+          "startLine": 5,
+          "endLine": 14,
+          "params": []
+        },
+        {
+          "name": "jsonComplete",
+          "startLine": 27,
+          "endLine": 48,
+          "params": [
+            "opts"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "HOT_MODEL",
+          "line": 20,
+          "isDefault": false
+        },
+        {
+          "name": "jsonComplete",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "loadEnv",
+          "callee": "join",
+          "lineNumber": 8
+        },
+        {
+          "caller": "loadEnv",
+          "callee": "readFileSync(join(root, \".env\"), \"utf8\").split",
+          "lineNumber": 9
+        },
+        {
+          "caller": "loadEnv",
+          "callee": "readFileSync",
+          "lineNumber": 9
+        },
+        {
+          "caller": "loadEnv",
+          "callee": "join",
+          "lineNumber": 9
+        },
+        {
+          "caller": "loadEnv",
+          "callee": "line.match",
+          "lineNumber": 10
+        },
+        {
+          "caller": "jsonComplete",
+          "callee": "opts.system.includes",
+          "lineNumber": 36
+        },
+        {
+          "caller": "jsonComplete",
+          "callee": "client.chat.completions.create",
+          "lineNumber": 37
+        },
+        {
+          "caller": "jsonComplete",
+          "callee": "JSON.parse",
+          "lineNumber": 47
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 2,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/match/engine.test.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 106,
+      "nonEmptyLines": 93,
+      "functions": [
+        {
+          "name": "blockOf",
+          "startLine": 7,
+          "endLine": 7,
+          "params": [
+            "scores"
+          ]
+        },
+        {
+          "name": "scoreOf",
+          "startLine": 8,
+          "endLine": 8,
+          "params": [
+            "_i",
+            "c"
+          ]
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "blockOf",
+          "callee": "scores.map",
+          "lineNumber": 7
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 0,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/match/engine.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 79,
+      "nonEmptyLines": 68,
+      "functions": [
+        {
+          "name": "match",
+          "startLine": 45,
+          "endLine": 79,
+          "params": [
+            "input",
+            "cfg"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "match",
+          "line": 45,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "match",
+          "callee": "cfg.block",
+          "lineNumber": 53
+        },
+        {
+          "caller": "match",
+          "callee": "candidates\n    .map((candidate) => ({ candidate, score: cfg.score(input, candidate) }))\n    .sort",
+          "lineNumber": 54
+        },
+        {
+          "caller": "match",
+          "callee": "candidates\n    .map",
+          "lineNumber": 54
+        },
+        {
+          "caller": "match",
+          "callee": "cfg.score",
+          "lineNumber": 55
+        },
+        {
+          "caller": "match",
+          "callee": "scored.slice",
+          "lineNumber": 72
+        },
+        {
+          "caller": "match",
+          "callee": "cfg.adjudicate",
+          "lineNumber": 73
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/match/scorers.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 70,
+      "nonEmptyLines": 63,
+      "functions": [
+        {
+          "name": "cosineSim",
+          "startLine": 7,
+          "endLine": 19,
+          "params": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "name": "distanceToSim",
+          "startLine": 22,
+          "endLine": 22,
+          "params": [
+            "distance"
+          ]
+        },
+        {
+          "name": "normalize",
+          "startLine": 24,
+          "endLine": 26,
+          "params": [
+            "s"
+          ]
+        },
+        {
+          "name": "trigrams",
+          "startLine": 28,
+          "endLine": 33,
+          "params": [
+            "s"
+          ]
+        },
+        {
+          "name": "trigramSim",
+          "startLine": 36,
+          "endLine": 45,
+          "params": [
+            "a",
+            "b"
+          ]
+        },
+        {
+          "name": "bestAliasSim",
+          "startLine": 51,
+          "endLine": 63,
+          "params": [
+            "query",
+            "surfaceForms"
+          ]
+        },
+        {
+          "name": "combine",
+          "startLine": 66,
+          "endLine": 70,
+          "params": [
+            "parts"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "cosineSim",
+          "line": 7,
+          "isDefault": false
+        },
+        {
+          "name": "distanceToSim",
+          "line": 22,
+          "isDefault": false
+        },
+        {
+          "name": "trigramSim",
+          "line": 36,
+          "isDefault": false
+        },
+        {
+          "name": "bestAliasSim",
+          "line": 51,
+          "isDefault": false
+        },
+        {
+          "name": "combine",
+          "line": 66,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "cosineSim",
+          "callee": "Math.sqrt",
+          "lineNumber": 15
+        },
+        {
+          "caller": "cosineSim",
+          "callee": "Math.sqrt",
+          "lineNumber": 15
+        },
+        {
+          "caller": "cosineSim",
+          "callee": "Math.max",
+          "lineNumber": 18
+        },
+        {
+          "caller": "cosineSim",
+          "callee": "Math.min",
+          "lineNumber": 18
+        },
+        {
+          "caller": "distanceToSim",
+          "callee": "Math.max",
+          "lineNumber": 22
+        },
+        {
+          "caller": "normalize",
+          "callee": "s.trim().toLowerCase().replace(/[^a-z0-9 ]+/g, \" \").replace(/\\s+/g, \" \").trim",
+          "lineNumber": 25
+        },
+        {
+          "caller": "normalize",
+          "callee": "s.trim().toLowerCase().replace(/[^a-z0-9 ]+/g, \" \").replace",
+          "lineNumber": 25
+        },
+        {
+          "caller": "normalize",
+          "callee": "s.trim().toLowerCase().replace",
+          "lineNumber": 25
+        },
+        {
+          "caller": "normalize",
+          "callee": "s.trim().toLowerCase",
+          "lineNumber": 25
+        },
+        {
+          "caller": "normalize",
+          "callee": "s.trim",
+          "lineNumber": 25
+        },
+        {
+          "caller": "trigrams",
+          "callee": "normalize",
+          "lineNumber": 29
+        },
+        {
+          "caller": "trigrams",
+          "callee": "out.add",
+          "lineNumber": 31
+        },
+        {
+          "caller": "trigrams",
+          "callee": "t.slice",
+          "lineNumber": 31
+        },
+        {
+          "caller": "trigramSim",
+          "callee": "normalize",
+          "lineNumber": 37
+        },
+        {
+          "caller": "trigramSim",
+          "callee": "normalize",
+          "lineNumber": 37
+        },
+        {
+          "caller": "trigramSim",
+          "callee": "trigrams",
+          "lineNumber": 40
+        },
+        {
+          "caller": "trigramSim",
+          "callee": "trigrams",
+          "lineNumber": 40
+        },
+        {
+          "caller": "trigramSim",
+          "callee": "tb.has",
+          "lineNumber": 42
+        },
+        {
+          "caller": "bestAliasSim",
+          "callee": "normalize",
+          "lineNumber": 52
+        },
+        {
+          "caller": "bestAliasSim",
+          "callee": "normalize",
+          "lineNumber": 55
+        },
+        {
+          "caller": "bestAliasSim",
+          "callee": "nf.split",
+          "lineNumber": 58
+        },
+        {
+          "caller": "bestAliasSim",
+          "callee": "nq.split(\" \").every",
+          "lineNumber": 59
+        },
+        {
+          "caller": "bestAliasSim",
+          "callee": "nq.split",
+          "lineNumber": 59
+        },
+        {
+          "caller": "bestAliasSim",
+          "callee": "tokens.has",
+          "lineNumber": 59
+        },
+        {
+          "caller": "bestAliasSim",
+          "callee": "Math.max",
+          "lineNumber": 60
+        },
+        {
+          "caller": "bestAliasSim",
+          "callee": "trigramSim",
+          "lineNumber": 60
+        },
+        {
+          "caller": "combine",
+          "callee": "parts.reduce",
+          "lineNumber": 67
+        },
+        {
+          "caller": "combine",
+          "callee": "parts.reduce",
+          "lineNumber": 69
+        }
+      ],
+      "metrics": {
+        "importCount": 0,
+        "exportCount": 5,
+        "functionCount": 7,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/write/conflict.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 88,
+      "nonEmptyLines": 81,
+      "functions": [
+        {
+          "name": "policy",
+          "startLine": 34,
+          "endLine": 49,
+          "params": [
+            "rel",
+            "type",
+            "targetId"
+          ]
+        },
+        {
+          "name": "resolveConflict",
+          "startLine": 51,
+          "endLine": 88,
+          "params": [
+            "candidate",
+            "embedding"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "resolveConflict",
+          "line": 51,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "resolveConflict",
+          "callee": "await match",
+          "lineNumber": 52
+        },
+        {
+          "caller": "resolveConflict",
+          "callee": "similarMemories",
+          "lineNumber": 55
+        },
+        {
+          "caller": "resolveConflict",
+          "callee": "distanceToSim",
+          "lineNumber": 56
+        },
+        {
+          "caller": "resolveConflict",
+          "callee": "gray.map((s, i) => `${i}. ${s.candidate.content}`).join",
+          "lineNumber": 61
+        },
+        {
+          "caller": "resolveConflict",
+          "callee": "gray.map",
+          "lineNumber": 61
+        },
+        {
+          "caller": "resolveConflict",
+          "callee": "await jsonComplete",
+          "lineNumber": 62
+        },
+        {
+          "caller": "resolveConflict",
+          "callee": "policy",
+          "lineNumber": 78
+        },
+        {
+          "caller": "resolveConflict",
+          "callee": "policy",
+          "lineNumber": 87
+        }
+      ],
+      "metrics": {
+        "importCount": 6,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/write/entityResolve.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 91,
+      "nonEmptyLines": 84,
+      "functions": [
+        {
+          "name": "scoreCandidate",
+          "startLine": 31,
+          "endLine": 39,
+          "params": [
+            "input",
+            "c"
+          ]
+        },
+        {
+          "name": "resolveEntity",
+          "startLine": 41,
+          "endLine": 91,
+          "params": [
+            "cluster",
+            "embedding"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "resolveEntity",
+          "line": 41,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "scoreCandidate",
+          "callee": "Math.max",
+          "lineNumber": 34
+        },
+        {
+          "caller": "scoreCandidate",
+          "callee": "queryForms.map",
+          "lineNumber": 34
+        },
+        {
+          "caller": "scoreCandidate",
+          "callee": "bestAliasSim",
+          "lineNumber": 34
+        },
+        {
+          "caller": "scoreCandidate",
+          "callee": "combine",
+          "lineNumber": 35
+        },
+        {
+          "caller": "resolveEntity",
+          "callee": "await match",
+          "lineNumber": 44
+        },
+        {
+          "caller": "resolveEntity",
+          "callee": "searchEntityCandidates",
+          "lineNumber": 45
+        },
+        {
+          "caller": "resolveEntity",
+          "callee": "gray.map((s, i) =>\n        `${i}. ${s.candidate.name} (aliases: ${s.candidate.aliases.join(\", \") || \"—\"}) [sim ${s.score.toFixed(2)}]`,\n      ).join",
+          "lineNumber": 51
+        },
+        {
+          "caller": "resolveEntity",
+          "callee": "gray.map",
+          "lineNumber": 51
+        },
+        {
+          "caller": "resolveEntity",
+          "callee": "s.candidate.aliases.join",
+          "lineNumber": 52
+        },
+        {
+          "caller": "resolveEntity",
+          "callee": "s.score.toFixed",
+          "lineNumber": 52
+        },
+        {
+          "caller": "resolveEntity",
+          "callee": "await jsonComplete",
+          "lineNumber": 54
+        },
+        {
+          "caller": "resolveEntity",
+          "callee": "inp.cluster.surfaceForms.join",
+          "lineNumber": 60
+        },
+        {
+          "caller": "resolveEntity",
+          "callee": "addAliases",
+          "lineNumber": 71
+        },
+        {
+          "caller": "resolveEntity",
+          "callee": "outcome.scored.find",
+          "lineNumber": 76
+        },
+        {
+          "caller": "resolveEntity",
+          "callee": "addAliases",
+          "lineNumber": 78
+        },
+        {
+          "caller": "resolveEntity",
+          "callee": "createEntity",
+          "lineNumber": 83
+        }
+      ],
+      "metrics": {
+        "importCount": 5,
+        "exportCount": 1,
+        "functionCount": 2,
+        "classCount": 0
+      }
+    }
+  ]
+}
