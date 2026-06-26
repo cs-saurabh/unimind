@@ -1,0 +1,7 @@
+interface:
+  display_name: "Dev Setup"
+  short_description: "Set up or repair local UniMind dev"
+  default_prompt: "Use $dev-setup to set up or repair this UniMind repo for local development."
+
+policy:
+  allow_implicit_invocation: true
