@@ -108,10 +108,11 @@ src/
     e2e.ts             #   Checkpoint-1 harness
   read/                # READ PATH
     readPath.ts        #   orchestrator
-    planner.ts         #   planQuery: LLM query plan + topic_shifted
-    recall.ts          #   MCP recall() tool
-    rank.ts            #   deterministic ranking (no LLM)
-    header.ts          #   buildHeader: format the injected block
+    planner.ts         #   planQuery: LLM query plan + topic_shifted + taskType/criticality
+    recall.ts          #   MCP recall() tool (rich structured output in MI Phase 3)
+    rank.ts            #   rankMemories: augmented formula + task-aware boost + adaptive budget
+    header.ts          #   buildHeader: compact annotated header (contradiction + caution + gaps)
+    intelligence.ts    #   annotation helpers: contradictionNote, cautionAnnotation, formatGapSummary
     e2e.ts             #   Checkpoint-1 harness
   match/               # REUSABLE MATCHING ENGINE
     engine.ts          #   block → score → threshold → adjudicate-on-gray
@@ -120,16 +121,20 @@ src/
     complete.ts        #   jsonComplete (HOT_MODEL = gpt-4o-mini)
     embed.ts           #   embed / embedOne (text-embedding-3-small)
   db/                  # HELIX DATA ACCESS
-    schema.ts          #   labels + node/edge property shapes
+    schema.ts          #   labels + node/edge property shapes (incl. new MI edge types + kinds)
     client.ts          #   helix client + writeWithRetry
-    bootstrap.ts       #   idempotent index creation
+    bootstrap.ts       #   idempotent index creation (incl. MI indexes: kind, basis, lastRevisedAt)
     entities.ts        #   searchEntityCandidates, createEntity, addAliases
-    memories.ts        #   persistMemory, supersede, linkExtends, bumpMemories, setGoalStatus
+    memories.ts        #   persistMemory, supersede, linkExtends, bumpMemories, setGoalStatus,
+                       #   flagContradictionPair, refreshSyntheticMemory
     retrieve.ts        #   recall, similarMemories, relationalFacts, validateEntities
+    memoryValidation.ts#   validateMemoryNode() — skip-and-audit on failure (MI Phase 1)
     smoke.ts           #   write+read smoke test
   maintain/
     sweeps.ts          #   decaySweep, forgetSweep, expireContextual
     erRepair.ts        #   detectDuplicates, mergeEntities, erRepairSweep
+    synthesis.ts       #   synthesizeSweep: patternDetectionPhase, contradictionDetectionPhase,
+                       #   gapDetectionPhase, confidenceDecaySweep (MI Phase 2)
   mcp/
     server.ts          # MCP server: recall + remember tools (stdio transport)
   audit/               # AUDIT LOG (standalone SQLite, isolated from HelixDB)
@@ -167,14 +172,30 @@ Defined in [`src/db/schema.ts`](../src/db/schema.ts). Everything is tenant-parti
 │ aliases[]                           │     │ content     (BM25 field)                   │
 │ aliasText   (BM25 field)            │     │ embedding   float[1536]                    │
 │ embedding   float[1536]             │     │ weight      reinforcement signal           │
-│ confidence                          │     │ isLatest                                   │
-└─────────────────────────────────────┘     │ validFrom / validTo  (null = current)      │
-                                             │ expiresAt   CONTEXTUAL TTL                  │
-┌─────────────────────────────────────┐     │ deletedAt   soft-delete tombstone          │
-│ Category   categoryKey, name        │     │ decayPolicy slow|evergreen|fast|           │
-│ Session    sessionId, userId,       │     │             goal-lifecycle                 │
-│            project, started/endedAt │     │ status      GOAL only: active|completed|   │
-└─────────────────────────────────────┘     │             abandoned                      │
+│ confidence                          │     │ confidence  0-1 (also on Entity)           │
+└─────────────────────────────────────┘     │ isLatest                                   │
+                                             │ validFrom / validTo  (null = current)      │
+┌─────────────────────────────────────┐     │ expiresAt   CONTEXTUAL TTL                  │
+│ Category   categoryKey, name        │     │ deletedAt   soft-delete tombstone          │
+│ Session    sessionId, userId,       │     │ decayPolicy slow|evergreen|fast|           │
+│            project, started/endedAt │     │             goal-lifecycle                 │
+└─────────────────────────────────────┘     │ status      GOAL only: active|completed|   │
+                                             │             abandoned                      │
+                                             │ ── Memory Intelligence properties ──       │
+                                             │ kind        synthetic|insight|heuristic|   │
+                                             │             preference|antipattern|        │
+                                             │             knowledge_gap                  │
+                                             │ freshness   0-1 (time-decay, optional)     │
+                                             │ basis       direct_statement|              │
+                                             │             pattern_analysis|entailment|   │
+                                             │             conflict_resolution            │
+                                             │ derivedFrom string[] source memory IDs     │
+                                             │ costIfIgnored  e.g. "4h debugging"        │
+                                             │ lastRevisedAt  when meaning last changed   │
+                                             │ stalenessFlag  consider_refresh|           │
+                                             │                needs_update|null           │
+                                             │ hasContradiction  boolean                  │
+                                             │ contradictions    ContradictionRecord[]    │
                                              └──────────────────────────────────────────┘
 ```
 
@@ -188,6 +209,12 @@ Defined in [`src/db/schema.ts`](../src/db/schema.ts). Everything is tenant-parti
   Memory ──DERIVES───▶ Memory        (inferred link)
   Memory ──IN_CATEGORY▶ Category     (tagged)
   Memory ──DERIVED_FROM▶ Session     (provenance)
+  ── Memory Intelligence edges ──
+  Memory ──SYNTHESIZED_FROM▶ Memory  (synthetic memory traces its source episodes)
+  Memory ──CONTRADICTS──▶ Memory     (flag-only contradiction; bidirectional)
+  Memory ──ADDRESSES_GAP▶ Memory     (a memory fills a knowledge_gap node)
+  Memory ──RELATED_TO_THEME▶ Memory  (theme clustering; used by synthesis + dashboard)
+  (RESOLVES_CONTRADICTION is defined but NOT used in v1 — reserved for future winner-picking flow)
 ```
 
 ### The six memory types
@@ -407,8 +434,16 @@ and returns a validated `QueryPlan`:
   topics: string[];            // max 4
   typesRelevant: PrimaryType[];
   timeScope: "recent" | "all" | "none";
-  topicShifted: boolean }      // ← the spine signal
+  topicShifted: boolean;       // ← the spine signal
+  taskType: TaskType;          // MI Phase 3: coding|learning|decision|debugging|design|exploration
+  criticality: Criticality;    // MI Phase 3: low|medium|high
+  taskConfidence: number }     // MI Phase 3: 0-1; below 0.6 → ranking falls back to today's behavior
 ```
+
+The three new fields (`taskType`, `criticality`, `taskConfidence`) are the **task inference**
+added in MI Phase 3. They piggyback onto the existing single LLM call — no extra latency or
+cost. The guess is a *nudge, not a gate*: below a `taskConfidence` of 0.6
+([`rank.ts:114`](../src/read/rank.ts)), the ranking falls back to unchanged behavior.
 
 ### 5.4 Parallel recall
 
@@ -429,29 +464,50 @@ lastAccessedAt, expiresAt?, distance?}`).
 
 ### 5.5 Deterministic ranking
 
-[`rank.ts:32`](../src/read/rank.ts) `rankMemories(lists, tokenBudget=500)`:
+[`rank.ts:129`](../src/read/rank.ts) `rankMemories(lists, options)`:
 
 1. Dedup across lists by `memoryId` (keep smallest distance).
-2. Score each row with `scoreRow` ([`rank.ts:23`](../src/read/rank.ts)):
+2. **High-criticality filter:** when task confidence ≥ 0.6 and `criticality === "high"`,
+   drop any memory with `confidence ≤ 0.65` before ranking.
+3. Score each row with `scoreRow` ([`rank.ts:129`](../src/read/rank.ts)):
 
    ```
-   score = sim × recency × weight × priority
+   score = sim × recency × weight × priority × confidenceFactor × freshnessFactor
    ```
 
-   - `sim` = `distanceToSim(distance)` = `1 / (1 + max(0, distance))`, or `0.7` for direct
-     loads with no distance.
+   - `sim` = `distanceToSim(distance)`, or `0.7` for direct loads.
    - `recency` = `0.5 ^ (ageDays / 30)` (30-day half-life).
    - `weight` = stored reinforcement signal.
    - `priority` = per-type multiplier (GOAL/CONTEXTUAL 1.0, PROCEDURAL 0.9, SEMANTIC 0.85,
      EPISODIC 0.7).
-3. Sort desc; greedily add rows until the ~500-token budget (1 token ≈ 4 chars) is hit.
+   - `confidenceFactor` = clamp(confidence, 0.25, 1.0) — **penalty-only**: old memories
+     without confidence retain 1.0 (no penalty).
+   - `freshnessFactor` = clamp(freshness, 0.25, 1.0) — same: missing `freshness` → 1.0
+     (neutral). Only genuinely stale synthesized memories get demoted.
+4. **Task-aware boost** ([`rank.ts:60`](../src/read/rank.ts)) applied during selection
+   (not scoring) when `taskConfidence ≥ 0.6`: multiplies the effective selection score by
+   a small per-type nudge (e.g. `coding → PROCEDURAL ×1.18`, `design → gap ×1.12`).
+   A boost only reorders within the candidate set — it cannot promote a low-score memory
+   above a genuinely high-score one.
+5. **Adaptive token budget** ([`rank.ts:118`](../src/read/rank.ts)): when task inference is
+   confident, the budget adapts — `exploration/low` → 300 tokens, `decision/high` → 800
+   tokens, otherwise 500. A `~10-memory backstop` applies regardless.
+6. Sort desc; greedily add rows until the token budget or backstop is hit; always guarantee
+   at least 1 memory (min-1 rule).
 
 ### 5.6 Header
 
-[`header.ts:17`](../src/read/header.ts) `buildHeader(parts)` emits a compact block wrapped in
+[`header.ts:41`](../src/read/header.ts) `buildHeader(parts)` emits a compact block wrapped in
 `<unimind-memory>…</unimind-memory>`, in priority order: active goals (≤5), current state /
-contextual (≤5), known relationships (≤8), then ranked memories. It also returns `usedIds`
-for reinforcement.
+contextual (≤5), known relationships (≤8), ranked memories, then knowledge gaps (≤2).
+
+**Inline annotations** (from [`intelligence.ts`](../src/read/intelligence.ts), added in MI Phase 3):
+
+- **Contradiction note** — when `hasContradiction: true`, appends `⚠ <neutral reconciliation note> — weigh by recency` to the memory line. Never picks a winner; just flags the conflict.
+- **Caution tag** — when `confidence < 0.65` or `stalenessFlag` is set, appends `[low confidence · unconfirmed Nd]`. Shows the age in days since `lastRevisedAt` (or `createdAt`).
+- **Knowledge gaps** — `splitContextualMemories` separates CONTEXTUAL memories into plain state and `kind: "knowledge_gap"` gaps; `selectKnowledgeGaps` picks ≤2 high-priority, unseen gaps (capped + no-nag: `accessCount < 2`). Each surfaces as `- No stated approach to <topic> — consider asking`.
+
+Bookkeeping fields (`memoryId`, `basis`, `derivedFrom`, `costIfIgnored`, raw `freshness`) are **not** included in the header — they go in the rich `recall()` MCP output only. The header stays one line per clean memory; annotations are the exception.
 
 ---
 
@@ -561,25 +617,28 @@ persistent `unimind` worker connection.
 
 ```
   Functions (queue-triggered)            Crons (time-triggered)
-  ┌──────────────────────────┐           ┌────────────────────────────────────────┐
-  │ unimind::ingestTurn       │           │ sweepIdle        — every minute          │
-  │   (from hooks)            │           │   flush idle buffers                     │
-  │ unimind::flushSession     │           │ expireContextual — hourly                │
-  │   (manual force-flush)    │           │   hard-delete expired CONTEXTUAL         │
-  └──────────────────────────┘           │ decayAndForget   — daily 04:00           │
-                                          │   decaySweep + forgetSweep               │
-                                          │ erRepair         — daily 04:30           │
-                                          │   merge duplicate entities               │
-                                          └────────────────────────────────────────┘
+  ┌──────────────────────────┐           ┌────────────────────────────────────────────┐
+  │ unimind::ingestTurn       │           │ sweepIdle        — every minute              │
+  │   (from hooks)            │           │   flush idle buffers                         │
+  │ unimind::flushSession     │           │ expireContextual — hourly                    │
+  │   (manual force-flush)    │           │   hard-delete expired CONTEXTUAL             │
+  └──────────────────────────┘           │ decayAndForget   — daily 04:00               │
+                                          │   decaySweep + forgetSweep                   │
+                                          │ erRepair         — daily 04:30               │
+                                          │   merge duplicate entities                   │
+                                          │ synthesizeSweep  — daily 11:00  (MI Phase 2) │
+                                          │   pattern → contradiction → gap → decay      │
+                                          └────────────────────────────────────────────┘
 ```
 
 | Job | File | What it does |
 | --- | --- | --- |
 | `sweepIdle` | [`worker.ts:38`](../src/iii/worker.ts) | Walk all buffers; flush any whose time cap passed. |
-| `expireContextual` | [`sweeps.ts:56`](../src/maintain/sweeps.ts) | **Hard-delete** CONTEXTUAL memories past `expiresAt`. |
+| `expireContextual` | [`sweeps.ts:56`](../src/maintain/sweeps.ts) | **Hard-delete** CONTEXTUAL memories past `expiresAt`. Also expires `kind: "knowledge_gap"` nodes after 30 days. |
 | `decaySweep` | [`sweeps.ts:20`](../src/maintain/sweeps.ts) | `weight *= 0.9` for memories idle > 7 days. |
 | `forgetSweep` | [`sweeps.ts:39`](../src/maintain/sweeps.ts) | Soft-delete (`deletedAt=now`) weak (`weight<0.25`), stale (>45d idle) memories — never PROCEDURAL or GOAL. |
 | `erRepairSweep` | [`erRepair.ts:80`](../src/maintain/erRepair.ts) | `detectDuplicates` (alias overlap or name-embedding cosine ≥ 0.95) then `mergeEntities` (union aliases, re-point MENTIONS, drop loser). Fixes the under-merge bias from §6.1. |
+| `synthesizeSweep` | [`synthesis.ts:1208`](../src/maintain/synthesis.ts) | **MI Phase 2.** Runs four phases in sequence; partial success OK — each phase can fail independently without aborting the others. Runs *after* the 04:00 forget sweep so confidence decay only ever sees live memories. Logs a single `CRON/synthesis` audit row with counters. |
 
 The iii engine itself is configured in [`config.yaml`](../config.yaml): in-memory `queue`, KV
 `cron` (required for cron triggers), `http` REST on 3111, and an in-memory observability
@@ -841,25 +900,127 @@ each category with real-world examples.
 
 ---
 
-## 14. End-to-end recap
+## 14. Memory Intelligence Layer
+
+The Memory Intelligence Layer (MI) moves UniMind from a passive store-and-retrieve system to one that actively synthesizes what it knows, spots contradictions and knowledge gaps, and injects memories in a context-aware way. It is fully additive — old memories work exactly as before until synthesis updates them.
+
+### 14.1 Schema extensions (MI Phase 1)
+
+Nine new optional properties were added to `MemoryNode` in [`schema.ts`](../src/db/schema.ts) (see §3 data model). They are **absent** on pre-MI memories, which is safe because:
+- HelixDB is schema-on-write: missing fields read back as `undefined`.
+- The read path coalesces missing values to neutral defaults (`freshness → 1.0`, `confidence → existing value`, `contradictions → []`), so old memories rank identically to before until synthesis assigns real values.
+
+Five new edge types were added: `SYNTHESIZED_FROM`, `CONTRADICTS`, `ADDRESSES_GAP`, `RELATED_TO_THEME`, and `RESOLVES_CONTRADICTION` (reserved, not used in v1).
+
+New indexes in `bootstrap.ts`: `kind`, `basis`, `lastRevisedAt`, composite `(primaryType, kind)`.
+
+**Schema validation** ([`memoryValidation.ts`](../src/db/memoryValidation.ts)): `validateMemoryNode()` runs on every `persistMemory` call. On failure it **skips that one memory and writes an audit rejection** — it never throws, so a bad synthetic memory cannot crash the write pipeline. Key rules:
+- `kind: "synthetic"` → `primaryType` must be SEMANTIC or PROCEDURAL, `derivedFrom` must not be empty.
+- `kind: "knowledge_gap"` → `primaryType` must be CONTEXTUAL, `expiresAt` must be set.
+- `primaryType` EPISODIC or GOAL → `kind` must be null.
+- `freshness` must be in [0, 1]; `confidence` must be in [0, 1].
+- `hasContradiction: true` ↔ `contradictions[]` non-empty (consistent).
+
+**Gaps are not a new table.** A knowledge gap is a regular CONTEXTUAL Memory node with `kind: "knowledge_gap"`. It gets the 30-day TTL hard-delete for free from the existing hourly `expireContextual` sweep, and shows up in the graph dashboard generically like any other memory.
+
+### 14.2 Synthesis sweep (MI Phase 2)
+
+[`synthesis.ts`](../src/maintain/synthesis.ts) `synthesizeSweep()` is a daily 11 AM cron job
+registered in `worker.ts`. It runs four phases in sequence:
+
+```
+synthesizeSweep()
+   │
+   ├─ patternDetectionPhase()       lookback: 30 days (EPISODIC + GOAL)
+   │      cluster by embedding (greedy, threshold 0.82)
+   │      qualifying: ≥5 memories spanning ≥3 distinct sessions
+   │      1 LLM call per qualifying cluster → synthetic statement
+   │      confidence: 0.85 (5+ memories) or 0.70 (3-4 memories)
+   │      idempotent: update existing synthetic if cosine ≥ 0.9; create otherwise
+   │      → creates/updates SEMANTIC kind="synthetic" memories
+   │      → draws SYNTHESIZED_FROM edges to source episodes
+   │
+   ├─ contradictionDetectionPhase() candidates: SEMANTIC + PROCEDURAL
+   │      candidate pairs: cosine ≥ 0.84, OR cosine ≥ 0.72 + tag/trigram overlap ≥ 0.08
+   │      1 LLM call per pair — biased toward "not a contradiction"
+   │      flag-only: set hasContradiction + append contradictions[] note on BOTH memories
+   │      → draws neutral CONTRADICTS edge; no winner; no confidence change
+   │
+   ├─ gapDetectionPhase()           lookback: 45 days (EPISODIC + GOAL + CONTEXTUAL)
+   │      cluster by embedding (greedy, threshold 0.83)
+   │      qualifying: ≥4 memories spanning ≥3 sessions
+   │      check nearby SEMANTIC memories — only create gap if no existing stance found
+   │      1 LLM call per candidate cluster → shouldCreate + topic + prompts
+   │      anti-noise: cap at 4 open gaps, no-nag (TTL expires after 30 days)
+   │      priority: critical/high/medium/low by cluster size + session span
+   │      → creates CONTEXTUAL kind="knowledge_gap" memories with suggested prompts
+   │
+   └─ confidenceDecaySweep()        idle cutoff: 45 days (lastAccessedAt)
+          skips: CONTEXTUAL, decayPolicy="evergreen"
+          applies: confidence *= 0.95, floor at 0.25
+          sets: stalenessFlag = "consider_refresh"
+          runs AFTER pattern/contradiction/gap (survivors only, not tombstones)
+```
+
+Each phase is **independently try-catched**: if pattern detection throws, the sweep still runs contradiction, gap, and decay. One `CRON/synthesis` audit row is written per sweep run with phase-level status and counters (`patterns_found`, `insights_created`, `insights_updated`, `contradictions_flagged`, `gaps_created`, `confidence_decayed`, `validation_rejected`).
+
+### 14.3 Selective injection read pipeline (MI Phase 3)
+
+The read path was upgraded in three places:
+
+**Planner → task inference.** `planQuery` now returns `taskType`, `criticality`, and `taskConfidence` in addition to the original fields (§5.3). This is the *same single LLM call* — no extra latency. The guess is a nudge: below `taskConfidence = 0.6`, all new behavior falls back to pre-MI.
+
+**Augmented ranking formula.** `scoreRow` now multiplies in `confidenceFactor` and `freshnessFactor` (§5.5). Both are penalty-only: a missing or perfect value gives 1.0 (no change). The adaptive token budget scales between 300 (exploration/low) and 800 (decision/high) tokens based on task type and criticality.
+
+**Header annotations.** `buildHeader` now includes:
+- Inline contradiction warnings (`⚠ note — weigh by recency`) via `contradictionNote()`.
+- Inline caution tags (`[low confidence · unconfirmed Nd]`) via `cautionAnnotation()`.
+- A `Knowledge gaps:` section (≤2 high-priority, un-nagged gaps) via `selectKnowledgeGaps()`.
+
+All annotation helpers live in [`intelligence.ts`](../src/read/intelligence.ts).
+
+### 14.4 Dashboard updates (MI Phase 4)
+
+The graph visualization was extended for MI nodes:
+
+- **Node coloring** now sub-colors Memory nodes by `primaryType` (every memory gets a color — old or new). Entity/Category/Session nodes keep their existing label colors.
+- **Overlay markers** are layered on top: ⭐ gold = `kind: "synthetic"`, ▢ grey/dashed = `kind: "knowledge_gap"`, 🔴 red outline = `hasContradiction: true`. A node with no `kind` and no `hasContradiction` renders plain.
+- **New edge types** (`SYNTHESIZED_FROM`, `CONTRADICTS`, `ADDRESSES_GAP`, `RELATED_TO_THEME`) are fetched and colored distinctly (`CONTRADICTS` → red dashed).
+- **Legend** now shows a per-`primaryType` breakdown with counts, plus a Markers sub-key (Insight / Gap / Contradiction counts).
+- **Node detail panel** shows the new MI fields (confidence/freshness gauges, basis, derivedFrom as clickable source links, contradiction peers, gap suggested prompts). Missing fields degrade gracefully — the panel never errors on absent props.
+
+---
+
+## 15. End-to-end recap
 
 **Writing a memory:** you type → `UserPromptSubmit`/`PostToolUse`/`Stop` hook fires →
 `capture.toEvent` → `emit.emitTurnEvent` → iii queue → `worker.ingestTurn` →
 `salienceGate` → `FileBufferStore.append` → `flushReason` trips (topic shift / boundary /
 size / time) → `flushSession` → `extractWindow` (1 LLM call) → `embed` (1 batch) →
-`resolveEntity` ×clusters → `resolveConflict` ×memories → `persistMemory` (+ `MENTIONS` /
-`REL` / `UPDATES` / `EXTENDS` edges) → buffer cleared.
+`resolveEntity` ×clusters → `resolveConflict` ×memories → `validateMemoryNode` (skip-and-audit
+on failure) → `persistMemory` (+ `MENTIONS` / `REL` / `UPDATES` / `EXTENDS` edges) →
+buffer cleared.
 
 **Reading memory back:** you type → `UserPromptSubmit` → `inject.main` → `readPath` →
-`planQuery` (1 LLM call, emits `topicShifted`) → parallel `embedOne` + `validateEntities` →
-parallel `recall` (vector+BM25+goals+contextual) + `relationalFacts` → `rankMemories`
-(deterministic) → `buildHeader` → injected as `additionalContext`; `bumpMemories` reinforces
-what was used; the turn is re-enqueued carrying `topicShifted` to flush the write buffer.
+`planQuery` (1 LLM call, emits `topicShifted` + **taskType/criticality**) → parallel
+`embedOne` + `validateEntities` → parallel `recall` (vector+BM25+goals+contextual) +
+`relationalFacts` → `rankMemories` (**augmented: confidence + freshness factors + task boost
++ adaptive budget**) → `splitContextualMemories` (separate gaps from contextual state) →
+`selectKnowledgeGaps` → `buildHeader` (**with contradiction notes + caution tags + knowledge
+gaps section**) → injected as `additionalContext`; `bumpMemories` reinforces what was used;
+the turn is re-enqueued carrying `topicShifted` to flush the write buffer.
 
 That `topicShifted` flag closing the loop between the two paths is the system's spine.
+
+**Synthesizing overnight:** 11 AM daily → `synthesizeSweep` → `patternDetectionPhase` (cluster
+episodes, 1 LLM call/cluster → synthetic SEMANTIC memory) → `contradictionDetectionPhase`
+(candidate pairs, 1 LLM call/pair → neutral `CONTRADICTS` flag) → `gapDetectionPhase`
+(cluster recurring topics, 1 LLM call/cluster → CONTEXTUAL `knowledge_gap` node) →
+`confidenceDecaySweep` (idle > 45 days → `confidence *= 0.95`, set `stalenessFlag`) →
+single `CRON/synthesis` audit row with phase counters.
 
 **Auditing it all (§13):** every step above also emits a fire-and-forget `audit()` row —
 hooks/MCP append to a spool file, the worker writes its own + drains the spool into a
 standalone SQLite `audit.db` (~1s), and the dashboard reads it back through the worker's
 `:48180` API. So `/dashboard/audit-logs` is a complete, categorized trace of every read,
-write, and cron the system performed.
+write, and cron the system performed — including each `CRON/synthesis` sweep.
