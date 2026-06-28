@@ -33,12 +33,19 @@ export interface GraphNode {
 // A link prepared for react-force-graph. source/target start as ids; the library
 // replaces them with node-object references after the first tick.
 export interface GraphLink {
+  id: string;
   source: string | GraphNode;
   target: string | GraphNode;
   type: string; // edge label, e.g. "MENTIONS"
+  props: RawEdge;
 }
 
 export interface GraphData {
   nodes: GraphNode[];
   links: GraphLink[];
 }
+
+export type GraphHighlightFilter =
+  | { kind: "memoryType"; value: string }
+  | { kind: "label"; value: string }
+  | { kind: "marker"; value: "synthetic" | "gap" | "contradiction" };

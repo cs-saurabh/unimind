@@ -8,12 +8,20 @@
 import type { PrimaryType } from "../db/schema.js";
 import { jsonComplete, HOT_MODEL } from "../llm/complete.js";
 
+export const TASK_TYPES = ["coding", "learning", "decision", "debugging", "design", "exploration"] as const;
+export type TaskType = (typeof TASK_TYPES)[number];
+export const CRITICALITY_LEVELS = ["low", "medium", "high"] as const;
+export type Criticality = (typeof CRITICALITY_LEVELS)[number];
+
 export interface QueryPlan {
   entities: string[]; // named entities to validate + traverse from
   topics: string[]; // free-text topics for semantic/BM25 recall
   typesRelevant: PrimaryType[]; // which memory types matter for this prompt
   timeScope: "recent" | "all" | "none";
   topicShifted: boolean; // spine signal: did the topic change vs the running context?
+  taskType: TaskType;
+  criticality: Criticality;
+  taskConfidence: number;
 }
 
 const ALL_TYPES: PrimaryType[] = ["EPISODIC", "SEMANTIC", "PROCEDURAL", "CONTEXTUAL", "GOAL"];
@@ -31,6 +39,10 @@ Fields:
 - topicShifted: true if the new prompt is a substantial shift to a different topic/task
   from the running context (new subject/files/goal or an abrupt pivot); false for a
   follow-up, refinement, or continuation. When unsure, false.
+- taskType: one of ["coding","learning","decision","debugging","design","exploration"].
+- criticality: one of ["low","medium","high"].
+- taskConfidence: confidence in the taskType/criticality guess from 0 to 1. Use lower
+  values when the request is mixed or unclear.
 
 Return strict json with exactly these fields.`;
 
@@ -45,11 +57,21 @@ export async function planQuery(prompt: string, recentContext: string[] = [], mo
 
   const arr = (v: any): string[] => (Array.isArray(v) ? v.map((x) => String(x).trim()).filter(Boolean) : []);
   const types = arr(raw.typesRelevant).filter((t) => (ALL_TYPES as string[]).includes(t)) as PrimaryType[];
+  const rawTaskType = String(raw.taskType ?? "");
+  const rawCriticality = String(raw.criticality ?? "");
+  const taskType = TASK_TYPES.includes(rawTaskType as TaskType) ? rawTaskType as TaskType : "coding";
+  const criticality = CRITICALITY_LEVELS.includes(rawCriticality as Criticality)
+    ? rawCriticality as Criticality
+    : "medium";
+  const taskConfidence = Number.isFinite(raw.taskConfidence) ? Math.max(0, Math.min(1, Number(raw.taskConfidence))) : 0.5;
   return {
     entities: [...new Set(arr(raw.entities))].slice(0, 8),
     topics: arr(raw.topics).slice(0, 4),
     typesRelevant: types.length ? types : ALL_TYPES,
     timeScope: ["recent", "all", "none"].includes(raw.timeScope) ? raw.timeScope : "all",
     topicShifted: raw.topicShifted === true,
+    taskType,
+    criticality,
+    taskConfidence,
   };
 }

@@ -6,14 +6,16 @@ export interface ForceSettings {
   linkDistance: number; // edge rest length
   gravityStrength: number; // pull toward center (higher = leaf nodes reeled in, bounded cloud)
   velocityDecay: number; // friction (higher = settles faster, less jiggle)
+  nodeSizeMultiplier: number; // global visual scale applied on top of the computed node radii
 }
 
 export const DEFAULT_SETTINGS: ForceSettings = {
   chargeStrength: -365,
   chargeDistanceMax: 870,
-  linkDistance: 112,
-  gravityStrength: 0.09,
+  linkDistance: 126,
+  gravityStrength: 0.01,
   velocityDecay: 0.3,
+  nodeSizeMultiplier: 2,
 };
 
 // UI metadata for each slider: label, range, step, and a short hint.
@@ -66,5 +68,13 @@ export const SETTING_FIELDS: SettingField[] = [
     max: 0.9,
     step: 0.05,
     hint: "Higher settles faster with less jiggle",
+  },
+  {
+    key: "nodeSizeMultiplier",
+    label: "Bubble size",
+    min: 0.5,
+    max: 2.5,
+    step: 0.1,
+    hint: "Scales all node bubbles while preserving the current relative sizing",
   },
 ];

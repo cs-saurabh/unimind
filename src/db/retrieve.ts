@@ -5,16 +5,36 @@
  */
 import { readBatch, g, Predicate, PropertyInput, Expr, PropertyProjection } from "@helix-db/helix-db";
 import { helix } from "./client.js";
-import { L, E, normalizeKey } from "./schema.js";
+import {
+  L,
+  E,
+  normalizeKey,
+  type ContradictionRecord,
+  type MemoryBasis,
+  type MemoryKind,
+  type StalenessFlag,
+} from "./schema.js";
 import { TENANT_ID, USER_ID } from "../config.js";
 
 export interface RecallRow {
   memoryId: string;
   content: string;
   primaryType: string;
+  tags: string[];
+  kind?: MemoryKind;
   weight: number;
+  confidence: number;
+  freshness: number;
+  basis: MemoryBasis | "direct_statement";
+  derivedFrom: string[];
+  costIfIgnored: string | null;
+  hasContradiction: boolean;
+  contradictions: ContradictionRecord[];
+  stalenessFlag: StalenessFlag | null;
+  accessCount: number;
   createdAt: string;
   lastAccessedAt: string;
+  lastRevisedAt: string;
   expiresAt?: string | null;
   distance?: number; // vector/BM25 distance (smaller = closer); absent for direct loads
 }
@@ -23,9 +43,21 @@ const MEM_PROJ = [
   PropertyProjection.new("memoryId"),
   PropertyProjection.new("content"),
   PropertyProjection.new("primaryType"),
+  PropertyProjection.new("tags"),
+  PropertyProjection.new("kind"),
   PropertyProjection.new("weight"),
+  PropertyProjection.new("confidence"),
+  PropertyProjection.new("freshness"),
+  PropertyProjection.new("basis"),
+  PropertyProjection.new("derivedFrom"),
+  PropertyProjection.new("costIfIgnored"),
+  PropertyProjection.new("hasContradiction"),
+  PropertyProjection.new("contradictions"),
+  PropertyProjection.new("stalenessFlag"),
+  PropertyProjection.new("accessCount"),
   PropertyProjection.new("createdAt"),
   PropertyProjection.new("lastAccessedAt"),
+  PropertyProjection.new("lastRevisedAt"),
   PropertyProjection.new("expiresAt"),
 ];
 // Search projection: include the lifecycle fields so the current/expiry filter can be
@@ -49,17 +81,50 @@ const current = () => Predicate.and([
 ]);
 
 /** App-side equivalent of current() + TTL, for search results where in-query where drops $distance. */
+export function normalizeRecallRow(row: any): RecallRow {
+  return {
+    memoryId: String(row.memoryId ?? ""),
+    content: String(row.content ?? ""),
+    primaryType: String(row.primaryType ?? ""),
+    tags: Array.isArray(row.tags) ? row.tags.map((tag: unknown) => String(tag)) : [],
+    kind: typeof row.kind === "string" ? row.kind as MemoryKind : undefined,
+    weight: Number.isFinite(row.weight) ? row.weight : 1,
+    confidence: Number.isFinite(row.confidence) ? row.confidence : 1,
+    freshness: Number.isFinite(row.freshness) ? row.freshness : 1,
+    basis: typeof row.basis === "string" && row.basis.trim() ? row.basis as MemoryBasis : "direct_statement",
+    derivedFrom: Array.isArray(row.derivedFrom) ? row.derivedFrom.map((id: unknown) => String(id)) : [],
+    costIfIgnored: typeof row.costIfIgnored === "string" && row.costIfIgnored.trim() ? row.costIfIgnored : null,
+    hasContradiction: row.hasContradiction === true,
+    contradictions: Array.isArray(row.contradictions)
+      ? row.contradictions.map((entry: any) => ({
+          withMemoryId: String(entry.withMemoryId),
+          resolution: String(entry.resolution),
+          confidence: Number(entry.confidence),
+          resolvedAt: String(entry.resolvedAt),
+        }))
+      : [],
+    stalenessFlag: typeof row.stalenessFlag === "string" ? row.stalenessFlag as StalenessFlag : null,
+    accessCount: Number.isFinite(row.accessCount) ? row.accessCount : 0,
+    createdAt: String(row.createdAt ?? ""),
+    lastAccessedAt: String(row.lastAccessedAt ?? row.createdAt ?? ""),
+    lastRevisedAt: String(row.lastRevisedAt ?? row.createdAt ?? ""),
+    expiresAt: row.expiresAt ?? null,
+    distance: Number.isFinite(row.distance) ? row.distance : undefined,
+  };
+}
+
+/** App-side equivalent of current() + TTL, for search results where in-query where drops $distance. */
 function liveCurrent(rows: any[]): RecallRow[] {
   const now = Date.now();
   return rows.filter((r) =>
     r.isLatest === true && !r.deletedAt && !r.validTo && r.userId === USER_ID &&
-    (!r.expiresAt || Date.parse(r.expiresAt) > now));
+    (!r.expiresAt || Date.parse(r.expiresAt) > now)).map(normalizeRecallRow);
 }
 
 /** Drop memories whose contextual TTL has passed (expiresAt is range-only in-query; filter here). */
-function notExpired(rows: RecallRow[]): RecallRow[] {
+function notExpired(rows: any[]): RecallRow[] {
   const now = Date.now();
-  return rows.filter((r) => !r.expiresAt || Date.parse(r.expiresAt) > now);
+  return rows.filter((r) => !r.expiresAt || Date.parse(r.expiresAt) > now).map(normalizeRecallRow);
 }
 
 /** Semantic/episodic/procedural recall via vector + BM25, plus active goals + contextual state. */

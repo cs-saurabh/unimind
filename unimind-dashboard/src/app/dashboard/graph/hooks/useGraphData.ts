@@ -23,7 +23,7 @@ export function useGraphData() {
         id: n.id,
         label: n.label ?? "Node",
         props: n,
-        color: nodeColor(n.label),
+        color: nodeColor(n),
         radius: radii.get(n.id) ?? 4,
       }));
 
@@ -33,9 +33,11 @@ export function useGraphData() {
       const links: GraphLink[] = rawEdges
         .filter((e) => nodeIds.has(e.from_node) && nodeIds.has(e.to_node))
         .map((e) => ({
+          id: e.id,
           source: e.from_node,
           target: e.to_node,
           type: e.label ?? "Edge",
+          props: e,
         }));
 
       setData({ nodes, links });

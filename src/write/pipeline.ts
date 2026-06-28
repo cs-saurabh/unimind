@@ -22,6 +22,7 @@ export interface FlushSummary {
   sessionId: string;
   reason: FlushReason | "manual";
   memories: number; // newly written
+  rejected: number; // candidates skipped by validation
   reinforced: number; // duplicates that bumped an existing memory instead
   superseded: number; // old memories superseded by a correction
   entitiesCreated: number;
@@ -37,7 +38,7 @@ export async function flushSession(
   const startedAt = Date.now();
   const category: AuditCategory = auditMeta.category ?? "WRITE/flush";
   const actor: AuditActor = auditMeta.actor ?? "worker";
-  const empty: FlushSummary = { sessionId, reason, memories: 0, reinforced: 0, superseded: 0, entitiesCreated: 0, entitiesLinked: 0 };
+  const empty: FlushSummary = { sessionId, reason, memories: 0, rejected: 0, reinforced: 0, superseded: 0, entitiesCreated: 0, entitiesLinked: 0 };
 
   const buf = await store.get(sessionId);
   if (!buf || buf.turns.length === 0) return empty; // nothing to flush → not an operation, no audit row
@@ -71,7 +72,7 @@ export async function flushSession(
     }
 
     // Conflict-dispatched write (§4 / step 5): dedup, supersede, extend, or add.
-    let written = 0, reinforced = 0, superseded = 0;
+    let written = 0, rejected = 0, reinforced = 0, superseded = 0;
     const writtenIds: string[] = [];
     for (let i = 0; i < ext.memories.length; i++) {
       const m = ext.memories[i];
@@ -95,7 +96,11 @@ export async function flushSession(
         content: m.content, primaryType: m.primaryType, tags: m.tags, embedding: memVecs[i],
         confidence: m.confidence, salience: m.salience, mentionKeys, relation,
         sessionId, temporalText: m.temporalText,
-      });
+      }, { category, actor, sessionId });
+      if (!newId) {
+        rejected++;
+        continue;
+      }
       written++;
       writtenIds.push(newId);
 
@@ -108,10 +113,20 @@ export async function flushSession(
     }
 
     await store.clear(sessionId);
-    const summary: FlushSummary = { sessionId, reason, memories: written, reinforced, superseded, entitiesCreated: created, entitiesLinked: linked };
+    const summary: FlushSummary = {
+      sessionId,
+      reason,
+      memories: written,
+      rejected,
+      reinforced,
+      superseded,
+      entitiesCreated: created,
+      entitiesLinked: linked,
+    };
     audit({
       category, actor, sessionId,
       summary: `${reason} → +${written} mem` +
+        (rejected ? `, ${rejected} rejected` : "") +
         (reinforced ? `, ${reinforced} reinforced` : "") +
         (superseded ? `, ${superseded} superseded` : "") +
         (created || linked ? ` (entities: +${created} new, ${linked} linked)` : ""),

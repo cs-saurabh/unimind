@@ -4,8 +4,10 @@ import * as React from "react"
 import {
     Zap,
     Database,
+    Brain,
     ScrollText,
     Share2,
+    Activity,
 } from "lucide-react"
 
 import { NavProjects } from "@/components/nav-projects"
@@ -25,8 +27,8 @@ const data = {
     // },
     teams: [
         {
-            name: "HelixDB",
-            logo: Database,
+            name: "UniMind",
+            logo: Brain,
             plan: "",
         },
     ],
@@ -51,6 +53,11 @@ const data = {
             name: "Audit Logs",
             url: "/dashboard/audit-logs",
             icon: ScrollText,
+        },
+        {
+            name: "Observability",
+            url: "/dashboard/observability",
+            icon: Activity,
         },
         // {
         //     name: "Analytics",

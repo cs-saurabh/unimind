@@ -15,6 +15,7 @@ export type AuditCategory =
   | "WRITE/flush" // W1/W3 — buffer flush & persist (worker)
   | "WRITE/remember" // W2 — remember MCP tool (skill)
   | "CRON/sweep-idle" // M1
+  | "CRON/synthesis" // memory intelligence synthesis sweep
   | "CRON/decay" // M2
   | "CRON/forget" // M3
   | "CRON/expire-contextual" // M4

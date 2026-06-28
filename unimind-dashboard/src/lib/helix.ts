@@ -25,7 +25,38 @@ export const TENANT = process.env.UNIMIND_TENANT || "unimind";
 export const SCHEMA = {
   nodes: [
     { name: "Entity", node_type: "N", properties: { entityKey: "String", name: "String", entityType: "String", aliases: "[String]", confidence: "F64", createdAt: "DateTime", updatedAt: "DateTime" } },
-    { name: "Memory", node_type: "N", properties: { memoryId: "String", primaryType: "String", content: "String", tags: "[String]", weight: "F64", confidence: "F64", isLatest: "Bool", status: "String", createdAt: "DateTime", lastAccessedAt: "DateTime", validFrom: "DateTime", validTo: "DateTime", expiresAt: "DateTime", decayPolicy: "String", accessCount: "I64" } },
+    {
+      name: "Memory",
+      node_type: "N",
+      properties: {
+        memoryId: "String",
+        primaryType: "String",
+        kind: "String",
+        content: "String",
+        tags: "[String]",
+        weight: "F64",
+        confidence: "F64",
+        freshness: "F64",
+        basis: "String",
+        derivedFrom: "[String]",
+        costIfIgnored: "String",
+        hasContradiction: "Bool",
+        contradictions: "[Json]",
+        lastRevisedAt: "DateTime",
+        stalenessFlag: "String",
+        isLatest: "Bool",
+        status: "String",
+        createdAt: "DateTime",
+        updatedAt: "DateTime",
+        lastAccessedAt: "DateTime",
+        validFrom: "DateTime",
+        validTo: "DateTime",
+        expiresAt: "DateTime",
+        decayPolicy: "String",
+        accessCount: "I64",
+        sourceSessionId: "String",
+      },
+    },
     { name: "Category", node_type: "N", properties: { categoryKey: "String", name: "String" } },
     { name: "Session", node_type: "N", properties: { sessionId: "String", project: "String", startedAt: "DateTime", endedAt: "DateTime" } },
   ],
@@ -37,6 +68,10 @@ export const SCHEMA = {
     { name: "DERIVES", from_node: "Memory", to_node: "Memory", properties: { confidence: "F64", at: "DateTime" } },
     { name: "IN_CATEGORY", from_node: "Memory", to_node: "Category", properties: { confidence: "F64" } },
     { name: "DERIVED_FROM", from_node: "Memory", to_node: "Session", properties: {} },
+    { name: "SYNTHESIZED_FROM", from_node: "Memory", to_node: "Memory", properties: { confidence: "F64", basis: "String", at: "DateTime" } },
+    { name: "CONTRADICTS", from_node: "Memory", to_node: "Memory", properties: { resolution: "String", confidence: "F64", resolvedAt: "DateTime" } },
+    { name: "ADDRESSES_GAP", from_node: "Memory", to_node: "Memory", properties: { at: "DateTime" } },
+    { name: "RELATED_TO_THEME", from_node: "Memory", to_node: "Memory", properties: { weight: "F64", at: "DateTime" } },
   ],
   vectors: [
     { name: "Memory", vector_type: "V", properties: { embedding: "[F64; 1536]" } },
@@ -66,5 +101,9 @@ export function toEdge(row: any): any {
 }
 
 export async function runRead(req: any): Promise<any> {
+  return helix.query<any>().dynamic(req).send();
+}
+
+export async function runWrite(req: any): Promise<any> {
   return helix.query<any>().dynamic(req).send();
 }

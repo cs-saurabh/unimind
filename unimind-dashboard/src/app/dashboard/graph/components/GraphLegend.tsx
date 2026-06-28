@@ -2,8 +2,9 @@
 
 import React, { useMemo, useState } from "react";
 import { Settings } from "lucide-react";
-import { GraphData } from "../types";
-import { nodeColor } from "../lib/colors";
+import { GraphData, GraphHighlightFilter } from "../types";
+import { MARKER_COLORS, MEMORY_PRIMARY_COLORS, nodeColor } from "../lib/colors";
+import { markerCounts, memoryPrimaryType } from "../lib/intelligence";
 
 interface Props {
   data: GraphData;
@@ -11,6 +12,8 @@ interface Props {
   loading: boolean;
   onApplyLimit: (limit: number) => void;
   onOpenSettings: () => void;
+  highlightFilter: GraphHighlightFilter | null;
+  onHighlightFilterChange: (filter: GraphHighlightFilter | null) => void;
 }
 
 export const GraphLegend: React.FC<Props> = ({
@@ -19,20 +22,50 @@ export const GraphLegend: React.FC<Props> = ({
   loading,
   onApplyLimit,
   onOpenSettings,
+  highlightFilter,
+  onHighlightFilterChange,
 }) => {
   const [input, setInput] = useState(String(limit));
 
-  // Only show node types actually present, with their counts.
   const legend = useMemo(() => {
     const counts = new Map<string, number>();
     for (const n of data.nodes) counts.set(n.label, (counts.get(n.label) ?? 0) + 1);
     return Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
   }, [data]);
 
+  const memoryBreakdown = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const node of data.nodes) {
+      if (node.label !== "Memory") continue;
+      const primaryType = memoryPrimaryType(node) ?? "Unknown";
+      counts.set(primaryType, (counts.get(primaryType) ?? 0) + 1);
+    }
+    return Array.from(counts.entries()).sort((a, b) => b[1] - a[1]);
+  }, [data]);
+
+  const markerSummary = useMemo(() => markerCounts(data), [data]);
+  const nonMemoryLegend = legend.filter(([label]) => label !== "Memory");
+  const memoryCount = legend.find(([label]) => label === "Memory")?.[1] ?? 0;
+
   const apply = () => {
     const n = Number(input);
     if (Number.isFinite(n) && n > 0) onApplyLimit(Math.floor(n));
   };
+
+  const legendItemStyle = (active: boolean): React.CSSProperties => ({
+    display: "flex",
+    alignItems: "center",
+    gap: "6px",
+    padding: "4px 8px",
+    borderRadius: "999px",
+    border: active ? "1px solid rgba(226,232,240,0.28)" : "1px solid transparent",
+    backgroundColor: active ? "rgba(148,163,184,0.14)" : "transparent",
+    cursor: "pointer",
+    transition: "background-color 120ms ease, border-color 120ms ease",
+  });
+
+  const isActive = (filter: GraphHighlightFilter): boolean =>
+    highlightFilter?.kind === filter.kind && highlightFilter?.value === filter.value;
 
   return (
     <div
@@ -56,23 +89,90 @@ export const GraphLegend: React.FC<Props> = ({
       }}
     >
       {/* Legend swatches */}
-      <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-        {legend.map(([label, count]) => (
-          <div key={label} style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-            <span
-              style={{
-                width: "10px",
-                height: "10px",
-                borderRadius: "50%",
-                backgroundColor: nodeColor(label),
-                display: "inline-block",
-              }}
-            />
-            <span>
-              {label} <span style={{ color: "#64748b" }}>({count})</span>
-            </span>
+      <div style={{ display: "flex", alignItems: "center", gap: "18px", flexWrap: "wrap" }}>
+        {memoryCount > 0 && (
+          <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+            <span style={{ color: "#94a3b8" }}>Memory</span>
+            {memoryBreakdown.map(([primaryType, count]) => (
+              <div
+                key={primaryType}
+                style={legendItemStyle(isActive({ kind: "memoryType", value: primaryType }))}
+                onMouseEnter={() => onHighlightFilterChange({ kind: "memoryType", value: primaryType })}
+                onMouseLeave={() => onHighlightFilterChange(null)}
+              >
+                <span
+                  style={{
+                    width: "10px",
+                    height: "10px",
+                    borderRadius: "50%",
+                    backgroundColor: MEMORY_PRIMARY_COLORS[primaryType as keyof typeof MEMORY_PRIMARY_COLORS] ?? "#94a3b8",
+                    display: "inline-block",
+                  }}
+                />
+                <span>
+                  {primaryType} <span style={{ color: "#64748b" }}>({count})</span>
+                </span>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
+
+        {nonMemoryLegend.length > 0 && (
+          <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+            {nonMemoryLegend.map(([label, count]) => (
+              <div
+                key={label}
+                style={legendItemStyle(isActive({ kind: "label", value: label }))}
+                onMouseEnter={() => onHighlightFilterChange({ kind: "label", value: label })}
+                onMouseLeave={() => onHighlightFilterChange(null)}
+              >
+                <span
+                  style={{
+                    width: "10px",
+                    height: "10px",
+                    borderRadius: "50%",
+                    backgroundColor: nodeColor({ label }),
+                    display: "inline-block",
+                  }}
+                />
+                <span>
+                  {label} <span style={{ color: "#64748b" }}>({count})</span>
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+          <span style={{ color: "#94a3b8" }}>Markers</span>
+          <Marker
+            swatch="★"
+            color={MARKER_COLORS.synthetic}
+            label="Insight"
+            count={markerSummary.synthetic}
+            active={isActive({ kind: "marker", value: "synthetic" })}
+            onMouseEnter={() => onHighlightFilterChange({ kind: "marker", value: "synthetic" })}
+            onMouseLeave={() => onHighlightFilterChange(null)}
+          />
+          <Marker
+            swatch="▢"
+            color={MARKER_COLORS.gap}
+            label="Gap"
+            count={markerSummary.gap}
+            active={isActive({ kind: "marker", value: "gap" })}
+            onMouseEnter={() => onHighlightFilterChange({ kind: "marker", value: "gap" })}
+            onMouseLeave={() => onHighlightFilterChange(null)}
+          />
+          <Marker
+            swatch="●"
+            color={MARKER_COLORS.contradiction}
+            label="Contradiction"
+            count={markerSummary.contradiction}
+            active={isActive({ kind: "marker", value: "contradiction" })}
+            onMouseEnter={() => onHighlightFilterChange({ kind: "marker", value: "contradiction" })}
+            onMouseLeave={() => onHighlightFilterChange(null)}
+          />
+        </div>
       </div>
 
       <div style={{ color: "#64748b" }}>
@@ -144,3 +244,42 @@ export const GraphLegend: React.FC<Props> = ({
     </div>
   );
 };
+
+const Marker: React.FC<{
+  swatch: string;
+  color: string;
+  label: string;
+  count: number;
+  active: boolean;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+}> = ({
+  swatch,
+  color,
+  label,
+  count,
+  active,
+  onMouseEnter,
+  onMouseLeave,
+}) => (
+  <div
+    style={{
+      display: "flex",
+      alignItems: "center",
+      gap: "6px",
+      padding: "4px 8px",
+      borderRadius: "999px",
+      border: active ? "1px solid rgba(226,232,240,0.28)" : "1px solid transparent",
+      backgroundColor: active ? "rgba(148,163,184,0.14)" : "transparent",
+      cursor: "pointer",
+      transition: "background-color 120ms ease, border-color 120ms ease",
+    }}
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
+  >
+    <span style={{ color, fontSize: "13px", lineHeight: 1 }}>{swatch}</span>
+    <span>
+      {label} <span style={{ color: "#64748b" }}>({count})</span>
+    </span>
+  </div>
+);

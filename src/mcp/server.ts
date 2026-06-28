@@ -29,18 +29,32 @@ server.registerTool(
   },
   async ({ query, limit }) => {
     const startedAt = Date.now();
-    const mems = await recall(query, limit ?? 8);
+    const result = await recall(query, limit ?? 8);
     audit({
       category: "READ/recall", actor: "skill",
-      summary: `recall "${query.slice(0, 60)}" → ${mems.length} memory(ies)`,
+      summary: `recall "${query.slice(0, 60)}" → ${result.memories.length} memory(ies)`,
       details: {
-        query: query.slice(0, 200), limit: limit ?? 8, returned: mems.length,
-        types: mems.map((m) => m.primaryType),
+        query: query.slice(0, 200),
+        limit: limit ?? 8,
+        returned: result.memories.length,
+        injected_count: result.memories.length,
+        task_type: result.meta.taskType,
+        criticality: result.meta.criticality,
+        token_budget: result.meta.tokenBudget,
+        token_budget_used: result.meta.budgetUsedTokens,
+        token_budget_utilization: result.meta.budgetUtilization,
+        memory_backstop_tripped: result.meta.backstopTripped,
+        budget_limited: result.meta.budgetLimited,
+        naive_fallback: result.meta.naiveFallback,
+        read_mode: result.meta.readMode,
+        fallback_reason: result.meta.fallbackReason,
+        annotations: result.meta.annotations,
+        types: result.memories.map((m) => m.type),
       },
       durationMs: Date.now() - startedAt,
     });
-    const text = mems.length
-      ? mems.map((m) => `- [${m.primaryType}] ${m.content}`).join("\n")
+    const text = result.memories.length
+      ? JSON.stringify(result.memories, null, 2)
       : "(no relevant memories found)";
     return { content: [{ type: "text", text }] };
   },
@@ -67,7 +81,10 @@ server.registerTool(
     if (r.memories > 0) {
       text = `Remembered. Stored ${r.memories} memory${r.memories > 1 ? "ies" : ""}` +
         (r.superseded ? `, superseded ${r.superseded} older one(s)` : "") +
+        (r.rejected ? `, rejected ${r.rejected} invalid candidate(s)` : "") +
         (r.entitiesCreated || r.entitiesLinked ? ` (entities: ${r.entitiesCreated} new, ${r.entitiesLinked} linked).` : ".");
+    } else if (r.rejected > 0) {
+      text = `Nothing was stored because ${r.rejected} candidate memory${r.rejected > 1 ? "ies failed" : " failed"} validation.`;
     } else if (r.reinforced > 0) {
       text = "Already known — reinforced the existing memory instead of duplicating.";
     } else {

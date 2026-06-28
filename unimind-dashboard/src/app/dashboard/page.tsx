@@ -117,6 +117,26 @@ export default function Page() {
                                 </CardContent>
                             </Card>
                         </Link>
+
+                        <Link href="/dashboard/observability" className="group">
+                            <Card className="h-full hover:shadow-lg transition-all duration-300 cursor-pointer glass-hover">
+                                <CardHeader className="text-center">
+                                    <div className="mx-auto h-16 w-16 rounded-lg glass-card flex items-center justify-center mb-4 group-hover:scale-105 transition-transform">
+                                        <Activity className="h-8 w-8 text-primary" />
+                                    </div>
+                                    <CardTitle className="text-xl">Observability</CardTitle>
+                                    <CardDescription className="text-center">
+                                        Track synthesis sweeps, manage knowledge gaps, and review flagged contradictions
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent className="pt-0">
+                                    <Button variant="outline" className="w-full group-hover:bg-accent">
+                                        Open Observability
+                                        <ChevronRight className="ml-2 h-4 w-4" />
+                                    </Button>
+                                </CardContent>
+                            </Card>
+                        </Link>
                     </div>
 
                     {/* Quick Tips */}
@@ -145,9 +165,16 @@ export default function Page() {
                                     </div>
                                     <div className="flex items-start space-x-2">
                                         <div className="h-2 w-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
-                                        <div>
+                                    <div>
                                             <p className="font-medium">Need to explore the schema?</p>
                                             <p className="text-muted-foreground">Try the <Link href="/dashboard/schema" className="text-primary hover:underline">schema tool</Link> to browse nodes, vectors, and relationships.</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-start space-x-2">
+                                        <div className="h-2 w-2 rounded-full bg-primary mt-2 flex-shrink-0"></div>
+                                        <div>
+                                            <p className="font-medium">Watching memory intelligence?</p>
+                                            <p className="text-muted-foreground">Use <Link href="/dashboard/observability" className="text-primary hover:underline">observability</Link> to inspect synthesis runs, gaps, and contradictions.</p>
                                         </div>
                                     </div>
                                 </div>

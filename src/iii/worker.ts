@@ -11,6 +11,7 @@ import { FileBufferStore, flushReason } from "../write/buffer.js";
 import { ingestTurn } from "../write/ingest.js";
 import { flushSession } from "../write/pipeline.js";
 import { decaySweep, forgetSweep, expireContextual } from "../maintain/sweeps.js";
+import { synthesizeSweep } from "../maintain/synthesis.js";
 import { erRepairSweep } from "../maintain/erRepair.js";
 import type { TurnEvent } from "../write/types.js";
 import { audit } from "../audit/emit.js";
@@ -20,6 +21,8 @@ import { startAuditDrain } from "../audit/drain.js";
 
 const url = process.env.III_URL ?? "ws://localhost:49134";
 const bufferDir = process.env.UNIMIND_BUFFER_DIR ?? ".unimind/buffers";
+const SYNTHESIS_MAX_ATTEMPTS = Math.max(1, Number(process.env.UNIMIND_SYNTHESIS_MAX_ATTEMPTS ?? 3) || 3);
+const SYNTHESIS_RETRY_BASE_MS = Math.max(50, Number(process.env.UNIMIND_SYNTHESIS_RETRY_BASE_MS ?? 1000) || 1000);
 
 // Audit infrastructure (this is the sole SQLite writer): route worker audit() calls to
 // the in-memory batch buffer → SQLite, serve the dashboard read API, and drain the
@@ -30,6 +33,8 @@ startAuditDrain(Number(process.env.AUDIT_DRAIN_MS ?? 1000));
 
 const iii = registerWorker(url, { workerName: "unimind" });
 const store = new FileBufferStore(bufferDir);
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Consumes the `ingest` queue: gate → buffer → maybe flush. (Enqueued by hooks.)
 iii.registerFunction(
@@ -146,6 +151,67 @@ iii.registerFunction("unimind::decayAndForget", async () => {
   }
 }, { description: "Decay idle memory weights and soft-delete weak stale ones." });
 iii.registerTrigger({ type: "cron", function_id: "unimind::decayAndForget", config: { expression: "0 0 4 * * * *" } }); // 04:00 daily
+
+// Daily: synthesis orchestration (pattern -> contradiction -> gap -> confidence decay).
+iii.registerFunction("unimind::synthesizeSweep", async () => {
+  const startedAt = Date.now();
+  const attemptErrors: string[] = [];
+  const retryBackoffMs: number[] = [];
+
+  for (let attempt = 1; attempt <= SYNTHESIS_MAX_ATTEMPTS; attempt++) {
+    try {
+      const result = await synthesizeSweep();
+      audit({
+        category: "CRON/synthesis",
+        actor: "cron",
+        summary: result.summary,
+        details: {
+          ...(result.details as Record<string, unknown>),
+          retry_attempts: attempt,
+          retry_recovered: attempt > 1,
+          retry_backoff_ms: retryBackoffMs,
+        },
+        durationMs: Date.now() - startedAt,
+      });
+      return result;
+    } catch (err) {
+      const message = String((err as Error)?.message ?? err);
+      attemptErrors.push(message);
+      if (attempt < SYNTHESIS_MAX_ATTEMPTS) {
+        const backoffMs = SYNTHESIS_RETRY_BASE_MS * 2 ** (attempt - 1);
+        retryBackoffMs.push(backoffMs);
+        await sleep(backoffMs);
+        continue;
+      }
+
+      const notified = attemptErrors.length >= 3;
+      if (notified) {
+        console.error("[alert] synthesis sweep exhausted retries", {
+          attempts: attempt,
+          errors: attemptErrors,
+        });
+      }
+      audit({
+        category: "CRON/synthesis",
+        actor: "cron",
+        status: "error",
+        summary: `synthesis sweep failed after ${attempt} attempt(s): ${message}`,
+        details: {
+          error: message,
+          retry_attempts: attempt,
+          retry_backoff_ms: retryBackoffMs,
+          attempt_errors: attemptErrors,
+          notified,
+          alert_code: notified ? "synthesis_retry_exhausted" : null,
+        },
+        durationMs: Date.now() - startedAt,
+      });
+      throw err;
+    }
+  }
+  throw new Error("synthesis sweep exited unexpectedly");
+}, { description: "Run the daily memory-intelligence synthesis sweep with per-phase isolation." });
+iii.registerTrigger({ type: "cron", function_id: "unimind::synthesizeSweep", config: { expression: "0 0 11 * * * *" } }); // 11:00 daily
 
 // Daily: entity-resolution repair (merge missed duplicates).
 iii.registerFunction("unimind::erRepair", async () => {

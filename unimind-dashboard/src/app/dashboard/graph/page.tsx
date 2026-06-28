@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { useGraphData } from "./hooks/useGraphData";
@@ -9,13 +10,16 @@ import { GraphLegend } from "./components/GraphLegend";
 import { NodePropertiesPanel } from "./components/NodePropertiesPanel";
 import { SettingsPanel } from "./components/SettingsPanel";
 import { DEFAULT_SETTINGS, ForceSettings } from "./lib/forceSettings";
-import { GraphNode } from "./types";
+import { GraphHighlightFilter, GraphNode } from "./types";
 
 export default function GraphPage() {
   const { data, loading, error, limit, refetch } = useGraphData();
   const [selected, setSelected] = useState<GraphNode | null>(null);
   const [settings, setSettings] = useState<ForceSettings>(DEFAULT_SETTINGS);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [highlightFilter, setHighlightFilter] = useState<GraphHighlightFilter | null>(null);
+  const searchParams = useSearchParams();
+  const memoryId = searchParams.get("memoryId");
 
   const handleNodeClick = (node: GraphNode) => {
     setSettingsOpen(false); // node panel and settings share the right slot
@@ -28,6 +32,15 @@ export default function GraphPage() {
     refetch(newLimit);
   };
 
+  useEffect(() => {
+    if (!memoryId || loading) return;
+    const match = data.nodes.find((node) => node.props?.memoryId === memoryId);
+    if (match) {
+      setSettingsOpen(false);
+      setSelected(match);
+    }
+  }, [data.nodes, loading, memoryId]);
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -39,12 +52,15 @@ export default function GraphPage() {
             loading={loading}
             onApplyLimit={handleApplyLimit}
             onOpenSettings={() => setSettingsOpen(true)}
+            highlightFilter={highlightFilter}
+            onHighlightFilterChange={setHighlightFilter}
           />
 
           {!loading && !error && data.nodes.length > 0 && (
             <GraphCanvas
               data={data}
               selectedId={selected?.id ?? null}
+              highlightFilter={highlightFilter}
               settings={settings}
               onNodeClick={handleNodeClick}
               onBackgroundClick={handleBackgroundClick}
@@ -98,7 +114,12 @@ export default function GraphPage() {
             </div>
           )}
 
-          <NodePropertiesPanel node={selected} onClose={() => setSelected(null)} />
+          <NodePropertiesPanel
+            node={selected}
+            data={data}
+            onClose={() => setSelected(null)}
+            onSelectNode={setSelected}
+          />
 
           <SettingsPanel
             open={settingsOpen}

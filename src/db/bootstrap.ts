@@ -24,9 +24,15 @@ const INDEXES: [string, any][] = [
   ["mem_tenant", IndexSpec.nodeEquality(L.Memory, "tenant_id")],
   ["mem_user", IndexSpec.nodeEquality(L.Memory, "userId")],
   ["mem_type", IndexSpec.nodeEquality(L.Memory, "primaryType")],
+  ["mem_kind", IndexSpec.nodeEquality(L.Memory, "kind")],
+  ["mem_basis", IndexSpec.nodeEquality(L.Memory, "basis")],
   ["mem_latest", IndexSpec.nodeEquality(L.Memory, "isLatest")],
   ["mem_expires", IndexSpec.nodeRange(L.Memory, "expiresAt")], // contextual TTL sweep
   ["mem_event", IndexSpec.nodeRange(L.Memory, "eventStartAt")], // episodic/temporal recall
+  ["mem_last_revised", IndexSpec.nodeRange(L.Memory, "lastRevisedAt")],
+  // Helix 2.0.5 exposes only single-property equality/range specs, so we materialize
+  // the `(primaryType, kind)` composite into one indexed key on write.
+  ["mem_type_kind", IndexSpec.nodeEquality(L.Memory, "primaryTypeKindKey")],
   ["mem_vec", IndexSpec.nodeVector(L.Memory, "embedding", "tenant_id")],
   ["mem_text", IndexSpec.nodeText(L.Memory, "content", "tenant_id")],
   // Category
