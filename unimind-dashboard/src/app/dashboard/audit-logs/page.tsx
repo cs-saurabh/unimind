@@ -92,6 +92,11 @@ const CATEGORY_INFO: CategoryInfo[] = [
         example: 'Separate "Saurabh" and "Saurabh Pawar" entity nodes get merged into one, and all mentions re-pointed.',
     },
     {
+        category: "CRON/synthesis", actor: "cron",
+        description: "Runs daily at 11:00. Scans all memories for patterns, flags contradictions between conflicting facts, creates knowledge gaps for things that should be known but aren't, and applies confidence decay to stale insights. Retries up to the configured max attempts with exponential backoff on failure.",
+        example: 'Synthesis spots "I use Tailwind" and "I prefer CSS Modules" conflict, flags the pair for review, and drops the confidence on the older one.',
+    },
+    {
         category: "SYSTEM/bootstrap", actor: "worker",
         description: "Idempotent (re)creation of HelixDB indexes on worker startup. Safe to run repeatedly; ensures the tenant-partitioned vector/text/equality indexes exist before any read or write.",
         example: 'On worker restart, it (re)creates the 19 Helix indexes ("bootstrapped 19 Helix index(es)").',
@@ -117,15 +122,18 @@ function categoryStyle(category: string): React.CSSProperties {
 
 function fmtTime(ts: string): { rel: string; abs: string } {
     const d = new Date(ts)
-    const abs = d.toLocaleString()
-    const diff = Date.now() - d.getTime()
-    const s = Math.round(diff / 1000)
-    let rel: string
-    if (s < 60) rel = `${s}s ago`
-    else if (s < 3600) rel = `${Math.round(s / 60)}m ago`
-    else if (s < 86400) rel = `${Math.round(s / 3600)}h ago`
-    else rel = `${Math.round(s / 86400)}d ago`
-    return { rel, abs }
+    return { rel: d.toISOString(), abs: d.toLocaleString() }
+}
+
+function actorStyle(actor: string): React.CSSProperties {
+    const map: Record<string, { bg: string; fg: string }> = {
+        hook: { bg: "#7E9CD833", fg: "#7E9CD8" },
+        skill: { bg: "#98BB6C33", fg: "#98BB6C" },
+        cron: { bg: "#DCA56133", fg: "#DCA561" },
+        worker: { bg: "#957FB833", fg: "#957FB8" },
+    }
+    const c = map[actor] ?? { bg: "#6b728033", fg: "#9ca3af" }
+    return { backgroundColor: c.bg, color: c.fg, border: `1px solid ${c.fg}` }
 }
 
 export default function AuditLogsPage() {
@@ -347,9 +355,11 @@ function FragmentRow({
                         {row.category}
                     </Badge>
                 </td>
-                <td className="p-2 align-top"><Badge variant="outline">{row.actor}</Badge></td>
                 <td className="p-2 align-top">
-                    <span className={row.status === "error" ? "text-destructive font-medium" : "text-muted-foreground"}>
+                    <Badge variant="secondary" className="text-xs font-semibold" style={actorStyle(row.actor)}>{row.actor}</Badge>
+                </td>
+                <td className="p-2 align-top">
+                    <span style={{ color: row.status === "error" ? "#FF5D62" : row.status === "ok" ? "#98BB6C" : undefined }} className="font-medium">
                         {row.status}
                     </span>
                 </td>
@@ -423,7 +433,7 @@ function CategoriesDialog({ onClose }: { onClose: () => void }) {
                                             {c.category}
                                         </Badge>
                                     </td>
-                                    <td className="pr-3 py-1"><Badge variant="outline">{c.actor}</Badge></td>
+                                    <td className="pr-3 py-1"><Badge variant="secondary" className="text-xs font-semibold" style={actorStyle(c.actor)}>{c.actor}</Badge></td>
                                     <td className="pr-3 py-1 text-muted-foreground min-w-[18rem]">{c.description}</td>
                                     <td className="py-1 min-w-[16rem]">{c.example}</td>
                                 </tr>

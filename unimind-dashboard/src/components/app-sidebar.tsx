@@ -8,6 +8,7 @@ import {
     ScrollText,
     Share2,
     Activity,
+    Table2,
 } from "lucide-react"
 
 import { NavProjects } from "@/components/nav-projects"
@@ -38,6 +39,11 @@ const data = {
             name: "Queries",
             url: "/dashboard/queries",
             icon: Zap,
+        },
+        {
+            name: "Browse",
+            url: "/dashboard/browse",
+            icon: Table2,
         },
         {
             name: "Schema",
